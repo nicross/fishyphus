@@ -1,6 +1,6 @@
 {
-  "name": "syngen-template",
-  "version": "0.0.0",
+  "name": "fishyphus",
+  "version": "0.1.0",
   "description": "",
   "license": "Unlicense",
   "main": "electron/main.js",

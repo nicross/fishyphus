@@ -9,8 +9,6 @@ app.controls.keyboard = {
 
     const moveBackward = mappings.moveBackward.reduce(checkMapping, false),
       moveForward = mappings.moveForward.reduce(checkMapping, false),
-      strafeLeft = mappings.strafeLeft.reduce(checkMapping, false),
-      strafeRight = mappings.strafeRight.reduce(checkMapping, false),
       turnLeft = mappings.turnLeft.reduce(checkMapping, false),
       turnRight = mappings.turnRight.reduce(checkMapping, false)
 
@@ -18,12 +16,6 @@ app.controls.keyboard = {
       state.x = -1
     } else if (moveForward && !moveBackward) {
       state.x = 1
-    }
-
-    if (strafeLeft && !strafeRight) {
-      state.y = 1
-    } else if (strafeRight && !strafeLeft) {
-      state.y = -1
     }
 
     if (turnLeft && !turnRight) {
@@ -44,6 +36,7 @@ app.controls.keyboard = {
 
     // Mapped keys
     for (const [mapping, name] of Object.entries({
+      action: 'action',
       back: 'back',
       pause: 'pause',
       uiDown: 'down',

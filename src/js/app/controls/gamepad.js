@@ -28,7 +28,6 @@ app.controls.gamepad = {
     // Axes
     for (const [mapping, name] of Object.entries({
       moveAxis: 'x',
-      strafeAxis: 'y',
       turnAxis: 'rotate',
     })) {
       const axisValue = mappings[mapping].reduce(getAxis, 0)
@@ -42,7 +41,6 @@ app.controls.gamepad = {
     for (const key of [
       'rotate',
       'x',
-      'y',
     ]) {
       if (state[key]) {
         state[key] = -state[key]
@@ -118,6 +116,7 @@ app.controls.gamepad = {
 
     // Buttons
     for (const [mapping, name] of Object.entries({
+      action: 'action',
       back: 'back',
       confirm: 'confirm',
       pause: 'pause',

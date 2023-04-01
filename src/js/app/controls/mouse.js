@@ -111,10 +111,6 @@ app.controls.mouse = (() => {
         state.rotate = vector.x
       }
 
-      if (Math.abs(vector.y) > threshold) {
-        state.lookY = vector.y
-      }
-
       return state
     },
     getInput,
@@ -128,6 +124,7 @@ app.controls.mouse = (() => {
       }
 
       for (const [mapping, name] of Object.entries({
+        action: 'action',
         back: 'back',
         pause: 'pause',
         uiDown: 'down',

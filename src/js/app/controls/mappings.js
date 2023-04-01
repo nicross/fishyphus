@@ -97,6 +97,7 @@ app.controls.mappings = {
   pause: [
     {type: 'keyboard', key: 'Escape'},
     {type: 'keyboard', key: 'Backspace'},
+    {type: 'gamepad', key: 8},
     {type: 'gamepad', key: 9},
     {type: 'mouse', key: 3},
   ],

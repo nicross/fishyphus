@@ -3,7 +3,11 @@ app.screen.game = app.screenManager.invent({
   id: 'game',
   parentSelector: '.a-app--game',
   rootSelector: '.a-game',
-  transitions: {},
+  transitions: {
+    pause: function () {
+      console.log('pause')
+    },
+  },
   // State
   state: {},
   // Hooks
@@ -17,6 +21,14 @@ app.screen.game = app.screenManager.invent({
     this.score.exit()
   },
   onFrame: function () {
+    const game = app.controls.game(),
+      ui = app.controls.ui()
+
+    if (ui.pause) {
+      app.screenManager.dispatch('pause')
+    }
+
+    content.movement.update(game)
     this.score.update()
   },
 })

@@ -5,7 +5,7 @@ app.screen.gameOver = app.screenManager.invent({
   rootSelector: '.a-gameOver',
   transitions: {
     continue: function () {
-      this.change('splash')
+      this.change('mainMenu')
     },
   },
   // State

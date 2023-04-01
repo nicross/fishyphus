@@ -12,6 +12,12 @@
   .c-screen > * + * {
     margin-top: 1rem;
   }
+  .c-screen--action + .c-screen--action {
+    margin-top: 1em;
+  }
+  .c-screen--actions {
+    list-style-type: none;
+  }
   .c-screen--title {
     background: -webkit-linear-gradient(hsl(240, 100%, 66.666%), hsl(360, 100%, 50%));
     -webkit-background-clip: text;

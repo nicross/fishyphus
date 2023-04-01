@@ -5,10 +5,12 @@ app.screen.game = app.screenManager.invent({
   rootSelector: '.a-game',
   transitions: {
     kill: function () {
+      app.storage.game.clear()
       this.change('gameOver')
     },
     pause: function () {
-      console.log('pause')
+      app.storage.game.save()
+      this.change('mainMenu')
     },
   },
   // State
@@ -18,15 +20,6 @@ app.screen.game = app.screenManager.invent({
     this.score.ready()
   },
   onEnter: function () {
-    // Start new game
-    engine.state.import({
-      monster: {
-        position: {
-          z: -content.monster.normalVelocity() * 60,
-        },
-      },
-    })
-
     // Resume
     engine.loop.resume()
 
@@ -43,7 +36,7 @@ app.screen.game = app.screenManager.invent({
       ui = app.controls.ui()
 
     if (ui.pause) {
-      app.screenManager.dispatch('pause')
+      return app.screenManager.dispatch('pause')
     }
 
     content.movement.update(game)
@@ -53,7 +46,7 @@ app.screen.game = app.screenManager.invent({
     content.monster.update()
 
     if (content.monster.isKill()) {
-      app.screenManager.dispatch('kill')
+      return app.screenManager.dispatch('kill')
     }
   },
 })

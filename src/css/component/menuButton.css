@@ -1,0 +1,41 @@
+.c-menuButton {
+  background-color: #000000;
+  border: 2px solid transparent;
+  color: #FFFFFF;
+  font-family: RobotoLight, sans-serif;
+  font-weight: 300;
+  letter-spacing: inherit;
+  line-height: inherit;
+  padding: 0.5em 0.75em;
+}
+.c-menuButton:active,
+.c-menuButton:focus {
+  animation: c-menuButton 2s ease-in-out 0s infinite alternate both;
+}
+.c-menuButton:hover {
+  animation: c-menuButton 2s linear 0s infinite alternate both;
+}
+.c-menuButton[aria-disabled="true"],
+.c-menuButton[disabled] {
+  opacity: 0.5;
+}
+ .c-menuButton strong {
+   cursor: inherit;
+   font-family: RobotoBold;
+   font-weight: 700;
+ }
+
+@keyframes c-menuButton {
+ 0% {
+   border-color: hsl(240, 100%, 50%);
+   box-shadow: 0 0 1em hsl(240, 100%, 50%);
+ }
+ 50% {
+   border-color: hsl(360, 100%, 50%);
+   box-shadow: 0 0 1em hsl(360, 100%, 50%);
+ }
+ 100% {
+   border-color: hsl(240, 100%, 50%);
+   box-shadow: 0 0 1em hsl(240, 100%, 50%);
+ }
+}

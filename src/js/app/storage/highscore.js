@@ -12,4 +12,15 @@ app.storage.highscore = {
 
     return this
   },
+  // Helpers
+  update: function () {
+    const highscore = this.get(),
+      score = content.score.value()
+
+    if (score > highscore) {
+      this.set(score)
+    }
+
+    return this
+  },
 }

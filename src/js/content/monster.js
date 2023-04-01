@@ -87,6 +87,6 @@ content.monster = (() => {
   }
 })()
 
-engine.state.on('export', (data) => data.score = content.monster.export())
+engine.state.on('export', (data) => data.monster = content.monster.export())
 engine.state.on('import', ({monster}) => content.monster.import(monster))
 engine.state.on('reset', () => content.monster.reset())

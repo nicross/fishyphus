@@ -7,8 +7,18 @@ content.movement = (() => {
   let velocity = engine.tool.vector2d.create()
 
   return {
-    get: () => velocity.clone(),
-    velocity: () => velocity.distance(),
+    export: () => velocity.clone(),
+    import: function (value) {
+      velocity = engine.tool.vector2d.create(value)
+
+      return this
+    },
+    reset: function () {
+      velocity = engine.tool.vector2d.create()
+
+      return this
+    },
+    velocity: () => velocity.clone(),
     velocityMax: () => maxVelocity,
     velocityValue: () => engine.fn.clamp(velocity.distance() / maxSpeed),
     update: function ({
@@ -55,3 +65,7 @@ content.movement = (() => {
     }
   }
 })()
+
+engine.state.on('export', (data) => data.movement = content.movement.export())
+engine.state.on('import', ({movement}) => content.movement.import(movement))
+engine.state.on('reset', () => content.movement.reset())

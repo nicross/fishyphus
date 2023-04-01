@@ -4,6 +4,9 @@ app.screen.game = app.screenManager.invent({
   parentSelector: '.a-app--game',
   rootSelector: '.a-game',
   transitions: {
+    end: function () {
+      console.log('end')
+    },
     pause: function () {
       console.log('pause')
     },
@@ -15,9 +18,24 @@ app.screen.game = app.screenManager.invent({
     this.score.ready()
   },
   onEnter: function () {
+    // Start new game
+    engine.state.import({
+      monster: {
+        position: {
+          z: -content.monster.normalVelocity() * 60,
+        },
+      },
+    })
+
+    // Resume
+    engine.loop.resume()
+
+    // Anything else
     this.score.enter()
   },
   onExit: function () {
+    engine.loop.pause()
+
     this.score.exit()
   },
   onFrame: function () {
@@ -30,5 +48,12 @@ app.screen.game = app.screenManager.invent({
 
     content.movement.update(game)
     this.score.update()
+
+    // Handle monster
+    content.monster.update()
+
+    if (content.monster.isKill()) {
+      app.screenManager.dispatch('end')
+    }
   },
 })

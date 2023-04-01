@@ -1,0 +1,48 @@
+@font-face {
+  font-family: Chomsky;
+  font-style: normal;
+  font-weight: 400;
+  src: url('font/chomsky.woff') format('woff');
+}
+@font-face {
+  font-family: FiraCodeLight;
+  font-style: normal;
+  font-weight: 300;
+  src: url('font/firacode-light.woff') format('woff');
+}
+@font-face {
+  font-family: FiraCodeMedium;
+  font-style: normal;
+  font-weight: 500;
+  src: url('font/firacode-medium.woff') format('woff');
+}
+@font-face {
+  font-family: FiraCodeRegular;
+  font-style: normal;
+  font-weight: 400;
+  src: url('font/firacode-regular.woff') format('woff');
+}
+@font-face {
+  font-family: RobotoBold;
+  font-style: normal;
+  font-weight: 700;
+  src: url('font/roboto-bold.woff') format('woff');
+}
+@font-face {
+  font-family: RobotoLight;
+  font-style: normal;
+  font-weight: 300;
+  src: url('font/roboto-light.woff') format('woff');
+}
+@font-face {
+  font-family: RobotoRegular;
+  font-style: normal;
+  font-weight: 400;
+  src: url('font/roboto-regular.woff') format('woff');
+}
+@font-face {
+  font-family: RobotoRegularItalic;
+  font-style: italic;
+  font-weight: 400;
+  src: url('font/roboto-italic.woff') format('woff');
+}

@@ -23,7 +23,8 @@
     text-transform: uppercase;
   }
   .a-splash--logo {
-    font-size: 4em;
+    font-family: Chomsky, serif;
+    font-size: 8em;
   }
 
 @keyframes a-splash--instruction {

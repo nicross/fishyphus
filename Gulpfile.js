@@ -134,6 +134,7 @@ gulp.task('dev', gulp.parallel('serve', 'watch'))
 function getCss() {
   const srcs = [
     'src/css/reset.css',
+    'src/css/fonts.css',
     'src/css/main.css',
     'src/css/utility/*.css',
     'src/css/component/*.css',

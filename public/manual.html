@@ -15,9 +15,58 @@
         padding: 0;
       }
 
+      @font-face {
+        font-family: Chomsky;
+        font-style: normal;
+        font-weight: 400;
+        src: url('font/chomsky.woff') format('woff');
+      }
+      @font-face {
+        font-family: FiraCodeLight;
+        font-style: normal;
+        font-weight: 300;
+        src: url('font/firacode-light.woff') format('woff');
+      }
+      @font-face {
+        font-family: FiraCodeMedium;
+        font-style: normal;
+        font-weight: 500;
+        src: url('font/firacode-medium.woff') format('woff');
+      }
+      @font-face {
+        font-family: FiraCodeRegular;
+        font-style: normal;
+        font-weight: 400;
+        src: url('font/firacode-regular.woff') format('woff');
+      }
+      @font-face {
+        font-family: RobotoBold;
+        font-style: normal;
+        font-weight: 700;
+        src: url('font/roboto-bold.woff') format('woff');
+      }
+      @font-face {
+        font-family: RobotoLight;
+        font-style: normal;
+        font-weight: 300;
+        src: url('font/roboto-light.woff') format('woff');
+      }
+      @font-face {
+        font-family: RobotoRegular;
+        font-style: normal;
+        font-weight: 400;
+        src: url('font/roboto-regular.woff') format('woff');
+      }
+      @font-face {
+        font-family: RobotoRegularItalic;
+        font-style: italic;
+        font-weight: 400;
+        src: url('font/roboto-italic.woff') format('woff');
+      }
+
       :root {
         background-color: #FFFFFF;
-        font-family: sans-serif;
+        font-family: RobotoRegular, sans-serif;
         font-size: 16px;
         font-weight: 400;
         line-height: 1.5;
@@ -36,7 +85,7 @@
       }
 
       code {
-        font-family: monospace;
+        font-family: FiraCodeRegular, monospace;
       }
 
       details > * + * {
@@ -44,7 +93,7 @@
       }
 
       em {
-        font-family: sans-serif;
+        font-family: RobotoRegularItalic, sans-serif;
         font-style: italic;
       }
 
@@ -66,12 +115,12 @@
         border: 1px solid #FF0069;
         border-radius: 0.25em;
         display: inline-block;
-        font-family: monospace;
+        font-family: FiraCodeRegular, monospace;
         padding: 0 0.5em;
       }
 
       strong, th {
-        font-family: sans-serif;
+        font-family: RobotoBold, sans-serif;
         font-weight: 700;
       }
 
@@ -125,13 +174,12 @@
         text-align: center;
       }
         .hero--author {
-          font-family: monospace;
+          font-family: FiraCodeRegular, monospace;
           margin-top: 2em;
         }
         .hero--logo {
-          font-family: monospace;
-          font-size: 3em;
-          text-transform: uppercase;
+          font-family: Chomsky, serif;
+          font-size: 4em;
         }
 
       .scrollable {
@@ -220,6 +268,17 @@
             </tbody>
           </table>
         </div>
+      </section>
+
+      <section>
+        <h2>Credits</h2>
+        <p>The following typefaces belong to their respective owners:</p>
+        <ul>
+          <li><strong>Chomsky</strong> by Fredrick R. Brennan</li>
+          <li><strong>Fira Code</strong> by Nikita Prokopov</li>
+          <li><strong>Roboto</strong> by Google</li>
+        </ul>
+        <p>Thanks for playing!</p>
       </section>
     </main>
   </body>

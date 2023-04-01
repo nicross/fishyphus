@@ -94,12 +94,13 @@ app.controls.mouse = (() => {
         return {}
       }
 
-      const mouse = getInput(),
-        sensitivity = 1,
+      const mouse = getInput()
+
+      // Axis-related things ()
+      const sensitivity = 1,
         state = {},
         threshold = engine.const.zero
 
-      // Unmappable things (mouse axis-related things)
       let next = engine.tool.vector2d.create({
         x: -engine.fn.clamp(engine.fn.scale(mouse.moveX || 0, -sensitivity, sensitivity, -1, 1), -1, 1),
         y: engine.fn.clamp(engine.fn.scale(mouse.moveY || 0, -sensitivity, sensitivity, -1, 1), -1, 1),
@@ -109,6 +110,20 @@ app.controls.mouse = (() => {
 
       if (Math.abs(vector.x) > threshold) {
         state.rotate = vector.x
+      }
+
+      // Buttons
+      const checkMapping = (value, mapping) => {
+        return value || (mapping.type == 'mouse' && mouse.button[mapping.key])
+      }
+
+      const moveBackward = mappings.moveBackward.reduce(checkMapping, false),
+        moveForward = mappings.moveForward.reduce(checkMapping, false)
+
+      if (moveBackward && !moveForward) {
+        state.x = -1
+      } else if (moveForward && !moveBackward) {
+        state.x = 1
       }
 
       return state

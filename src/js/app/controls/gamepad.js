@@ -49,7 +49,9 @@ app.controls.gamepad = {
 
     // Forward/backward analog
     const moveBackward = mappings.moveBackward.reduce(getAnalog, 0),
-      moveForward = mappings.moveForward.reduce(getAnalog, 0)
+      moveForward = mappings.moveForward.reduce(getAnalog, 0),
+      turnLeft = mappings.turnLeft.reduce(getAnalog, 0),
+      turnRight = mappings.turnRight.reduce(getAnalog, 0)
 
     if (moveBackward && !moveForward) {
       state.x = Math.min(state.x || 0, -moveBackward)
@@ -57,6 +59,14 @@ app.controls.gamepad = {
 
     if (moveForward && !moveBackward) {
       state.x = Math.max(state.x || 0, moveForward)
+    }
+
+    if (turnLeft && !turnRight) {
+      state.rotate = Math.max(state.rotate || 0, turnLeft)
+    }
+
+    if (turnRight && !turnLeft) {
+      state.rotate = Math.min(state.rotate || 0, -turnRight)
     }
 
     return state

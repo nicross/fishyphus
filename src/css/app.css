@@ -8,6 +8,16 @@
   transition: opacity 1s linear;
   width: 100%;
 }
+  .a-app--canvas {
+    background-color: #000000;
+    height: 100%;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 0;
+  }
   .a-app--overlaySupport {
     height: 100%;
     left: 0;
@@ -43,6 +53,9 @@
     .a-app--screen-inactive {
       opacity: 0;
       z-index: 2;
+    }
+    .a-app--screen-transparent {
+      background-color: transparent;
     }
 
 .a-app-active {

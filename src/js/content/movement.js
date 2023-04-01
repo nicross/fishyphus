@@ -20,7 +20,7 @@ content.movement = (() => {
     },
     velocity: () => velocity.clone(),
     velocityMax: () => maxVelocity,
-    velocityValue: () => engine.fn.clamp(velocity.distance() / maxSpeed),
+    velocityValue: () => engine.fn.clamp(velocity.distance() / maxVelocity),
     update: function ({
       rotate = 0,
       x = 0,
@@ -49,7 +49,7 @@ content.movement = (() => {
       const magnitude = velocity.distance()
 
       if (magnitude > maxVelocity) {
-        velocity = velocity.scale()
+        velocity = velocity.scale(maxVelocity / magnitude)
       }
 
       // TODO: Decelerate when close to zero?

@@ -21,12 +21,14 @@ app.screen.game = app.screenManager.invent({
   },
   onEnter: function () {
     // Resume
+    content.audio.unduck()
     engine.loop.resume()
 
     // Anything else
     this.score.enter()
   },
   onExit: function () {
+    content.audio.duck()
     engine.loop.pause()
 
     this.score.exit()

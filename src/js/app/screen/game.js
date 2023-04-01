@@ -7,13 +7,16 @@ app.screen.game = app.screenManager.invent({
   // State
   state: {},
   // Hooks
+  onReady: function () {
+    this.score.ready()
+  },
   onEnter: function () {
-
+    this.score.enter()
   },
   onExit: function () {
-
+    this.score.exit()
   },
   onFrame: function () {
-
+    this.score.update()
   },
 })

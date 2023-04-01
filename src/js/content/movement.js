@@ -1,7 +1,7 @@
 content.movement = (() => {
   const acceleration = 2,
     angularVelocity = engine.const.tau / 4,
-    deceleration = 2,
+    deceleration = 1,
     maxVelocity = 10
 
   let velocity = engine.tool.vector2d.create()
@@ -38,12 +38,25 @@ content.movement = (() => {
         yaw,
       })
 
-      // Apply thrust to velocity
-      const thrust = engine.tool.vector2d.create({
-        x: x * delta * acceleration,
-      }).rotate(yaw)
+      // Apply acceleration
+      if (x > 0) {
+        const thrust = engine.tool.vector2d.create({
+          x: x * delta * acceleration,
+        }).rotate(yaw)
 
-      velocity = velocity.add(thrust)
+        velocity = velocity.add(thrust)
+      }
+
+      // Apply brakes
+      if (x < 0) {
+        velocity = engine.tool.vector2d.create(
+          engine.fn.accelerateVector(
+            velocity,
+            {x: 0, y: 0},
+            deceleration,
+          )
+        )
+      }
 
       // Enforce the speed limit
       const magnitude = velocity.distance()

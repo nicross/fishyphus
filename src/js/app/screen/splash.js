@@ -4,7 +4,7 @@ app.screen.splash = app.screenManager.invent({
   parentSelector: '.a-app--splash',
   rootSelector: '.a-splash',
   transitions: {
-    interact: function () {
+    continue: function () {
       this.change('game')
     },
   },
@@ -29,8 +29,8 @@ app.screen.splash = app.screenManager.invent({
   onFrame: function () {
     const ui = app.controls.ui()
 
-    if (ui.confirm || ui.enter || ui.space || ui.start || ui.focus === 0) {
-      app.screenManager.dispatch('interact')
+    if (ui.action || ui.focus === 0) {
+      app.screenManager.dispatch('continue')
     }
 
     const isMoved = engine.input.mouse.getMoveX()

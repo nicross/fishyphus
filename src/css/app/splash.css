@@ -4,7 +4,7 @@
 }
   .a-splash--details {
     bottom: 2rem;
-    font-family: monospace;
+    font-family: FiraCodeRegular, monospace;
     font-size: 0.75em;
     font-weight: 300;
     left: 2rem;
@@ -27,6 +27,7 @@
     -webkit-background-clip: text;
     font-family: Chomsky, serif;
     font-size: 12em;
+    line-height: 1;
     -webkit-text-fill-color: transparent;
   }
 

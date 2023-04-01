@@ -12,3 +12,11 @@
   .c-screen > * + * {
     margin-top: 1rem;
   }
+  .c-screen--title {
+    background: -webkit-linear-gradient(hsl(240, 100%, 66.666%), hsl(360, 100%, 50%));
+    -webkit-background-clip: text;
+    font-family: Chomsky, serif;
+    font-size: 6em;
+    line-height: 1;
+    -webkit-text-fill-color: transparent;
+  }

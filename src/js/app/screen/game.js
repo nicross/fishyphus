@@ -4,8 +4,8 @@ app.screen.game = app.screenManager.invent({
   parentSelector: '.a-app--game',
   rootSelector: '.a-game',
   transitions: {
-    end: function () {
-      console.log('end')
+    kill: function () {
+      this.change('gameOver')
     },
     pause: function () {
       console.log('pause')
@@ -53,7 +53,7 @@ app.screen.game = app.screenManager.invent({
     content.monster.update()
 
     if (content.monster.isKill()) {
-      app.screenManager.dispatch('end')
+      app.screenManager.dispatch('kill')
     }
   },
 })

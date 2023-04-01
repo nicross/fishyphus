@@ -13,7 +13,7 @@ app.screen.mainMenu = app.screenManager.invent({
       engine.state.import({
         monster: {
           position: {
-            z: -content.monster.normalVelocity() * 60,
+            z: -content.monster.dangerDistance(),
           },
         },
       })

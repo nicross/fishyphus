@@ -23,8 +23,11 @@
     text-transform: uppercase;
   }
   .a-splash--logo {
+    background: -webkit-linear-gradient(hsl(240, 100%, 66.666%), hsl(360, 100%, 50%));
+    -webkit-background-clip: text;
     font-family: Chomsky, serif;
-    font-size: 8em;
+    font-size: 12em;
+    -webkit-text-fill-color: transparent;
   }
 
 @keyframes a-splash--instruction {

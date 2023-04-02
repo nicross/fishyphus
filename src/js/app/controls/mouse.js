@@ -96,7 +96,7 @@ app.controls.mouse = (() => {
 
       const mouse = getInput()
 
-      // Axis-related things ()
+      // Axis-related things
       const sensitivity = 1,
         state = {},
         threshold = engine.const.zero
@@ -150,6 +150,11 @@ app.controls.mouse = (() => {
         if (mappings[mapping].reduce(checkMapping, false)) {
           state[name] = true
         }
+      }
+
+      // Prevent pointer lock request from triggering action
+      if (!isPointerLock() && app.screenManager.is('game')) {
+        delete state.action
       }
 
       return state

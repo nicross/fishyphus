@@ -41,7 +41,14 @@ app.screen.game = app.screenManager.invent({
       return app.screenManager.dispatch('pause')
     }
 
-    content.movement.update(game)
+    if (ui.action) {
+      content.minigame.action()
+    }
+
+    if (!content.minigame.isActive()) {
+      content.movement.update(game)
+    }
+
     this.score.update()
 
     // Handle monster

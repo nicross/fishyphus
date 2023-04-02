@@ -85,8 +85,7 @@ content.monster = (() => {
 
       // Movement
       // Calculate speed
-      // TODO: Move faster during fishing minigame
-      const isFishing = false,
+      const isFishing = content.minigame.isActive(),
         maxVelocity = content.movement.velocityMax()
 
       const speed = isFishing

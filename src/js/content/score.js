@@ -24,6 +24,10 @@ content.score = (() => {
   }
 })()
 
+engine.ready(() => {
+  content.minigame.on('finish', () => content.score.increment())
+})
+
 engine.state.on('export', (data) => data.score = content.score.export())
 engine.state.on('import', ({score}) => content.score.import(score))
 engine.state.on('reset', () => content.score.reset())

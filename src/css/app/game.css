@@ -4,6 +4,7 @@
 }
   .a-game--score {
     bottom: 0;
+    color: #000000;
     font-family: FiraCodeRegular, monospace;
     font-size: 2em;
     left: 0;

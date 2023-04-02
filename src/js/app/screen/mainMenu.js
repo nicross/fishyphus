@@ -16,6 +16,7 @@ app.screen.mainMenu = app.screenManager.invent({
             z: -content.monster.dangerDistance(),
           },
         },
+        seed: engine.fn.randomInt(11111111111, 99999999999),
       })
 
       this.change('game')

@@ -157,7 +157,7 @@
         text-align: left;
       }
 
-      ul {
+      ol, ul {
         list-style-position: inside;
         padding-left: 1.5em;
       }
@@ -215,6 +215,8 @@
     <main>
       <section>
         <h2>Introduction</h2>
+        <p>Traverse an impressionistic sea, listening for predator and prey. Cast a lure and feel their cues to reel them in. The reaper slowly tracks your movements, who you must outmaneuver to survive.</p>
+        <p>Fishyphus is a fishing horror game made for <a href="https://itch.io/jam/games-for-blind-gamers-2" rel="nofollow noopener" target="_blank">Games for Blind Gamers 2</a>.</p>
       </section>
 
       <section>
@@ -244,6 +246,10 @@
             <th>RAM</th>
             <td>4 GB</td>
           </tr>
+            <tr>
+            <th>GPU</th>
+            <td>WebGL2 compatible</td>
+          </tr>
         </table>
 
         <h3>Browser Support</h3>
@@ -252,6 +258,36 @@
 
       <section>
         <h2>How to Play</h2>
+        <p>Sail the waves, catch every fish, and avoid the reaper.</p>
+
+        <h3>Sailing</h3>
+        <p>Fishyphus uses tank-like controls where the sailor may face independently from the direction their boat is traveling. Use this to your advantage.</p>
+        <p>The <kbd>Turn</kbd> controls will face the sailor in any direction.</p>
+        <p>The boat operates with <kbd>Accelerate</kbd> and <kbd>Brake</kbd> controls. Thrust is applied in the direction the sailor is facing. Once accelerated, it continues in that direction until changed.</p>
+
+        <h3>Fishing</h3>
+        <p>The ocean is bountiful with musical fish. Collect them to achieve the highest score before time runs out.</p>
+        <p>To fish, the boat must first be maneuvered into a fishing spot. Once there, press the <kbd>Action</kbd> control to begin fishing. The minigame is intended to be impossible to lose, yet hard to master.</p>
+        <p>The minigame has three stages:</p>
+        <ol>
+          <li><strong>Casting.</strong> React to a cue to set the lure depth.</li>
+          <li><strong>Waiting.</strong> React to a cue to start reeling in the fish.</li>
+          <li><strong>Reeling.</strong> Optionally, mash <kbd>Action</kbd> to reel slightly faster.</li>
+        </ol>
+        <p>Beware that the boat will anchor itself while fishing.</p>
+
+        <h3>Death</h3>
+        <p>The reaper has awakened deep beneath the sea with a vengeance. It will kill sailors at its first chance. Avoid its cues to avoid certain death.</p>
+        <p>Not much is known about the reaper, but here are some speculations:</p>
+        <ul>
+          <li>It is <em>never</em> far behind.</li>
+          <li>It gets excited while fishing.</li>
+          <li>It gets stunned when fish are caught.</li>
+          <li>Higher-scoring sailors have better defenses.</il>
+        </ul>
+
+        <h3>Autosaving</h3>
+        <p>Fishyphus autosaves whenever fish are caught, the game is paused, or the reaper wins. Sailors may pause and resume at any time outside the fishing minigame. Their high score is saved only upon death.</p>
       </section>
 
       <section>
@@ -293,8 +329,8 @@
               <tr>
                 <th scope="row">Action</th>
                 <td>F</td>
-                <td>Enter</td>
                 <td>Space</td>
+                <td>Enter</td>
                 <td colspan="2">Numpad Enter</td>
               </tr>
               <tr>

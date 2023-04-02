@@ -3,7 +3,7 @@ content.monster = (() => {
     minStun = 15,
     maxStun = 120,
     normalVelocityRate = 0.5,
-    stunFall = 10
+    stunFall = 5
 
   let position = engine.tool.vector3d.create(),
     stun = 0,
@@ -104,6 +104,12 @@ content.monster = (() => {
     },
   }
 })()
+
+engine.ready(() => {
+  content.minigame.on('finish', () => {
+    content.monster.applyStun()
+  })
+})
 
 engine.state.on('export', (data) => data.monster = content.monster.export())
 engine.state.on('import', ({monster}) => content.monster.import(monster))

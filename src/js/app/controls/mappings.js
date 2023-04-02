@@ -74,6 +74,7 @@ app.controls.mappings = {
     {type: 'gamepad', key: 12},
   ],
   action: [
+    {type: 'keyboard', key: 'KeyF'},
     {type: 'keyboard', key: 'Enter'},
     {type: 'keyboard', key: 'NumpadEnter'},
     {type: 'keyboard', key: 'Space'},

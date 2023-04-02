@@ -1,7 +1,7 @@
 content.spawner = (() => {
   const chunkSize = 200,
-    defaultCooldown = 120,
-      pubsub = engine.tool.pubsub.create()
+    defaultCooldown = 300,
+    pubsub = engine.tool.pubsub.create()
 
   const generator = engine.tool.generator2d.create({
     generator: generateChunk,
@@ -33,6 +33,7 @@ content.spawner = (() => {
 
     chunk.spot = {
       chunk,
+      id: chunk.id,
       x: isOrigin ? 0 : (chunk.x + (chunkSize * engine.fn.randomFloat(-1/3, 1/3))),
       y: isOrigin ? 0 : (chunk.y + (chunkSize * engine.fn.randomFloat(-1/3, 1/3))),
     }
@@ -43,17 +44,18 @@ content.spawner = (() => {
   }
 
   function onLoad(spot) {
-    const isCooldown = spot.chunk.id in cooldowns
+    const isCooldown = spot.id in cooldowns
 
     if (isCooldown) {
       return
     }
 
-    pubsub.emit('active', spot)
+    pubsub.emit('spawn', spot)
     activeSpots.add(spot)
   }
 
   function onUnload(spot) {
+    pubsub.emit('despawn', spot)
     activeSpots.delete(spot)
   }
 
@@ -72,8 +74,9 @@ content.spawner = (() => {
   return pubsub.decorate({
     activeSpots: () => [...activeSpots],
     deactivateSpot: function (spot) {
-      cooldowns[spot.chunk.id] = defaultCooldown
-      activeSpots.remove(spot)
+      cooldowns[spot.id] = defaultCooldown
+      activeSpots.delete(spot)
+      pubsub.emit('despawn', spot)
 
       return this
     },

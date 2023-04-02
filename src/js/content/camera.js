@@ -58,7 +58,7 @@ content.camera = (() => {
   }
 
   function calculateHeight() {
-    return 8
+    return 10
   }
 
   return {

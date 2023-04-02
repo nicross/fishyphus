@@ -1,5 +1,5 @@
 content.video.particles = (() => {
-  const maxParticles = 5000
+  const maxParticles = 7500
 
   const fragmentShader = `#version 300 es
 
@@ -140,10 +140,10 @@ void main(void) {
     const camera = content.camera.computedVector(),
       drawDistance = content.gl.drawDistance()
 
-    while (particles.length < maxParticles && Math.random() < 0.5) {
+    while (particles.length < maxParticles && Math.random() < 0.75) {
       const vector = engine.tool.vector2d.unitX()
-        .scale(Math.random() * drawDistance)
-        .rotate(Math.random() * engine.const.tau)
+        .scale(engine.fn.randomFloat(-1, 1) * drawDistance)
+        .rotate(engine.fn.randomFloat(-1, 1) * engine.const.tau)
         .add(camera)
 
       particles.push({

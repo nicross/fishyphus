@@ -5,7 +5,7 @@ content.gl = (() => {
     drawDistance = 100,
     gl,
     height,
-    hfov,
+    hfov = Math.PI / 2,
     isActive,
     maxDrawDistance,
     vfov,

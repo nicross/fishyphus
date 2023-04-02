@@ -1,11 +1,11 @@
 content.camera = (() => {
-  let computedQuaternion = engine.tool.quaternion.create(),
-    computedQuaternionConjugate = engine.tool.quaternion.create(),
+  let computedQuaternion = engine.tool.quaternion.identity(),
+    computedQuaternionConjugate = engine.tool.quaternion.identity(),
     computedNormal = engine.tool.vector3d.create(),
     computedVector = engine.tool.vector3d.create(),
     computedVectorInverse = engine.tool.vector3d.create(),
     projectionMatrix = engine.tool.matrix4d.identity(),
-    quaternion = engine.tool.quaternion.create(),
+    quaternion = engine.tool.quaternion.identity(),
     vector = engine.tool.vector3d.create()
 
   function createPerspective() {
@@ -58,7 +58,7 @@ content.camera = (() => {
   }
 
   function calculateHeight() {
-    return 2
+    return 4
   }
 
   return {
@@ -73,12 +73,12 @@ content.camera = (() => {
     projectionMatrix: () => projectionMatrix,
     reset: function () {
       computedNormal = engine.tool.vector3d.unitX()
-      computedQuaternion = engine.tool.quaternion.create()
-      computedQuaternionConjugate = engine.tool.quaternion.create()
+      computedQuaternion = engine.tool.quaternion.identity()
+      computedQuaternionConjugate = engine.tool.quaternion.identity()
       computedVector = engine.tool.vector3d.create()
       computedVectorInverse = engine.tool.vector3d.create()
       projectionMatrix = engine.tool.matrix4d.identity()
-      quaternion = engine.tool.quaternion.create()
+      quaternion = engine.tool.quaternion.identity()
       vector = engine.tool.vector3d.create()
 
       return this

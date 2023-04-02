@@ -4,11 +4,13 @@ content.video = {
 
     this.color.update()
     this.sky.draw()
+    this.particles.draw()
 
     return this
   },
   load: function () {
     this.color.load()
+    this.particles.load()
     this.sky.load()
 
     return this
@@ -17,6 +19,7 @@ content.video = {
     content.gl.clear()
 
     this.color.unload()
+    this.particles.unload()
     this.sky.unload()
 
     return this

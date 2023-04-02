@@ -83,7 +83,7 @@ content.video.color = (() => {
         hsl2rgb({
           h: hue,
           s: 1,
-          l: engine.fn.lerp(2/3, 1/2, danger),
+          l: 0.5,
         })
       )
 

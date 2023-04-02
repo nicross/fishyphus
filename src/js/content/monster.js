@@ -2,7 +2,8 @@ content.monster = (() => {
   const killDistance = 1,
     minStun = 15,
     maxStun = 120,
-    normalVelocityRate = 0.5
+    normalVelocityRate = 0.5,
+    stunFall = 10
 
   let position = engine.tool.vector3d.create(),
     stun = 0,
@@ -47,10 +48,10 @@ content.monster = (() => {
     },
     isStunned: () => stun > 0,
     normal: () => {
-      return engine.position.getVector()
-        .subtract(position)
+      return position
+        .subtract(engine.position.getVector())
         .rotateQuaternion(engine.position.getQuaternion().conjugate())
-        .nornmalize()
+        .normalize()
     },
     normalVelocity: () => content.movement.velocityMax() * normalVelocityRate,
     position: () => position.clone(),
@@ -77,6 +78,8 @@ content.monster = (() => {
       stunAccelerated = engine.fn.accelerateValue(stunAccelerated, stun, minStun)
 
       if (stun > 0) {
+        position.z -= delta * stunFall
+
         return this
       }
 

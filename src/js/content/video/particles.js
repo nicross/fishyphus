@@ -119,8 +119,8 @@ void main(void) {
 
     // Bind mesh
     const mesh = content.gl.createQuad({
-      height: 1/16,
-      width: 1/16,
+      height: 1/10,
+      width: 1/10,
     })
 
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer())
@@ -141,10 +141,16 @@ void main(void) {
       drawDistance = content.gl.drawDistance()
 
     while (particles.length < maxParticles && Math.random() < 0.5) {
+      const vector = engine.tool.vector2d.unitX()
+        .scale(Math.random() * drawDistance)
+        .rotate(Math.random() * engine.const.tau)
+        .add(camera)
+
       particles.push({
+        rate: 1 / engine.fn.randomFloat(2, 4),
         life: 1,
-        x: camera.x + engine.fn.randomFloat(-drawDistance, drawDistance),
-        y: camera.y + engine.fn.randomFloat(-drawDistance, drawDistance),
+        x: vector.x,
+        y: vector.y,
       })
     }
   }
@@ -159,7 +165,7 @@ void main(void) {
       offsets = []
 
     particles = particles.reduce((particles, particle) => {
-      particle.life -= delta
+      particle.life -= delta * particle.rate
 
       if (particle.life < 0) {
         return particles

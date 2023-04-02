@@ -77,21 +77,21 @@ content.video.color = (() => {
         time = content.time.value()
 
       // Foreground
-      const hue = parameters.hueOffset0 + (time / 120)
+      const hue = parameters.hueOffset0 + (time / 180)
 
       colors[0] = toFloat(
         hsl2rgb({
           h: hue,
           s: 1,
-          l: 0.5,
+          l: 1/3,
         })
       )
 
       // Background main
-      const hueOffset1 = 1 / engine.fn.scale(
+      const hueOffset1 = -1 / engine.fn.scale(
         Math.sin(engine.const.tau * (parameters.hueOffset1 + (time / 60))),
         -1, 1,
-        6, 12
+        2, 3
       )
 
       const backgroundLightness = engine.fn.lerp(7/8, 1/2, danger)
@@ -105,8 +105,8 @@ content.video.color = (() => {
       )
 
       // Background analogous
-      const hueOffset2 = 1 / engine.fn.scale(
-        Math.sin(engine.const.tau * (parameters.hueOffset2 + (time / 30))),
+      const hueOffset2 = -1 / engine.fn.scale(
+        Math.sin(engine.const.tau * (parameters.hueOffset2 + (time / 20))),
         -1, 1,
         6, 12
       )

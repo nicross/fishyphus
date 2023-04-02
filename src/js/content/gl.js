@@ -1,8 +1,8 @@
 content.gl = (() => {
   let aspect,
     canvas,
-    defaultDrawDistance = 100,
-    drawDistance = 100,
+    defaultDrawDistance = 200,
+    drawDistance = 200,
     gl,
     height,
     hfov = Math.PI / 2,

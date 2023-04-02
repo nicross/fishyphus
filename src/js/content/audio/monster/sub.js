@@ -8,7 +8,7 @@ content.audio.monster.sub = (() => {
     const strength = content.monster.dangerValue(),
       stun = content.monster.getStunAcceleratedValue()
 
-    const amodDepth = engine.fn.lerpExp(1/8, 1/2, strength, 2),
+    const amodDepth = engine.fn.lerpExp(1/12, 1/3, strength, 2),
       color = engine.fn.lerp(1, 4, strength * (1 - stun)),
       frequency = engine.fn.fromMidi(35)
 

@@ -1,8 +1,8 @@
 content.movement = (() => {
-  const acceleration = 2,
+  const acceleration = 3,
     angularVelocity = engine.const.tau / 4,
-    deceleration = 2,
-    maxVelocity = 10
+    deceleration = 3,
+    maxVelocity = 12
 
   let velocity = engine.tool.vector2d.create()
 

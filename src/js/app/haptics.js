@@ -93,3 +93,94 @@ app.haptics = (() => {
     },
   }
 })()
+
+// Streams
+;(() => {
+  let dangerTimeout = 0,
+    fishTimeout = 0
+
+  engine.loop.on('frame', ({delta, paused}) => {
+    delta *= 1000
+
+    if (!paused) {
+      danger(delta)
+      fish(delta)
+    }
+
+    app.haptics.update(delta)
+  })
+
+  function danger(delta) {
+    if (dangerTimeout > engine.time()) {
+      return
+    }
+
+    const value = engine.fn.scale(
+      content.monster.dangerValue(),
+      0.75, 1,
+      0, 1
+    )
+
+    if (value < 0) {
+      return
+    }
+
+    const duration = engine.fn.lerp(1000, 333, value)
+
+    app.haptics.enqueue({
+      duration: duration * 0.5,
+      startDelay: 0,
+      strongMagnitude: value ** 3,
+      weakMagnitude: 0,
+    })
+
+    dangerTimeout = engine.time(duration / 1000)
+  }
+
+  function fish(delta) {
+    if (fishTimeout > engine.time()) {
+      return
+    }
+
+    const closest = content.fish.closest(),
+      isMinigameActive = content.minigame.isActive()
+
+    if (!closest || isMinigameActive) {
+      return
+    }
+
+    const duration = engine.fn.lerp(1000, 500, closest.value)
+
+    app.haptics.enqueue({
+      duration: duration * 0.5,
+      startDelay: 0,
+      strongMagnitude: 0,
+      weakMagnitude: closest.value ** 2,
+    })
+
+    fishTimeout = engine.time(duration / 1000)
+  }
+})()
+
+content.minigame.on('finish', () => {
+  app.haptics.enqueue({
+    duration: 150,
+    startDelay: 100,
+    strongMagnitude: 1,
+    weakMagnitude: 1,
+  })
+
+  app.haptics.enqueue({
+    duration: 150,
+    startDelay: 300,
+    strongMagnitude: 0.75,
+    weakMagnitude: 0.75,
+  })
+
+  app.haptics.enqueue({
+    duration: 150,
+    startDelay: 500,
+    strongMagnitude: 0.5,
+    weakMagnitude: 0.5,
+  })
+})

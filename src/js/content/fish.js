@@ -10,7 +10,7 @@ content.fish = (() => {
     const delta = engine.loop.delta(),
       position = engine.position.getVector()
 
-    fish.value = engine.fn.clamp(
+    const targetValue = engine.fn.clamp(
       engine.fn.scale(
         position.distance(fish.spot),
         distanceMin, distanceMax,
@@ -18,11 +18,8 @@ content.fish = (() => {
       )
     )
 
-    fish.distance = engine.fn.accelerateValue(
-      fish.distance,
-      engine.fn.lerp(distanceMax, distanceMin, fish.value),
-      fishAcceleration,
-    )
+    fish.value = engine.fn.accelerateValue(fish.value, targetValue, 1 / fishAcceleration)
+    fish.distance = engine.fn.lerp(distanceMax, distanceMin, fish.value)
 
     fish.angle += delta * engine.const.tau / fish.distance
     fish.angle %= engine.const.tau

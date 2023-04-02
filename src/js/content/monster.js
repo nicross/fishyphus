@@ -3,7 +3,7 @@ content.monster = (() => {
     minStun = 15,
     maxStun = 120,
     normalVelocityRate = 0.5,
-    stunFall = 5
+    stunFall = 6
 
   let position = engine.tool.vector3d.create(),
     stun = 0,

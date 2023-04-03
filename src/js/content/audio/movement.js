@@ -13,7 +13,7 @@ content.audio.movement = (() => {
 
     return {
       frequency: engine.fn.lerp(20, 200, strength),
-      gain: 1,
+      gain: engine.fn.fromDb(engine.fn.lerp(0, -3, strength)),
       vector: calculateVector(),
     }
   }

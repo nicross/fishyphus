@@ -1,7 +1,7 @@
 content.fish = (() => {
   const distanceMax = 50,
     distanceMin = 5,
-    fishAcceleration = 5,
+    fishAcceleration = 2 / distanceMax,
     fishes = new Map()
 
   let closest
@@ -18,7 +18,7 @@ content.fish = (() => {
       )
     )
 
-    fish.value = engine.fn.accelerateValue(fish.value, targetValue, 1 / fishAcceleration)
+    fish.value = engine.fn.accelerateValue(fish.value, targetValue, fishAcceleration)
     fish.distance = engine.fn.lerp(distanceMax, distanceMin, fish.value)
 
     fish.angle += delta * engine.const.tau / fish.distance
@@ -27,6 +27,7 @@ content.fish = (() => {
     fish.vector = engine.tool.vector2d.unitX()
       .scale(fish.distance)
       .rotate(fish.angle)
+      .add(fish.spot)
   }
 
   return {
@@ -55,7 +56,7 @@ content.fish = (() => {
         distance: distanceMax,
         id: spot.id,
         spot,
-        vector: engine.tool.vector2d.unitX().scale(distanceMax).rotate(angle),
+        vector: engine.tool.vector2d.unitX().scale(distanceMax).rotate(angle).add(spot),
         value: 0,
       }
 

@@ -5,6 +5,7 @@ app.screen.gameOver = app.screenManager.invent({
   rootSelector: '.a-gameOver',
   transitions: {
     continue: function () {
+      engine.state.reset()
       this.change('mainMenu')
     },
   },
@@ -25,12 +26,20 @@ app.screen.gameOver = app.screenManager.invent({
     if (isHighscore) {
       app.storage.highscore.set(score)
     }
+
+    this.state.resetTimer = engine.time(1)
   },
   onFrame: function () {
     const ui = app.controls.ui()
 
-    if (ui.action || ui.focus === 0) {
+    if (ui.action || ui.tab || ui.focus === 0) {
       app.screenManager.dispatch('continue')
+    }
+
+    // Reset state after screen transition 🤷‍♀️
+    if (this.state.resetTimer && this.state.resetTimer < engine.time()) {
+      engine.state.reset()
+      delete this.state.resetTimer
     }
   },
 })

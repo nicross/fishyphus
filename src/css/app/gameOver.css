@@ -1,31 +1,26 @@
-.a-gameOver {
-  text-align: center;
-}
+.a-gameOver {}
   .a-gameOver--instruction {
-    animation: a-gameOver--instruction 1s ease-in-out 0s infinite alternate both;
+    animation: a-splash--instruction 1s ease-in-out 0s infinite alternate both;
     bottom: 2rem;
-    left: 0;
     line-height: 2;
     padding: 0.5em 0.75em;
     position: absolute;
-    text-align: center;
+    right: 2rem;
     text-transform: uppercase;
-    width: 100%;
   }
   .a-gameOver--highscore {
     animation: a-gameOver--highscore 2s linear 0s infinite alternate both;
-  }
-  .a-gameOver--highscoreLabel,
-  .a-gameOver--scoreLabel {
-    vertical-align: middle;
   }
   .a-gameOver--highscoreValue,
   .a-gameOver--scoreValue {
     font-family: FiraCodeMedium, monospace;
     font-weight: 500;
+  }
+  .a-gameOver--scoreLabel {
     vertical-align: middle;
   }
   .a-gameOver--scoreValue {
+    vertical-align: middle;
     font-size: 2em;
   }
   .a-gameOver--isHighscore {
@@ -35,7 +30,6 @@
   .a-gameOver--scores {
     align-items: center;
     display: flex;
-    justify-content: center;
   }
   .a-gameOver--scores > * {
     flex: 0 0 auto;

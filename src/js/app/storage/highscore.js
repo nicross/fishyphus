@@ -15,7 +15,7 @@ app.storage.highscore = {
   // Helpers
   update: function () {
     const highscore = this.get(),
-      score = content.score.value()
+      score = content.score.value() || app.storage.game.get()?.score || 0
 
     if (score > highscore) {
       this.set(score)

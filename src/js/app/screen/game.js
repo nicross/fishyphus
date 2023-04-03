@@ -17,21 +17,23 @@ app.screen.game = app.screenManager.invent({
   state: {},
   // Hooks
   onReady: function () {
-    this.score.ready()
+    this.toasts.ready()
   },
   onEnter: function () {
     // Resume
     content.audio.unduck()
     engine.loop.resume()
 
-    // Anything else
-    this.score.enter()
+    this.toasts.enter()
   },
   onExit: function () {
     content.audio.duck()
     engine.loop.pause()
 
-    this.score.exit()
+    this.toasts.exit()
+  },
+  onReset: function () {
+    this.toasts.reset()
   },
   onFrame: function () {
     const game = app.controls.game(),
@@ -49,7 +51,7 @@ app.screen.game = app.screenManager.invent({
       content.movement.update(game)
     }
 
-    this.score.update()
+    this.toasts.update()
 
     // Handle monster
     content.monster.update()

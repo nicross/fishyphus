@@ -1,3 +1,28 @@
-.a-mainMenu {
-  text-align: center;
+.a-mainMenu {}
+  .a-mainMenu--highscore {
+    animation: a-mainMenu--highscore 2s linear 0s infinite alternate both;
+  }
+  .a-mainMenu--highscoreValue,
+  .a-mainMenu--scoreValue {
+    font-family: FiraCodeMedium, monospace;
+    font-weight: 500;
+  }
+  .a-mainMenu--isHighscore {
+    animation: a-mainMenu--highscore 2s ease-in-out 0s infinite alternate both;
+    text-transform: uppercase;
+  }
+  .a-mainMenu--scoreWrapper {
+    margin-left: 1em;
+  }
+
+@keyframes a-mainMenu--highscore {
+  0% {
+    color: hsl(360, 100%, 50%);
+  }
+  50% {
+    color: hsl(240, 100%, 50%);
+  }
+  100% {
+    color: hsl(360, 100%, 50%);
+  }
 }

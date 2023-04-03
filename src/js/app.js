@@ -22,7 +22,7 @@ const app = (() => {
     },
     isActive: () => isActive,
     isElectron: () => typeof ElectronApi != 'undefined',
-    name: () => 'fishyphus',
+    name: () => 'shiftbacktick_fishyphus',
     quit: function () {
       if (this.isElectron()) {
         ElectronApi.quit()

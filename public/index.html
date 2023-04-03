@@ -13,7 +13,7 @@
 
       <div class="a-app--screen a-app--screen-transparent a-app--game">
         <section class="c-screen a-game" tabindex="-1" aria-label="Game">
-          <div class="a-game--score"></div>
+          <div class="a-game--toasts"></div>
         </section>
       </div>
 
@@ -25,7 +25,7 @@
               <strong class="a-gameOver--scoreValue">0</strong>
               <span class="a-gameOver--scoreLabel">fish acquired</span>
             </p>
-            <p class="a-gameOver--isHighscore">New Record</p>
+            <p class="a-gameOver--isHighscore">A New Record</p>
             <p class="a-gameOver--highscore">
               <strong class="a-gameOver--highscoreValue">0</strong>
               <span class="a-gameOver--highscoreLabel">fish to win</span>
@@ -40,10 +40,23 @@
           <h1 class="c-screen--title">Death Awaits</h1>
           <ul class="c-screen--actions">
             <li class="c-screen--action a-mainMenu--action-continue">
-              <button class="c-menuButton a-mainMenu--continue" type="button">Continue</button>
+              <button class="c-menuButton a-mainMenu--continue" type="button" aria-describedby="a-mainMenu--continueDescription">Resume Game</button>
+              <span id="a-mainMenu--continueDescription" class="a-mainMenu--scoreWrapper">
+                <span class="a-mainMenu--score">
+                  <strong class="a-mainMenu--scoreValue">0</strong>
+                  <span class="a-mainMenu--scoreLabel">fish acquired</span>
+                </span>
+              </span>
             </li>
             <li class="c-screen--action">
-              <button class="c-menuButton a-mainMenu--newGame" type="button">New Game</button>
+              <button class="c-menuButton a-mainMenu--newGame" type="button" aria-describedby="a-mainMenu--newGameDescription">New Game</button>
+              <span id="a-mainMenu--newGameDescription" class="a-mainMenu--scoreWrapper">
+                <span class="a-mainMenu--highscore">
+                  <strong class="a-mainMenu--highscoreValue">0</strong>
+                  <span class="a-mainMenu--highscoreLabel">fish to win</span>
+                </span>
+                <span class="a-mainMenu--isHighscore">A New Record</span>
+              </span>
             </li>
             <li class="c-screen--action a-mainMenu--action-quit">
               <button class="c-menuButton a-mainMenu--quit" type="button">Quit to Desktop</button>

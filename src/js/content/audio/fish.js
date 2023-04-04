@@ -1,7 +1,7 @@
 content.audio.fish = (() => {
   const bus = content.audio.createBus(),
     fishDepth = -1,
-    soundLimit = 3
+    soundLimit = 4
 
   const sounds = new Map()
 

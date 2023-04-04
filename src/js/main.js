@@ -31,6 +31,9 @@
   engine.mixer.param.limiter.threshold.value = -24
   engine.mixer.param.preGain.value = 1.5
 
+  // Add gamepad deadzone
+  engine.input.gamepad.setDeadzone(0.125)
+
   // Start the loop
   engine.loop.start().pause()
 

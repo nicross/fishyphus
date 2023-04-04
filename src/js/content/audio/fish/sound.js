@@ -4,7 +4,7 @@ content.audio.fish.sound = engine.sound.extend({
   filterModel: engine.ear.filterModel.musical.extend({
     defaults: {
       coneRadius: engine.const.tau * 0.5,
-      minColor: 0.5,
+      minColor: 1/3,
       power: 1,
     },
   }),

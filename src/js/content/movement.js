@@ -26,20 +26,25 @@ content.movement = (() => {
       x = 0,
     }) {
       const delta = engine.loop.delta(),
+        isMinigame = content.minigame.isActive(),
         position = engine.position.getVector()
 
-      // Calculate next yaw
       let {yaw} = engine.position.getEuler()
-      yaw += (rotate * angularVelocity * delta)
-      yaw %= engine.const.tau
 
-      // Apply next yaw
-      engine.position.setEuler({
-        yaw,
-      })
+      // Turn, when pressed and not in minigame
+      if (!isMinigame) {
+        // Calculate next yaw
+        yaw += (rotate * angularVelocity * delta)
+        yaw %= engine.const.tau
 
-      // Apply acceleration
-      if (x > 0) {
+        // Apply next yaw
+        engine.position.setEuler({
+          yaw,
+        })
+      }
+
+      // Apply acceleration, when pressed and not in minigame
+      if (x > 0 && !isMinigame) {
         const thrust = engine.tool.vector2d.create({
           x: x * delta * acceleration,
         }).rotate(yaw)
@@ -47,8 +52,8 @@ content.movement = (() => {
         velocity = velocity.add(thrust)
       }
 
-      // Apply brakes
-      if (x < 0) {
+      // Apply brakes, when pressed or in minigame
+      if (x < 0 || isMinigame) {
         velocity = engine.tool.vector2d.create(
           engine.fn.accelerateVector(
             velocity,

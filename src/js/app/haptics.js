@@ -102,7 +102,7 @@ app.haptics = (() => {
   engine.loop.on('frame', ({delta, paused}) => {
     delta *= 1000
 
-    if (!paused) {
+    if (!paused && !content.minigame.isActive()) {
       danger(delta)
       fish(delta)
     }
@@ -112,6 +112,10 @@ app.haptics = (() => {
 
   function danger(delta) {
     if (dangerTimeout > engine.time()) {
+      return
+    }
+
+    if (content.monster.isStunned()) {
       return
     }
 

@@ -87,7 +87,7 @@ content.minigame = (() => {
 
   function isAllowed() {
     return (machine.is('inactive') || isDebug)
-      && content.movement.velocity().isZero()
+      && content.movement.velocityValue() < 0.25
       && content.fish.closest()
   }
 

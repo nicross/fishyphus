@@ -47,10 +47,7 @@ app.screen.game = app.screenManager.invent({
       content.minigame.action()
     }
 
-    if (!content.minigame.isActive()) {
-      content.movement.update(game)
-    }
-
+    content.movement.update(game)
     this.toasts.update()
 
     // Handle monster

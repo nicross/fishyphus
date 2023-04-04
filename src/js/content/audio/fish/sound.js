@@ -4,6 +4,7 @@ content.audio.fish.sound = engine.sound.extend({
   filterModel: engine.ear.filterModel.musical.extend({
     defaults: {
       coneRadius: engine.const.tau * 0.5,
+      minColor: 0.5,
       power: 1,
     },
   }),
@@ -22,6 +23,13 @@ content.audio.fish.sound = engine.sound.extend({
     fish,
   } = {}) {
     this.fish = fish
+
+    this.delay = engine.effect.dubDelay({
+      filterFrequency: engine.fn.fromMidi(60),
+      wet: engine.fn.fromDb(0),
+    })
+
+    this.delay.output.connect(this.output)
 
     this.sequence = this.generateSequence()
     this.beginSequence()
@@ -93,7 +101,7 @@ content.audio.fish.sound = engine.sound.extend({
       detune,
       frequency: frequency * color,
       type: 'lowpass',
-    }).connect(this.output)
+    }).connect(this.delay.input)
 
     synth.attenuation.gain.value = accent
 

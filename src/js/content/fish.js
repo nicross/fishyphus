@@ -1,7 +1,7 @@
 content.fish = (() => {
   const distanceMax = 50,
     distanceMin = 5,
-    fishAcceleration = 2 / distanceMax,
+    fishAcceleration = 1 / (distanceMax / 4),
     fishes = new Map()
 
   let closest

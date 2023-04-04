@@ -106,7 +106,7 @@ app.screen.mainMenu = app.screenManager.invent({
   },
   updateScores: function () {
     const highscore = app.storage.highscore.get(),
-      score = content.score.value()
+      score = content.score.value() || app.storage.game.get()?.score || 0
 
     const isHighscore = score > highscore
 

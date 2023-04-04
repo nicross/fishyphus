@@ -3,11 +3,18 @@ content.audio.fish = (() => {
     fishDepth = -1,
     soundLimit = 3
 
+  const delay = engine.effect.dubDelay({
+    filterFrequency: engine.fn.fromMidi(60),
+    wet: engine.fn.fromDb(0),
+  })
+
+  delay.output.connect(bus)
+
   const sounds = new Map()
 
   function createSound(fish) {
     return content.audio.fish.sound.instantiate({
-      destination: bus,
+      destination: delay.input,
       fish,
       x: fish.vector.x,
       y: fish.vector.y,

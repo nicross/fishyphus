@@ -19,6 +19,9 @@
     })
   )
 
+  // Prevent the Doppler effect
+  engine.const.speedOfSound = engine.const.maxSafeFloat
+
   // Boosted dynamic range
   engine.mixer.param.limiter.attack.value = 0.003
   engine.mixer.param.limiter.gain.value = 1

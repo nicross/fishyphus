@@ -10,7 +10,7 @@ content.audio.monster.sub = (() => {
 
     const amodDepth = engine.fn.lerpExp(1/12, 1/3, strength, 2),
       color = engine.fn.lerp(1, 4, strength * (1 - stun)),
-      frequency = engine.fn.fromMidi(35)
+      frequency = engine.fn.fromMidi(33)
 
     return {
       amodDepth,
@@ -22,7 +22,7 @@ content.audio.monster.sub = (() => {
       fmodDepth: 0,
       fmodDetune: 0,
       fmodFrequency: 0,
-      gain: engine.fn.fromDb(engine.fn.lerpExp(engine.const.zeroDb, -6, strength, 0.1)),
+      gain: engine.fn.fromDb(engine.fn.lerpExp(engine.const.zeroDb, -12, strength, 0.1)),
       vector: content.monster.normal(),
     }
   }

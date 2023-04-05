@@ -15,14 +15,6 @@ content.audio.spots.sound = engine.sound.extend({
         radiusInner = 5,
         radiusOuter = 50
 
-      const innerRatio = engine.fn.clamp(
-        engine.fn.scale(
-          distance,
-          radiusInner, radiusOuter,
-          0, 1
-        )
-      )
-
       const outerRatio = engine.fn.clamp(
         engine.fn.scale(
           distance,
@@ -31,10 +23,9 @@ content.audio.spots.sound = engine.sound.extend({
         )
       )
 
-      return engine.fn.fromDb(-33) * (innerRatio ** 0.5) * outerRatio
+      return engine.fn.fromDb(-33) * outerRatio
     }
   }),
-  radius: 5,
   relative: false,
   reverb: false,
   // Lifecycle
@@ -47,6 +38,7 @@ content.audio.spots.sound = engine.sound.extend({
       amodDepth,
       amodFrequency,
       filterFrequency,
+      minColor,
     } = this.calculateRealtimeParameters()
 
     this.synth = engine.synth.am({
@@ -61,7 +53,8 @@ content.audio.spots.sound = engine.sound.extend({
       frequency: filterFrequency,
     }).connect(this.output)
 
-    this.filterModel.defaults.frequency = this.spot.rootFrequency
+    this.filterModel.options.frequency = this.spot.rootFrequency
+    this.filterModel.options.minColor = minColor
   },
   onDestroy: function () {
     this.synth.stop()
@@ -71,11 +64,14 @@ content.audio.spots.sound = engine.sound.extend({
       amodDepth,
       amodFrequency,
       filterFrequency,
+      minColor,
     } = this.calculateRealtimeParameters()
 
     engine.fn.setParam(this.synth.filter.frequency, filterFrequency)
     engine.fn.setParam(this.synth.param.mod.depth, amodDepth)
     engine.fn.setParam(this.synth.param.mod.frequency, amodFrequency)
+
+    this.filterModel.options.minColor = minColor
   },
   // Methods
   calculateRealtimeParameters: function () {
@@ -102,7 +98,8 @@ content.audio.spots.sound = engine.sound.extend({
     return {
       amodDepth: engine.fn.lerp(0.5, 0, innerRatio, 2),
       amodFrequency: engine.fn.lerp(8, 1, innerRatio, 2),
-      filterFrequency: this.spot.rootFrequency * engine.fn.lerpExp(4, 8, angleRatio, 4),
+      filterFrequency: this.spot.rootFrequency * engine.fn.lerpExp(4, 8, engine.fn.lerpExp(1, angleRatio, innerRatio, 4), 4),
+      minColor: engine.fn.lerpExp(4, 0.5, innerRatio, 8),
     }
   },
 })

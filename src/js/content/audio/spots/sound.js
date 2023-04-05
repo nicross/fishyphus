@@ -1,14 +1,38 @@
 content.audio.spots.sound = engine.sound.extend({
-  fadeInDuration: 1/4,
-  fadeOutDuration: 1/4,
-  filterModel: engine.ear.filterModel.musical.extend(),
-  gainModel: engine.ear.gainModel.realisticHorizon.extend({
+  fadeInDuration: 1/2,
+  fadeOutDuration: 1/2,
+  filterModel: engine.ear.filterModel.musical.extend({
     defaults: {
-      horizonPower: 1,
-      maxDistance: 400,
-      minDistance: 1,
-      power: 0.5,
+      coneRadius: 0.25 * engine.const.tau,
+      maxColor: 8,
+      minColor: 0.5,
+      power: 1,
     },
+  }),
+  gainModel: engine.ear.gainModel.base.extend({
+    calculate: function (distance) {
+      const maxDistance = 300,
+        radiusInner = 5,
+        radiusOuter = 50
+
+      const innerRatio = engine.fn.clamp(
+        engine.fn.scale(
+          distance,
+          radiusInner, radiusOuter,
+          0, 1
+        )
+      )
+
+      const outerRatio = engine.fn.clamp(
+        engine.fn.scale(
+          distance,
+          radiusOuter, maxDistance,
+          1, 0,
+        )
+      )
+
+      return engine.fn.fromDb(-33) * (innerRatio ** 0.5) * outerRatio
+    }
   }),
   radius: 5,
   relative: false,
@@ -19,36 +43,46 @@ content.audio.spots.sound = engine.sound.extend({
   } = {}) {
     this.spot = spot
 
-    this.rootFrequency = this.chooseFrequency()
-    this.filterModel.options.frequency = this.rootFrequency
-
     const {
+      amodDepth,
+      amodFrequency,
       filterFrequency,
-      gain,
     } = this.calculateRealtimeParameters()
 
-    this.synth = engine.synth.simple({
-      gain: gain,
-      frequency: this.rootFrequency,
-      type: 'square',
+    this.synth = engine.synth.am({
+      carrierGain: 1 - amodDepth,
+      carrierFrequency: this.spot.rootFrequency,
+      carrierType: 'square',
+      gain: 1,
+      modDepth: amodDepth,
+      modFrequency: amodFrequency,
+      modType: 'square',
     }).filtered({
       frequency: filterFrequency,
     }).connect(this.output)
+
+    this.filterModel.defaults.frequency = this.spot.rootFrequency
   },
   onDestroy: function () {
     this.synth.stop()
   },
-  onUpdate: function ({delta}) {
+  onUpdate: function () {
     const {
+      amodDepth,
+      amodFrequency,
       filterFrequency,
-      gain,
     } = this.calculateRealtimeParameters()
 
     engine.fn.setParam(this.synth.filter.frequency, filterFrequency)
-    engine.fn.setParam(this.synth.param.gain, gain)
+    engine.fn.setParam(this.synth.param.mod.depth, amodDepth)
+    engine.fn.setParam(this.synth.param.mod.frequency, amodFrequency)
   },
   // Methods
   calculateRealtimeParameters: function () {
+    const maxDistance = 300,
+      radiusInner = 5,
+      radiusOuter = 50
+
     const relative = this.getRelativeVector()
 
     const angleRatio = engine.fn.scale(
@@ -57,29 +91,18 @@ content.audio.spots.sound = engine.sound.extend({
       0, 1
     )
 
-    const distanceRatio = 1 - engine.fn.clamp(
-      relative.distance() / this.gainModel.defaults.maxDistance
+    const innerRatio = engine.fn.clamp(
+      engine.fn.scale(
+        relative.distance(),
+        radiusInner, radiusOuter,
+        0, 1
+      )
     )
 
-    // TODO: AM / FM when nearby?
     return {
-      filterFrequency: this.rootFrequency * engine.fn.lerpExp(0.5, 12, angleRatio, 3),
-      gain: engine.fn.fromDb(engine.fn.lerp(-9, -27, distanceRatio)),
+      amodDepth: engine.fn.lerp(0.5, 0, innerRatio, 2),
+      amodFrequency: engine.fn.lerp(8, 1, innerRatio, 2),
+      filterFrequency: this.spot.rootFrequency * engine.fn.lerpExp(4, 8, angleRatio, 4),
     }
-  },
-  chooseFrequency: function () {
-    const srand = engine.fn.srand('spot', this.spot.id)
-
-    return engine.fn.fromMidi(
-      engine.fn.choose([
-        57,
-        59,
-        60,
-        62,
-        64,
-        65,
-        67,
-      ], srand())
-    )
   },
 })

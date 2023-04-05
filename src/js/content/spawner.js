@@ -34,8 +34,14 @@ content.spawner = (() => {
     chunk.spot = {
       chunk,
       id: chunk.id,
-      x: isOrigin ? 0 : (chunk.x + (chunkSize * engine.fn.randomFloat(-1/3, 1/3))),
-      y: isOrigin ? 0 : (chunk.y + (chunkSize * engine.fn.randomFloat(-1/3, 1/3))),
+      rootFrequency: engine.fn.fromMidi(
+        engine.fn.choose([
+          // Amin scale
+          57, 59, 60, 62, 64, 65, 67,
+        ], srand())
+      ),
+      x: isOrigin ? 0 : (chunk.x + (chunkSize * srand(-1/3, 1/3))),
+      y: isOrigin ? 0 : (chunk.y + (chunkSize * srand(-1/3, 1/3))),
     }
 
     streamer.add(chunk.spot)

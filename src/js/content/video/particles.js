@@ -140,6 +140,7 @@ void main(void) {
     const camera = content.camera.computedVector(),
       drawDistance = content.gl.drawDistance()
 
+    // Surface
     while (particles.length < maxParticles && Math.random() < 0.75) {
       const vector = engine.tool.vector2d.unitX()
         .scale(engine.fn.randomFloat(-1, 1) * drawDistance)
@@ -151,6 +152,20 @@ void main(void) {
         life: 1,
         x: vector.x,
         y: vector.y,
+      })
+    }
+
+    // Fish
+    for (const fish of content.fish.all()) {
+      if (Math.random() > 0.25) {
+        continue
+      }
+
+      particles.push({
+        rate: 0.5,
+        life: 1,
+        x: fish.vector.x + engine.fn.randomFloat(-1, 1),
+        y: fish.vector.y + engine.fn.randomFloat(-1, 1),
       })
     }
   }

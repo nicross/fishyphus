@@ -21,7 +21,7 @@ content.fish = (() => {
     fish.value = engine.fn.accelerateValue(fish.value, targetValue, fishAcceleration)
     fish.distance = engine.fn.lerp(distanceMax, distanceMin, fish.value)
 
-    fish.angle += delta * engine.const.tau / fish.distance
+    fish.angle += delta * engine.const.tau / fish.distance * fish.spot.sign
     fish.angle %= engine.const.tau
 
     fish.vector = engine.tool.vector2d.unitX()

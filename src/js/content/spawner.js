@@ -40,6 +40,7 @@ content.spawner = (() => {
           57, 59, 60, 62, 64, 65, 67,
         ], srand())
       ),
+      sign: srand() > 0.5 ? 1 : -1,
       x: isOrigin ? 0 : (chunk.x + (chunkSize * srand(-1/3, 1/3))),
       y: isOrigin ? 0 : (chunk.y + (chunkSize * srand(-1/3, 1/3))),
     }

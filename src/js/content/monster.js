@@ -1,24 +1,24 @@
 content.monster = (() => {
-  const killDistance = 1,
+  const dangerTime = 120,
+    killDistance = 1,
     minStun = 15,
     maxStun = 120,
     normalVelocityRate = 0.5,
-    stunFall = 6
+    stunFallRate = 0.5
 
   let position = engine.tool.vector3d.create(),
     stun = 0,
-    stunAccelerated = 0,
-    stunMultiplier = 1
+    stunAccelerated = 0
 
   return {
     applyStun: function () {
-      stun += minStun * stunMultiplier
+      stun += minStun + content.bonus.stunBonus()
       stun = Math.min(stun, maxStun)
 
       return this
     },
     dangerDistance: function () {
-      return this.normalVelocity() * 120
+      return this.normalVelocity() * dangerTime
     },
     dangerValue: function () {
       return 1 - engine.fn.clamp(
@@ -34,8 +34,10 @@ content.monster = (() => {
     getStunAccelerated: () => stunAccelerated,
     getStunAcceleratedValue: () => engine.fn.clamp(stunAccelerated / maxStun),
     getStunValue: () => engine.fn.clamp(stun / maxStun),
-    import: function (data) {
-      position = engine.tool.vector3d.create(data.position)
+    import: function (data = {}) {
+      position = engine.tool.vector3d.create(data.position || {
+        z: -(this.dangerDistance() + content.bonus.startBonus()),
+      })
 
       stun = Number(data.stun) || 0
       stun = Math.min(stun, maxStun)
@@ -62,31 +64,30 @@ content.monster = (() => {
 
       return this
     },
-    setStunMultiplier: function (value = 1) {
-      stunMultiplier = Number(value) || 0
-
-      return this
-    },
     update: function () {
-      const delta = engine.loop.delta()
+      const delta = engine.loop.delta(),
+        maxVelocity = content.movement.velocityMax()
 
       // Handle stun status effect
       if (stun > 0) {
         stun -= delta
       }
 
-      stunAccelerated = engine.fn.accelerateValue(stunAccelerated, stun, minStun)
+      stunAccelerated = engine.fn.accelerateValue(
+        stunAccelerated,
+        stun,
+        Math.max(minStun, stunAccelerated)
+      )
 
       if (stun > 0) {
-        position.z -= delta * stunFall
+        position.z -= delta * maxVelocity * stunFallRate
 
         return this
       }
 
       // Movement
       // Calculate speed
-      const isFishing = content.minigame.isActive(),
-        maxVelocity = content.movement.velocityMax()
+      const isFishing = content.minigame.isActive()
 
       const speed = isFishing
         ? maxVelocity

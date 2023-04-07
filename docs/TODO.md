@@ -19,9 +19,5 @@ Items intended to be addressed before the jam ends:
   - Evolving pads forming a triad with the bass
   - Additional layer as death nears
   - Audio and haptics upon death
-- Persistent bonuses
-  - Add start bonuses
-  - Add stun multipliers
-  - Clear progress button on main menu
 - Polish
   - ???

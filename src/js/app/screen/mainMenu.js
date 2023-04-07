@@ -15,16 +15,9 @@ app.screen.mainMenu = app.screenManager.invent({
       this.change('game')
     },
     newGame: function () {
-      // Save existing high score 🤷‍♀️
-      app.storage.highscore.update()
-
       // Initialize game state 🤷‍♀️
       engine.state.import({
-        monster: {
-          position: {
-            z: -content.monster.dangerDistance(),
-          },
-        },
+        bonus: app.storage.highscore.get(),
         seed: engine.fn.randomInt(11111111111, 99999999999),
       })
 

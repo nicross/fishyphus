@@ -11,6 +11,20 @@
       <canvas class="a-app--canvas"></canvas>
       <canvas class="a-app--overlaySupport"></canvas>
 
+      <div class="a-app--screen a-app--clear">
+        <section class="c-screen a-clear" aria-label="Confirm Reset">
+          <h1 class="c-screen--title">Confirm Reset</h1>
+          <ul class="c-screen--actions">
+            <li class="c-screen--action">
+              <button class="c-menuButton a-clear--back" type="button">Keep Progress</button>
+            </li>
+            <li class="c-screen--action">
+              <button class="c-menuButton a-clear--confirm" type="button">Reset Progress</button>
+            </li>
+          </ul>
+        </section>
+      </div>
+
       <div class="a-app--screen a-app--screen-transparent a-app--game">
         <section class="c-screen a-game" tabindex="-1" aria-label="Game">
           <div class="a-game--toasts"></div>
@@ -40,7 +54,7 @@
           <h1 class="c-screen--title">Death Awaits</h1>
           <ul class="c-screen--actions">
             <li class="c-screen--action a-mainMenu--action-continue">
-              <button class="c-menuButton a-mainMenu--continue" type="button" aria-describedby="a-mainMenu--continueDescription">Resume Game</button>
+              <button class="c-menuButton a-mainMenu--continue" type="button" aria-describedby="a-mainMenu--continueDescription">Resume Expedition</button>
               <span id="a-mainMenu--continueDescription" class="a-mainMenu--scoreWrapper">
                 <span class="a-mainMenu--score">
                   <strong class="a-mainMenu--scoreValue">0</strong>
@@ -49,7 +63,7 @@
               </span>
             </li>
             <li class="c-screen--action">
-              <button class="c-menuButton a-mainMenu--newGame" type="button" aria-describedby="a-mainMenu--newGameDescription">New Game</button>
+              <button class="c-menuButton a-mainMenu--newGame" type="button" aria-describedby="a-mainMenu--newGameDescription">New Expedition</button>
               <span id="a-mainMenu--newGameDescription" class="a-mainMenu--scoreWrapper">
                 <span class="a-mainMenu--highscore">
                   <strong class="a-mainMenu--highscoreValue">0</strong>
@@ -57,6 +71,9 @@
                 </span>
                 <span class="a-mainMenu--isHighscore">A New Record</span>
               </span>
+            </li>
+            <li class="c-screen--action a-mainMenu--action-clear">
+              <button class="c-menuButton a-mainMenu--clear" type="button">Reset Progress</button>
             </li>
             <li class="c-screen--action a-mainMenu--action-quit">
               <button class="c-menuButton a-mainMenu--quit" type="button">Quit to Desktop</button>

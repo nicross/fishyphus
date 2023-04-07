@@ -1,4 +1,5 @@
 app.storage.highscore = {
+  clear: () => app.storage.clear('highscore'),
   has: function () {
     return this.get() > 0
   },

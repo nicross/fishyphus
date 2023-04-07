@@ -7,6 +7,9 @@ app.screen.mainMenu = app.screenManager.invent({
     back: function () {
       this.change('splash')
     },
+    clear: function () {
+      this.change('clear')
+    },
     continue: function () {
       app.storage.game.load()
       this.change('game')
@@ -38,6 +41,7 @@ app.screen.mainMenu = app.screenManager.invent({
     const root = this.rootElement
 
     Object.entries({
+      clear: root.querySelector('.a-mainMenu--clear'),
       continue: root.querySelector('.a-mainMenu--continue'),
       newGame: root.querySelector('.a-mainMenu--newGame'),
       quit: root.querySelector('.a-mainMenu--quit'),
@@ -48,6 +52,7 @@ app.screen.mainMenu = app.screenManager.invent({
     root.querySelector('.a-mainMenu--action-quit').hidden = !app.isElectron()
   },
   onEnter: function () {
+    this.rootElement.querySelector('.a-mainMenu--action-clear').hidden = !app.storage.highscore.has()
     this.rootElement.querySelector('.a-mainMenu--action-continue').hidden = !app.storage.game.has()
     this.updateScores()
 

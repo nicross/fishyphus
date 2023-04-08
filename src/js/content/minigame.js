@@ -2,6 +2,7 @@ content.minigame = (() => {
   const isDebug = false
 
   const castSpeed = 5, // meters per second
+    cooldownTime = 1, // seconds
     maxDepth = 50, // meters
     reelBonusAcceleration = 1, // value per bonus per second
     reelBonusMultiplier = 0.5, // added speed per reel per count
@@ -59,13 +60,19 @@ content.minigame = (() => {
       },
     },
     /**
-     * Inactive state
+     * Inactive state data:
+     * - `cooldown` - time remaining between casts
      *
      * Emits:
      * - `inactive-disallowed`: when no fish are nearby
      */
     inactive: {
       action: () => {
+        // Ignore cooldown timer
+        if (data.cooldown > 0) {
+          return
+        }
+
         const fish = content.fish.closest()
 
         // Cast when fish are nearby
@@ -84,7 +91,10 @@ content.minigame = (() => {
         machine.dispatch('cast')
       },
       update: () => {
-        // Do nothing
+        // Decrement cooldown timer
+        if (data.cooldown > 0) {
+          data.cooldown -= engine.loop.delta()
+        }
       },
     },
     /**
@@ -101,7 +111,7 @@ content.minigame = (() => {
     casting: {
       action: () => {
         // Set up data for next state
-        data.timer = Math.max(1, data.fish.distance * waitTimerFactor)
+        data.timer = Math.max(1, (data.fish.distance/2 + (data.depth - data.fish.distance)) * waitTimerFactor)
 
         delete data.alert
         delete data.value
@@ -154,7 +164,7 @@ content.minigame = (() => {
       action: () => {
         // Cancel if timer has not run out
         if (data.timer > 0) {
-          delete data.fish
+          data.canceled = true
           machine.pubsub.emit('waiting-cancel')
         }
 
@@ -182,10 +192,11 @@ content.minigame = (() => {
     /**
      * Reeling state data:
      * - `bonus`: the current bonus to reel speed
+     * - `cancel`: true when reeling early
      * - `count`: the total number of reels
      * - `depth`: the current depth
      * - `depthValue`: the current depth ratio
-     * - `fish`: the target fish, deleted if canceled
+     * - `fish`: the target fish
      *
      * Emits:
      * - `failure`: when a canceled attempt has been reeled in
@@ -215,18 +226,19 @@ content.minigame = (() => {
           return
         }
 
-        const fish = data.fish
+        const {
+          canceled,
+          fish,
+        } = data
 
-        delete data.bonus
-        delete data.count
-        delete data.depth
-        delete data.depthValue
-        delete data.fish
+        data = {
+          cooldown: cooldownTime,
+        }
 
-        if (fish) {
-          machine.pubsub.emit('success', {fish})
-        } else {
+        if (canceled) {
           machine.pubsub.emit('failure')
+        } else {
+          machine.pubsub.emit('success', {fish})
         }
 
         machine.dispatch('finish')

@@ -1,6 +1,18 @@
 content.audio.movement = (() => {
   const bus = content.audio.createBus()
 
+  const amplitudeNoise = engine.fn.createNoise({
+    octaves: 4,
+    seed: ['movement', 'amplitude'],
+    type: '1d',
+  })
+
+  const angleNoise = engine.fn.createNoise({
+    octaves: 4,
+    seed: ['movement', 'angle'],
+    type: '1d',
+  })
+
   const filterModel = engine.ear.filterModel.musical.instantiate()
 
   let binaural,
@@ -8,8 +20,17 @@ content.audio.movement = (() => {
 
   bus.gain.value = engine.fn.fromDb(-12)
 
+  engine.ephemera
+    .add(amplitudeNoise)
+    .add(angleNoise)
+
   function calculateParameters() {
-    const strength = content.movement.velocityValue()
+    const time = content.time.value(),
+      velocity = content.movement.velocityValue()
+
+    const strength = velocity
+      // Apply amplitude noise
+      + ((velocity ** 0.5) * engine.fn.lerp(-0.125, 0.125, amplitudeNoise.value(time / 2)))
 
     return {
       frequency: engine.fn.lerp(20, 200, strength),
@@ -19,6 +40,8 @@ content.audio.movement = (() => {
   }
 
   function calculateVector() {
+    const time = content.time.value()
+
     let vector = content.movement.velocity().rotate(
       -engine.position.getEuler().yaw
     )
@@ -28,6 +51,13 @@ content.audio.movement = (() => {
     if (magnitude > 1) {
       vector = vector.scale(1 / magnitude)
     }
+
+    // Apply angular noise
+    vector = vector.rotate(
+      engine.fn.deg2rad(
+        engine.fn.lerp(-15, 15, angleNoise.value(time / 2))
+      )
+    )
 
     return vector
   }

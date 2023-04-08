@@ -95,6 +95,7 @@ content.spawner = (() => {
 
       return this
     },
+    isCooldown: (id) => id in cooldowns,
     reset: function () {
       activeSpots = new Set()
       cooldowns = {}

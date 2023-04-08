@@ -25,8 +25,10 @@ content.audio.fish.sound = engine.sound.extend({
     this.fish = fish
 
     this.delay = engine.effect.dubDelay({
+      dry: 0,
       filterFrequency: engine.fn.fromMidi(60),
-      wet: engine.fn.fromDb(0),
+      gain: 0,
+      wet: 0,
     })
 
     this.delay.output.connect(this.output)
@@ -50,17 +52,30 @@ content.audio.fish.sound = engine.sound.extend({
 
     const {
       color,
+      delayDry,
+      delayGain,
+      delayWet,
       gain,
     } = this.calculateRealtimeParameters()
 
+    engine.fn.setParam(this.delay.param.dry, delayDry)
+    engine.fn.setParam(this.delay.param.gain, delayGain)
+    engine.fn.setParam(this.delay.param.wet, delayWet)
     engine.fn.setParam(this.synth.filter.frequency, this.rootFrequency * color)
     engine.fn.setParam(this.synth.param.gain, gain)
   },
   // Methods
   calculateRealtimeParameters: function () {
+    const isActive = content.minigame.isFish(this.fish.id),
+      isCooldown = content.spawner.isCooldown(this.fish.spot.id),
+      minigameValue = 1 - content.minigame.isActiveAccelerated()
+
     return {
       color: engine.fn.lerpExp(1, 6, this.fish.value, 2),
-      gain: engine.fn.fromDb(engine.fn.lerp(-12, -15, this.fish.value))
+      delayDry: minigameValue,
+      delayGain: isCooldown ? 0 : 1,
+      delayWet: (isActive ? minigameValue : 1),
+      gain: engine.fn.fromDb(engine.fn.lerp(-12, -15, this.fish.value)),
     }
   },
   beginSequence: function () {
@@ -124,6 +139,8 @@ content.audio.fish.sound = engine.sound.extend({
     // Pass frequency
     this.rootFrequency = frequency
     this.filterModel.options.frequency = frequency
+
+    this.synth = synth
   },
   endSequence: function () {
     this.sequenceRunning = false

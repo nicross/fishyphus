@@ -38,6 +38,7 @@ content.audio.spots.sound = engine.sound.extend({
       amodDepth,
       amodFrequency,
       filterFrequency,
+      gain,
       minColor,
     } = this.calculateRealtimeParameters()
 
@@ -45,7 +46,7 @@ content.audio.spots.sound = engine.sound.extend({
       carrierGain: 1 - amodDepth,
       carrierFrequency: this.spot.rootFrequency,
       carrierType: 'square',
-      gain: 1,
+      gain,
       modDepth: amodDepth,
       modFrequency: amodFrequency,
       modType: 'square',
@@ -64,10 +65,12 @@ content.audio.spots.sound = engine.sound.extend({
       amodDepth,
       amodFrequency,
       filterFrequency,
+      gain,
       minColor,
     } = this.calculateRealtimeParameters()
 
     engine.fn.setParam(this.synth.filter.frequency, filterFrequency)
+    engine.fn.setParam(this.synth.param.gain, gain)
     engine.fn.setParam(this.synth.param.mod.depth, amodDepth)
     engine.fn.setParam(this.synth.param.mod.frequency, amodFrequency)
 
@@ -99,6 +102,7 @@ content.audio.spots.sound = engine.sound.extend({
       amodDepth: engine.fn.lerp(0.5, 0, innerRatio, 2),
       amodFrequency: engine.fn.lerp(8, 1, innerRatio, 2),
       filterFrequency: this.spot.rootFrequency * engine.fn.lerpExp(4, 8, engine.fn.lerpExp(1, angleRatio, innerRatio, 4), 4),
+      gain: 1 - content.minigame.isActiveAccelerated(),
       minColor: engine.fn.lerpExp(4, 0.5, innerRatio, 8),
     }
   },

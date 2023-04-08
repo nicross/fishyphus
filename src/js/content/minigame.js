@@ -76,6 +76,7 @@ content.minigame = (() => {
         // Set up data for next state
         data = {
           depth: 0,
+          depthValue: 0,
           fish,
           value: 0,
         }
@@ -90,6 +91,7 @@ content.minigame = (() => {
      * Casting state data:
      * - `alert`: whether the ideal depth has been surpassed
      * - `depth`: the current depth
+     * - `depthValue`: the current depth ratio
      * - `fish`: the target fish
      * - `value`: closeness to the sweet spot within [0, 1]
      *
@@ -111,6 +113,7 @@ content.minigame = (() => {
 
         // Increment depth at casting speed
         data.depth += castSpeed * delta
+        data.depthValue = engine.fn.clamp(data.depth / maxDepth)
 
         // Calculate the value of the sweet spot (one second in either direction)
         const distance = data.fish.distance
@@ -139,6 +142,7 @@ content.minigame = (() => {
      * Waiting state data:
      * - `alert`: whether the timer has reached zero
      * - `depth`: the current depth
+     * - `depthValue`: the current depth ratio
      * - `fish`: the target fish, deleted if canceled
      * - `timer`: the time remaining to reel
      *
@@ -180,6 +184,7 @@ content.minigame = (() => {
      * - `bonus`: the current bonus to reel speed
      * - `count`: the total number of reels
      * - `depth`: the current depth
+     * - `depthValue`: the current depth ratio
      * - `fish`: the target fish, deleted if canceled
      *
      * Emits:
@@ -203,6 +208,7 @@ content.minigame = (() => {
 
         // Decrease depth at reeling speed
         data.depth -= reelSpeed * (1 + data.bonus) * delta
+        data.depthValue = engine.fn.clamp(data.depth / maxDepth)
 
         // End reeling when depth crosses zero
         if (data.depth > 0) {
@@ -214,6 +220,7 @@ content.minigame = (() => {
         delete data.bonus
         delete data.count
         delete data.depth
+        delete data.depthValue
         delete data.fish
 
         if (fish) {
@@ -227,12 +234,8 @@ content.minigame = (() => {
     },
   }
 
-  let data = {}
-
-  function isAllowed() {
-    return (machine.is('inactive') || isDebug)
-      && content.fish.closest()
-  }
+  let isActiveAccelerated = 0,
+    data = {}
 
   return machine.pubsub.decorate({
     action: function () {
@@ -242,14 +245,22 @@ content.minigame = (() => {
     },
     data: () => ({...data}),
     isActive: () => !machine.is('inactive') && !isDebug,
-    isAllowed,
+    isActiveAccelerated: () => isActiveAccelerated,
+    isFish: (id) => data?.fish?.id == id,
     reset: function () {
+      isActiveAccelerated = 0
       machine.state = isDebug ? 'debug' : 'inactive'
 
       return this
     },
     state: () => machine.state,
     update: function () {
+      isActiveAccelerated = engine.fn.accelerateValue(
+        isActiveAccelerated,
+        this.isActive() ? 1 : 0,
+        2
+      )
+
       handlers[machine.state].update()
 
       return this

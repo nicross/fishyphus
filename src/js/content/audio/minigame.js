@@ -4,6 +4,9 @@ content.audio.minigame = (() => {
   return {
     bus: () => bus,
     reset: function () {
+      this.castingAlert.reset()
+      this.waitingAlert.reset()
+
       return this
     },
     update: function () {

@@ -32,17 +32,14 @@ content.movement = (() => {
 
       let {yaw} = engine.position.getEuler()
 
-      // Turn, when pressed and not in minigame
-      if (!isMinigame) {
-        // Calculate next yaw
-        yaw += (rotate * angularVelocity * delta)
-        yaw %= engine.const.tau
+      // Calculate next yaw
+      yaw += (rotate * angularVelocity * delta)
+      yaw %= engine.const.tau
 
-        // Apply next yaw
-        engine.position.setEuler({
-          yaw,
-        })
-      }
+      // Apply next yaw
+      engine.position.setEuler({
+        yaw,
+      })
 
       // Apply acceleration, when pressed and not in minigame
       if (x > 0 && !isMinigame) {

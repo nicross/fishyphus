@@ -107,7 +107,7 @@ content.monster = (() => {
 })()
 
 engine.ready(() => {
-  content.minigame.on('finish', () => {
+  content.minigame.on('success', () => {
     content.monster.applyStun()
   })
 })

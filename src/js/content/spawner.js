@@ -83,6 +83,7 @@ content.spawner = (() => {
     deactivateSpot: function (spot) {
       cooldowns[spot.id] = defaultCooldown
       activeSpots.delete(spot)
+      pubsub.emit('despawn', spot)
 
       return this
     },
@@ -115,7 +116,7 @@ content.spawner = (() => {
 })()
 
 engine.ready(() => {
-  content.minigame.on('start', ({fish}) => {
+  content.minigame.on('success', ({fish}) => {
     content.spawner.deactivateSpot(fish.spot)
   })
 })

@@ -166,7 +166,7 @@ app.haptics = (() => {
   }
 })()
 
-content.minigame.on('finish', () => {
+content.minigame.on('success', () => {
   app.haptics.enqueue({
     duration: 150,
     startDelay: 100,

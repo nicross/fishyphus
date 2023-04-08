@@ -96,10 +96,6 @@ engine.ready(() => {
   content.spawner.on('despawn', ({id}) => {
     content.fish.despawn(id)
   })
-
-  content.minigame.on('finish', ({fish}) => {
-    content.fish.despawn(fish.id)
-  })
 })
 
 engine.state.on('reset', () => content.fish.reset())

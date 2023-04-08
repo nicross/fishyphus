@@ -25,7 +25,7 @@ content.score = (() => {
 })()
 
 engine.ready(() => {
-  content.minigame.on('finish', () => content.score.increment())
+  content.minigame.on('success', () => content.score.increment())
 })
 
 engine.state.on('export', (data) => data.score = content.score.export())

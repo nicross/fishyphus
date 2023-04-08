@@ -78,7 +78,7 @@ app.screen.game.toasts = (() => {
 })()
 
 engine.ready(() => {
-  content.minigame.on('finish', () => {
+  content.minigame.on('success', () => {
     app.screen.game.toasts.enqueue(`<strong>${content.score.value()}</strong> fish`)
   })
 })

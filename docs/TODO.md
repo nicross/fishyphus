@@ -8,8 +8,8 @@ Items intended to be addressed before the jam ends:
   - Waiting stage
     - Repeating audio indicating waiting is in progress
     - Audio and haptic indicating time to start reeling
+    - Audio when canceling
     - Possible enhancements
-      - Ability to cancel by reeling early
       - False unsynchronized audio/haptic cues intended to deceive
   - Reeling stage
     - Audio indicating ascending depth
@@ -20,4 +20,4 @@ Items intended to be addressed before the jam ends:
   - Additional layer as death nears
   - Audio and haptics upon death
 - Polish
-  - ???
+  - Add frequency modulation to fishing spots which reacts to fish value

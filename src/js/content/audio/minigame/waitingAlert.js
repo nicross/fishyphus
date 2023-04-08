@@ -12,7 +12,7 @@ content.audio.minigame.waitingAlert = (() => {
       carrierGain: 1,
       carrierFrequency: engine.fn.fromMidi(48),
       carrierType: 'triangle',
-      gain: engine.fn.fromDb(-6),
+      gain: engine.fn.fromDb(-3),
       modDepth: 0,
       modFrequency: 8,
       modType: 'sine',
@@ -24,7 +24,7 @@ content.audio.minigame.waitingAlert = (() => {
     synth.param.carrierGain.exponentialRampToValueAtTime(2/3, now + decay)
     synth.param.mod.depth.exponentialRampToValueAtTime(1/3, now + decay)
 
-    synth.param.gain.exponentialRampToValueAtTime(engine.fn.fromDb(-18), now + decay)
+    synth.param.gain.exponentialRampToValueAtTime(engine.fn.fromDb(-15), now + decay)
   }
 
   function destroySynth() {
@@ -38,7 +38,7 @@ content.audio.minigame.waitingAlert = (() => {
     engine.fn.rampLinear(synth.param.carrierGain, 1, attack)
     engine.fn.rampLinear(synth.param.mod.depth, 0, attack)
 
-    engine.fn.rampExp(synth.param.gain, engine.fn.fromDb(-9), attack)
+    engine.fn.rampExp(synth.param.gain, engine.fn.fromDb(-6), attack)
     synth.param.gain.exponentialRampToValueAtTime(engine.const.zeroGain, now + attack + decay)
 
     synth.stop(now + attack + decay)

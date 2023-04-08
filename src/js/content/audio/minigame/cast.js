@@ -5,7 +5,7 @@ content.audio.minigame.cast = () => {
   const synth = engine.synth.amBuffer({
     buffer: content.audio.buffer.pinkNoise.get(0),
     carrierGain: 3/4,
-    gain: engine.fn.fromDb(-6),
+    gain: engine.fn.fromDb(-3),
     modDepth: 1/4,
     modFrequency: 16,
     modType: 'triangle',

@@ -23,7 +23,7 @@ content.audio.spots.sound = engine.sound.extend({
         )
       )
 
-      return engine.fn.fromDb(-33) * outerRatio
+      return outerRatio
     }
   }),
   relative: false,
@@ -79,6 +79,7 @@ content.audio.spots.sound = engine.sound.extend({
   // Methods
   calculateRealtimeParameters: function () {
     const maxDistance = 300,
+      minigameValue = 1 - content.minigame.isActiveAccelerated(),
       radiusInner = 5,
       radiusOuter = 50
 
@@ -102,7 +103,7 @@ content.audio.spots.sound = engine.sound.extend({
       amodDepth: engine.fn.lerp(0.5, 0, innerRatio, 2),
       amodFrequency: engine.fn.lerp(8, 1, innerRatio, 2),
       filterFrequency: this.spot.rootFrequency * engine.fn.lerpExp(4, 8, engine.fn.lerpExp(1, angleRatio, innerRatio, 4), 4),
-      gain: 1 - content.minigame.isActiveAccelerated(),
+      gain: engine.fn.fromDb(engine.fn.lerp(-27, -30, innerRatio)) * minigameValue,
       minColor: engine.fn.lerpExp(4, 0.5, innerRatio, 8),
     }
   },

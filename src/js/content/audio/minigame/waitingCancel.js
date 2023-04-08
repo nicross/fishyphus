@@ -5,7 +5,7 @@ content.audio.minigame.waitingCancel = (() => {
     const bus = content.audio.minigame.bus(),
       detune = engine.fn.randomFloat(-10, 10),
       frequency = engine.fn.fromMidi(36),
-      gain = engine.fn.fromDb(-18)
+      gain = engine.fn.fromDb(-15)
 
     const synth = engine.synth.am({
       carrierDetune: detune,

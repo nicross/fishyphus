@@ -5,7 +5,7 @@ content.audio.minigame.failure = () => {
   const synth = engine.synth.amBuffer({
     buffer: content.audio.buffer.pinkNoise.get(0),
     carrierGain: 3/4,
-    gain: engine.fn.fromDb(-6),
+    gain: engine.fn.fromDb(-3),
     modDepth: 1/4,
     modFrequency: engine.fn.randomFloat(2, 6),
     modType: 'triangle',

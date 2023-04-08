@@ -38,7 +38,7 @@ content.audio.minigame.success = (() => {
     const frequency = engine.fn.fromMidi(64)
 
     const synth = engine.synth.simple({
-      gain: engine.fn.fromDb(-18),
+      gain: engine.fn.fromDb(-15),
       frequency,
       type: 'triangle',
       when,
@@ -50,7 +50,7 @@ content.audio.minigame.success = (() => {
 
     synth.filter.detune.linearRampToValueAtTime(3600, when + duration)
     synth.param.detune.linearRampToValueAtTime(-3600, when + duration/8)
-    synth.param.gain.linearRampToValueAtTime(engine.fn.fromDb(-12), when + duration/8)
+    synth.param.gain.linearRampToValueAtTime(engine.fn.fromDb(-9), when + duration/8)
     synth.param.gain.linearRampToValueAtTime(engine.const.zeroGain, when + duration)
 
     synth.stop(when + duration)

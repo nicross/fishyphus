@@ -10,7 +10,7 @@ content.audio.minigame.castingAlert = (() => {
     synth = engine.synth.simple({
       detune,
       frequency: engine.fn.fromMidi(48),
-      gain: engine.fn.fromDb(-6),
+      gain: engine.fn.fromDb(-3),
       type: 'triangle',
     }).connect(bus)
 
@@ -28,7 +28,7 @@ content.audio.minigame.castingAlert = (() => {
     synth.param.detune.setValueAtTime(detune, now)
     synth.param.detune.linearRampToValueAtTime(detune + 1200, now + attack)
 
-    engine.fn.rampExp(synth.param.gain, engine.fn.fromDb(-9), attack)
+    engine.fn.rampExp(synth.param.gain, engine.fn.fromDb(-6), attack)
     synth.param.gain.exponentialRampToValueAtTime(engine.const.zeroGain, now + attack + decay)
 
     synth.stop(now + attack + decay)

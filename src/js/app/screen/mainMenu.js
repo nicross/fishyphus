@@ -50,7 +50,7 @@ app.screen.mainMenu = app.screenManager.invent({
 
     this.state.resetTimer = engine.time(1)
 
-    // Read scores to screen readers on button hover
+    // Read scores to screen readers on button focus
     this.rootElement.querySelector('.a-mainMenu--continue').setAttribute('aria-describedby', 'a-mainMenu--continueDescription')
     this.rootElement.querySelector('.a-mainMenu--newGame').setAttribute('aria-describedby', 'a-mainMenu--newGameDescription')
   },

@@ -25,6 +25,21 @@ app.screen.newGame = app.screenManager.invent({
       element.addEventListener('click', () => app.screenManager.dispatch(event))
     })
   },
+  onEnter: function () {
+    const highscore = app.storage.highscore.get(),
+      score = content.score.value() || app.storage.game.get()?.score || 0
+
+    const isHighscore = score > highscore
+
+    this.rootElement.querySelector('.a-newGame--isHighscore').hidden = !isHighscore
+    this.rootElement.querySelector('.a-newGame--scoreValue').innerHTML = score
+
+    // Read scores to screen readers on button focus
+    this.rootElement.querySelector('.a-newGame--back').setAttribute('aria-describedby', 'a-newGame--backDescription')
+  },
+  onExit: function () {
+    this.rootElement.querySelector('.a-newGame--back').removeAttribute('aria-describedby')
+  },
   onFrame: function () {
     const root = this.rootElement,
       ui = app.controls.ui()

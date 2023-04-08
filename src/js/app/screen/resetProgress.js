@@ -26,6 +26,16 @@ app.screen.resetProgress = app.screenManager.invent({
       element.addEventListener('click', () => app.screenManager.dispatch(event))
     })
   },
+  onEnter: function () {
+    const highscore = app.storage.highscore.get()
+
+    this.rootElement.querySelector('.a-resetProgress--back').setAttribute('aria-describedby', 'a-resetProgress--backDescription')
+    this.rootElement.querySelector('.a-resetProgress--highscoreValue').innerHTML = highscore + 1
+  },
+  onExit: function () {
+    // Read scores to screen readers on button focus
+    this.rootElement.querySelector('.a-resetProgress--back').removeAttribute('aria-describedby')
+  },
   onFrame: function () {
     const root = this.rootElement,
       ui = app.controls.ui()

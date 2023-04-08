@@ -1,17 +1,15 @@
-app.screen.clearProgress = app.screenManager.invent({
+app.screen.resetProgress = app.screenManager.invent({
   // Attributes
-  id: 'clear',
-  parentSelector: '.a-app--clear',
-  rootSelector: '.a-clear',
+  id: 'resetProgress',
+  parentSelector: '.a-app--resetProgress',
+  rootSelector: '.a-resetProgress',
   transitions: {
     back: function () {
       this.change('mainMenu')
     },
     confirm: function () {
-      // Clear progress 🤷‍♀️
       app.storage.game.clear()
       app.storage.highscore.clear()
-
       this.change('splash')
     },
   },
@@ -22,8 +20,8 @@ app.screen.clearProgress = app.screenManager.invent({
     const root = this.rootElement
 
     Object.entries({
-      back: root.querySelector('.a-clear--back'),
-      confirm: root.querySelector('.a-clear--confirm'),
+      back: root.querySelector('.a-resetProgress--back'),
+      confirm: root.querySelector('.a-resetProgress--confirm'),
     }).forEach(([event, element]) => {
       element.addEventListener('click', () => app.screenManager.dispatch(event))
     })

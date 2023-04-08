@@ -11,20 +11,6 @@
       <canvas class="a-app--canvas"></canvas>
       <canvas class="a-app--overlaySupport"></canvas>
 
-      <div class="a-app--screen a-app--clear">
-        <section class="c-screen a-clear" aria-label="Confirm Reset">
-          <h1 class="c-screen--title">Confirm Reset</h1>
-          <ul class="c-screen--actions">
-            <li class="c-screen--action">
-              <button class="c-menuButton a-clear--back" type="button">Keep Progress</button>
-            </li>
-            <li class="c-screen--action">
-              <button class="c-menuButton a-clear--confirm" type="button">Reset Progress</button>
-            </li>
-          </ul>
-        </section>
-      </div>
-
       <div class="a-app--screen a-app--screen-transparent a-app--game">
         <section class="c-screen a-game" tabindex="-1" aria-label="Game">
           <div class="a-game--toasts"></div>
@@ -72,11 +58,39 @@
                 <span class="a-mainMenu--isHighscore">A New Record</span>
               </span>
             </li>
-            <li class="c-screen--action a-mainMenu--action-clear">
-              <button class="c-menuButton a-mainMenu--clear" type="button">Reset Progress</button>
+            <li class="c-screen--action a-mainMenu--action-resetProgress">
+              <button class="c-menuButton a-mainMenu--resetProgress" type="button">Reset Progress</button>
             </li>
             <li class="c-screen--action a-mainMenu--action-quit">
               <button class="c-menuButton a-mainMenu--quit" type="button">Quit to Desktop</button>
+            </li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="a-app--screen a-app--newGame">
+        <section class="c-screen a-newGame" aria-label="Begin Expedition">
+          <h1 class="c-screen--title">Begin Expedition</h1>
+          <ul class="c-screen--actions">
+            <li class="c-screen--action">
+              <button class="c-menuButton a-newGame--back" type="button">Keep Current Expedition</button>
+            </li>
+            <li class="c-screen--action">
+              <button class="c-menuButton a-newGame--confirm" type="button">Begin Expedition</button>
+            </li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="a-app--screen a-app--resetProgress">
+        <section class="c-screen a-resetProgress" aria-label="Reset Progress">
+          <h1 class="c-screen--title">Reset Progress</h1>
+          <ul class="c-screen--actions">
+            <li class="c-screen--action">
+              <button class="c-menuButton a-resetProgress--back" type="button">Keep Current Progress</button>
+            </li>
+            <li class="c-screen--action">
+              <button class="c-menuButton a-resetProgress--confirm" type="button">Reset Progress</button>
             </li>
           </ul>
         </section>

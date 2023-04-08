@@ -7,24 +7,23 @@ app.screen.mainMenu = app.screenManager.invent({
     back: function () {
       this.change('splash')
     },
-    clear: function () {
-      this.change('clear')
-    },
     continue: function () {
       app.storage.game.load()
       this.change('game')
     },
     newGame: function () {
-      // Initialize game state 🤷‍♀️
-      engine.state.import({
-        bonus: app.storage.highscore.get(),
-        seed: engine.fn.randomInt(11111111111, 99999999999),
-      })
-
-      this.change('game')
+      if (app.storage.game.has()) {
+        this.change('newGame')
+      } else {
+        app.storage.game.new()
+        this.change('game')
+      }
     },
     quit: function () {
       app.quit()
+    },
+    resetProgress: function () {
+      this.change('resetProgress')
     },
   },
   // State
@@ -34,10 +33,10 @@ app.screen.mainMenu = app.screenManager.invent({
     const root = this.rootElement
 
     Object.entries({
-      clear: root.querySelector('.a-mainMenu--clear'),
       continue: root.querySelector('.a-mainMenu--continue'),
       newGame: root.querySelector('.a-mainMenu--newGame'),
       quit: root.querySelector('.a-mainMenu--quit'),
+        resetProgress: root.querySelector('.a-mainMenu--resetProgress'),
     }).forEach(([event, element]) => {
       element.addEventListener('click', () => app.screenManager.dispatch(event))
     })
@@ -45,8 +44,8 @@ app.screen.mainMenu = app.screenManager.invent({
     root.querySelector('.a-mainMenu--action-quit').hidden = !app.isElectron()
   },
   onEnter: function () {
-    this.rootElement.querySelector('.a-mainMenu--action-clear').hidden = !app.storage.highscore.has()
     this.rootElement.querySelector('.a-mainMenu--action-continue').hidden = !app.storage.game.has()
+    this.rootElement.querySelector('.a-mainMenu--action-resetProgress').hidden = !app.storage.highscore.has()
     this.updateScores()
 
     this.state.resetTimer = engine.time(1)

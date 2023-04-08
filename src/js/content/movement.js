@@ -2,7 +2,8 @@ content.movement = (() => {
   const acceleration = 3,
     angularVelocity = engine.const.tau / 4,
     deceleration = 3,
-    maxVelocity = 12
+    maxVelocity = 12,
+    minigameDeceleration = 6
 
   let velocity = engine.tool.vector2d.create()
 
@@ -58,7 +59,7 @@ content.movement = (() => {
           engine.fn.accelerateVector(
             velocity,
             {x: 0, y: 0},
-            deceleration,
+            isMinigame ? minigameDeceleration : deceleration,
           )
         )
       }
@@ -69,8 +70,6 @@ content.movement = (() => {
       if (magnitude > maxVelocity) {
         velocity = velocity.scale(maxVelocity / magnitude)
       }
-
-      // TODO: Decelerate when close to zero?
 
       // Apply velocity to position
       engine.position.setVector(

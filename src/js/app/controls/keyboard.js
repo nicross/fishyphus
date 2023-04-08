@@ -24,11 +24,11 @@ app.controls.keyboard = {
       state.rotate = -1
     }
 
-    // Action braking
+    // Action
     const action = mappings.action.reduce(checkMapping, false)
 
     if (action) {
-      state.x = -1
+      state.action = true
     }
 
     return state

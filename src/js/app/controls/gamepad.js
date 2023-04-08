@@ -69,11 +69,11 @@ app.controls.gamepad = {
       state.rotate = Math.min(state.rotate || 0, -turnRight)
     }
 
-    // Action braking
+    // Action
     const action = mappings.action.reduce(getAnalog, 0)
 
     if (action) {
-      state.x = -1
+      state.action = true
     }
 
     return state

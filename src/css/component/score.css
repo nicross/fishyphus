@@ -1,0 +1,49 @@
+.c-score {
+  align-items: center;
+  display: inline-flex;
+}
+  .c-score--item {
+    flex: 0 0 auto;
+    margin-left: 1rem;
+  }
+    .c-score--item-high {
+      animation: c-score-animation 2s linear 0s infinite alternate both;
+    }
+    .c-score--item-record {
+      animation: c-score-animation 2s ease-in-out 0s infinite alternate both;
+      font-family: RobotoBold, sans-serif;
+      foint-weight: 700;
+      font-size: 0.75em;
+      text-transform: uppercase;
+    }
+  .c-score--label {
+    vertical-align: middle;
+  }
+  .c-score--value {
+    font-family: FiraCodeMedium, monospace;
+    font-size: 2em;
+    font-weight: 500;
+    vertical-align: middle;
+  }
+
+.c-score-wide {
+  display: flex;
+}
+  .c-score-wide .c-score--item {
+    margin-left: 0;
+  }
+  .c-score-wide .c-score--item + .c-score--item {
+    margin-left: 2rem;
+  }
+
+@keyframes c-score-animation {
+  0% {
+    color: hsl(360, 100%, 50%);
+  }
+  50% {
+    color: hsl(240, 100%, 50%);
+  }
+  100% {
+    color: hsl(360, 100%, 50%);
+  }
+}

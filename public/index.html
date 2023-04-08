@@ -20,16 +20,12 @@
       <div class="a-app--screen a-app--gameOver">
         <section class="c-screen a-gameOver" tabindex="-1">
           <h1 class="c-screen--title">Death Arrives</h1>
-          <div class="a-gameOver--scores">
-            <p class="a-gameOver--score">
-              <strong class="a-gameOver--scoreValue">0</strong>
-              <span class="a-gameOver--scoreLabel">fish acquired</span>
+          <div class="c-score c-score-wide">
+            <p class="c-score--item">
+              <strong class="c-score--value a-gameOver--scoreValue">0</strong>
+              <span class="c-screen--label">fish acquired</span>
             </p>
-            <p class="a-gameOver--isHighscore">A New Record</p>
-            <p class="a-gameOver--highscore">
-              <strong class="a-gameOver--highscoreValue">0</strong>
-              <span class="a-gameOver--highscoreLabel">fish to win</span>
-            </p>
+            <p class="c-score--item c-score--item-record a-gameOver--isHighscore">A New Record</p>
           </div>
           <p class="a-gameOver--instruction">Interact to Continue</p>
         </section>
@@ -41,21 +37,21 @@
           <ul class="c-screen--actions">
             <li class="c-screen--action a-mainMenu--action-continue">
               <button class="c-menuButton a-mainMenu--continue" type="button" aria-describedby="a-mainMenu--continueDescription">Resume Expedition</button>
-              <span id="a-mainMenu--continueDescription" class="a-mainMenu--scoreWrapper">
-                <span class="a-mainMenu--score">
-                  <strong class="a-mainMenu--scoreValue">0</strong>
-                  <span class="a-mainMenu--scoreLabel">fish acquired</span>
+              <span id="a-mainMenu--continueDescription" class="c-score a-mainMenu--score">
+                <span class="c-score--item">
+                  <strong class="c-score--value a-mainMenu--scoreValue">0</strong>
+                  <span class="c-score--label">fish acquired</span>
                 </span>
+                <span class="c-score--item c-score--item-record a-mainMenu--isHighscore">A New Record</span>
               </span>
             </li>
             <li class="c-screen--action">
               <button class="c-menuButton a-mainMenu--newGame" type="button" aria-describedby="a-mainMenu--newGameDescription">Begin Expedition</button>
-              <span id="a-mainMenu--newGameDescription" class="a-mainMenu--scoreWrapper">
-                <span class="a-mainMenu--highscore">
-                  <strong class="a-mainMenu--highscoreValue">0</strong>
-                  <span class="a-mainMenu--highscoreLabel">fish to win</span>
+              <span id="a-mainMenu--newGameDescription" class="c-score a-mainMenu--highscore">
+                <span class="c-score--item c-score--item-high">
+                  <strong class="c-score--value a-mainMenu--highscoreValue">0</strong>
+                  <span class="c-score--label">fish to win</span>
                 </span>
-                <span class="a-mainMenu--isHighscore">A New Record</span>
               </span>
             </li>
             <li class="c-screen--action a-mainMenu--action-resetProgress">

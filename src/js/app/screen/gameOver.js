@@ -18,8 +18,6 @@ app.screen.gameOver = app.screenManager.invent({
 
     const isHighscore = score > highscore
 
-    this.rootElement.querySelector('.a-gameOver--highscore').hidden = isHighscore
-    this.rootElement.querySelector('.a-gameOver--highscoreValue').innerHTML = highscore + 1
     this.rootElement.querySelector('.a-gameOver--isHighscore').hidden = !isHighscore
     this.rootElement.querySelector('.a-gameOver--scoreValue').innerHTML = score
 

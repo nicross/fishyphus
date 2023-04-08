@@ -8,35 +8,6 @@
     right: 2rem;
     text-transform: uppercase;
   }
-  .a-gameOver--highscore {
-    animation: a-gameOver--highscore 2s linear 0s infinite alternate both;
-  }
-  .a-gameOver--highscoreValue,
-  .a-gameOver--scoreValue {
-    font-family: FiraCodeMedium, monospace;
-    font-weight: 500;
-  }
-  .a-gameOver--scoreLabel {
-    vertical-align: middle;
-  }
-  .a-gameOver--scoreValue {
-    vertical-align: middle;
-    font-size: 2em;
-  }
-  .a-gameOver--isHighscore {
-    animation: a-gameOver--highscore 2s ease-in-out 0s infinite alternate both;
-    text-transform: uppercase;
-  }
-  .a-gameOver--scores {
-    align-items: center;
-    display: flex;
-  }
-  .a-gameOver--scores > * {
-    flex: 0 0 auto;
-  }
-  .a-gameOver--scores > * + * {
-    margin-left: 2em;
-  }
 
 @keyframes a-gameOver--instruction {
   0% {
@@ -44,17 +15,5 @@
   }
   100% {
     opacity: 1.0;
-  }
-}
-
-@keyframes a-gameOver--highscore {
-  0% {
-    color: hsl(360, 100%, 50%);
-  }
-  50% {
-    color: hsl(240, 100%, 50%);
-  }
-  100% {
-    color: hsl(360, 100%, 50%);
   }
 }

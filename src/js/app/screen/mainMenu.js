@@ -107,7 +107,7 @@ app.screen.mainMenu = app.screenManager.invent({
 
     const isHighscore = score > highscore
 
-    this.rootElement.querySelector('.a-mainMenu--highscore').hidden = isHighscore
+    this.rootElement.querySelector('.a-mainMenu--highscore').hidden = highscore == 0 && app.storage.game.has()
     this.rootElement.querySelector('.a-mainMenu--highscoreValue').innerHTML = highscore + 1
     this.rootElement.querySelector('.a-mainMenu--isHighscore').hidden = !isHighscore
     this.rootElement.querySelector('.a-mainMenu--scoreValue').innerHTML = score

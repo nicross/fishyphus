@@ -157,6 +157,10 @@ void main(void) {
 
     // Fish
     for (const fish of content.fish.all()) {
+      if (content.minigame.isFish(fish.id)) {
+        continue
+      }
+
       if (Math.random() > 0.25) {
         continue
       }

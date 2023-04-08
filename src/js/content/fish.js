@@ -7,6 +7,10 @@ content.fish = (() => {
   let closest
 
   function updateOne(fish) {
+    if (content.minigame.isFish(fish.id)) {
+      return
+    }
+
     const delta = engine.loop.delta(),
       position = engine.position.getVector()
 

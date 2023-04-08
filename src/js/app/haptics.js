@@ -166,25 +166,82 @@ app.haptics = (() => {
   }
 })()
 
+// Minigame
+content.minigame.on('inactive-disallowed', () => {
+  app.haptics.enqueue({
+    duration: 50,
+    startDelay: 0,
+    strongMagnitude: 1,
+    weakMagnitude: 1,
+  })
+
+  app.haptics.enqueue({
+    duration: 50,
+    startDelay: 250,
+    strongMagnitude: 1,
+    weakMagnitude: 1,
+  })
+})
+
+content.minigame.on('casting-alert', () => {
+  app.haptics.enqueue({
+    duration: 250,
+    startDelay: 0,
+    strongMagnitude: 1,
+    weakMagnitude: 1,
+  })
+})
+
+content.minigame.on('waiting-alert', () => {
+  app.haptics.enqueue({
+    duration: 250,
+    startDelay: 0,
+    strongMagnitude: 1,
+    weakMagnitude: 1,
+  })
+})
+
+content.minigame.on('reeling-bonus', () => {
+  const bonus = engine.fn.clamp(
+    content.minigame.data().bonus / 4
+  )
+
+  app.haptics.enqueue({
+    duration: 100,
+    startDelay: 0,
+    strongMagnitude: bonus,
+    weakMagnitude: bonus,
+  })
+})
+
+content.minigame.on('failure', () => {
+  app.haptics.enqueue({
+    duration: 100,
+    startDelay: 100,
+    strongMagnitude: 1,
+    weakMagnitude: 1,
+  })
+})
+
 content.minigame.on('success', () => {
   app.haptics.enqueue({
-    duration: 150,
+    duration: 100,
     startDelay: 100,
     strongMagnitude: 1,
     weakMagnitude: 1,
   })
 
   app.haptics.enqueue({
-    duration: 150,
+    duration: 100,
     startDelay: 300,
-    strongMagnitude: 0.75,
-    weakMagnitude: 0.75,
+    strongMagnitude: 1,
+    weakMagnitude: 1,
   })
 
   app.haptics.enqueue({
-    duration: 150,
+    duration: 100,
     startDelay: 500,
-    strongMagnitude: 0.5,
-    weakMagnitude: 0.5,
+    strongMagnitude: 1,
+    weakMagnitude: 1,
   })
 })

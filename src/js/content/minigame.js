@@ -6,7 +6,7 @@ content.minigame = (() => {
     reelBonusAcceleration = 1, // value per bonus per second
     reelBonusMultiplier = 0.5, // added speed per reel per count
     reelSpeed = 5, // meters per second
-    waitTimerFactor = 1/5 // seconds per difference in depth
+    waitTimerFactor = 1/5 // seconds per depth
 
   const machine = engine.tool.fsm.create({
     state: isDebug ? 'debug' : 'inactive',
@@ -99,7 +99,7 @@ content.minigame = (() => {
     casting: {
       action: () => {
         // Set up data for next state
-        data.timer = Math.max(1, (data.depth - data.fish.distance) * waitTimerFactor)
+        data.timer = Math.max(1, data.fish.distance * waitTimerFactor)
 
         delete data.alert
         delete data.value
@@ -124,7 +124,7 @@ content.minigame = (() => {
         }
 
         // Alert once at best depth
-        if (!data.alert && data.depth >= data.fish.z - delta) {
+        if (!data.alert && data.depth >= distance) {
           data.alert = true
           machine.pubsub.emit('casting-alert')
         }
@@ -193,7 +193,7 @@ content.minigame = (() => {
         data.count += 1
         data.bonus = 1 + (data.count * reelBonusMultiplier)
 
-        machine.pubsub.emit('reel-bonus')
+        machine.pubsub.emit('reeling-bonus')
       },
       update: () => {
         const delta = engine.loop.delta()

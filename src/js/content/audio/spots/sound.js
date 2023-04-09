@@ -38,18 +38,23 @@ content.audio.spots.sound = engine.sound.extend({
       amodDepth,
       amodFrequency,
       filterFrequency,
+      fmodDepth,
+      fmodFrequency,
       gain,
       minColor,
     } = this.calculateRealtimeParameters()
 
-    this.synth = engine.synth.am({
+    this.synth = engine.synth.mod({
+      amodDepth: amodDepth,
+      amodFrequency: amodFrequency,
+      amodType: 'square',
       carrierGain: 1 - amodDepth,
       carrierFrequency: this.spot.rootFrequency,
       carrierType: 'square',
+      fmodDepth: fmodDepth,
+      fmodFrequency: fmodFrequency,
+      fmodType: 'square',
       gain,
-      modDepth: amodDepth,
-      modFrequency: amodFrequency,
-      modType: 'square',
     }).filtered({
       frequency: filterFrequency,
     }).connect(this.output)
@@ -65,20 +70,26 @@ content.audio.spots.sound = engine.sound.extend({
       amodDepth,
       amodFrequency,
       filterFrequency,
+      fmodDepth,
+      fmodFrequency,
       gain,
       minColor,
     } = this.calculateRealtimeParameters()
 
+    engine.fn.setParam(this.synth.param.amod.depth, amodDepth)
+    engine.fn.setParam(this.synth.param.amod.frequency, amodFrequency)
     engine.fn.setParam(this.synth.filter.frequency, filterFrequency)
+    engine.fn.setParam(this.synth.param.fmod.depth, fmodDepth)
+    engine.fn.setParam(this.synth.param.fmod.frequency, fmodFrequency)
     engine.fn.setParam(this.synth.param.gain, gain)
-    engine.fn.setParam(this.synth.param.mod.depth, amodDepth)
-    engine.fn.setParam(this.synth.param.mod.frequency, amodFrequency)
 
     this.filterModel.options.minColor = minColor
   },
   // Methods
   calculateRealtimeParameters: function () {
-    const maxDistance = 300,
+    const fish = content.fish.get(this.spot.id),
+      fishValue = fish?.value || 0,
+      maxDistance = 300,
       minigameValue = 1 - content.minigame.isActiveAccelerated(),
       radiusInner = 5,
       radiusOuter = 50
@@ -103,6 +114,8 @@ content.audio.spots.sound = engine.sound.extend({
       amodDepth: engine.fn.lerp(0.5, 0, innerRatio, 2),
       amodFrequency: engine.fn.lerp(8, 1, innerRatio, 2),
       filterFrequency: this.spot.rootFrequency * engine.fn.lerpExp(4, 8, engine.fn.lerpExp(1, angleRatio, innerRatio, 4), 4),
+      fmodDepth: this.spot.rootFrequency * engine.fn.lerpExp(0, 1/3, fishValue, 2),
+      fmodFrequency: this.spot.rootFrequency * engine.fn.lerpExp(1, 2/3, fishValue, 2),
       gain: engine.fn.fromDb(engine.fn.lerp(-30, -33, innerRatio)) * minigameValue,
       minColor: engine.fn.lerpExp(4, 0.5, innerRatio, 8),
     }

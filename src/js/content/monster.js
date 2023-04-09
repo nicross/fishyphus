@@ -36,7 +36,7 @@ content.monster = (() => {
     getStunValue: () => engine.fn.clamp(stun / maxStun),
     import: function (data = {}) {
       position = engine.tool.vector3d.create(data.position || {
-        z: -(this.dangerDistance()/2 + content.bonus.startBonus()),
+        z: -(this.dangerDistance()/3 + content.bonus.startBonus()),
       })
 
       stun = Number(data.stun) || 0

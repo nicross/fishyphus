@@ -14,7 +14,7 @@ content.audio.monster.sub = (() => {
 
     return {
       amodDepth,
-      amodFrequency: engine.fn.lerpExp(1/30, 4, strength, 4),
+      amodFrequency: engine.fn.lerpExp(1/30, 16, strength, 4),
       carrierDetune: engine.fn.lerp(0, -2400, stun),
       carrierFrequency: frequency,
       carrierGain: 1 - amodDepth,

@@ -46,6 +46,9 @@ content.fish = (() => {
 
       return this
     },
+    get: function (id) {
+      return this.all().find((fish) => fish.id == id)
+    },
     reset: function () {
       closest = undefined
       fishes.clear()

@@ -1,4 +1,6 @@
 content.monster = (() => {
+  const pubsub= engine.tool.pubsub.create()
+
   const dangerTime = 120,
     killDistance = 1,
     minStun = 15,
@@ -10,12 +12,15 @@ content.monster = (() => {
     stun = 0,
     stunAccelerated = 0
 
-  return {
+  return pubsub.decorate({
     applyStun: function () {
       stun += minStun + content.bonus.stunBonus()
       stun = Math.min(stun, maxStun)
 
       return this
+    },
+    dangerCountdown: function () {
+      return (this.distance() + killDistance) / this.normalVelocity()
     },
     dangerDistance: function () {
       return this.normalVelocity() * dangerTime
@@ -44,9 +49,6 @@ content.monster = (() => {
       stunAccelerated = stun
 
       return this
-    },
-    isKill: function () {
-      return !this.isStunned() && this.distance() <= killDistance
     },
     isStunned: () => stun > 0,
     normal: () => {
@@ -101,9 +103,14 @@ content.monster = (() => {
 
       position = position.add(velocity)
 
+      // Detect kills
+      if (this.distance() <= killDistance) {
+        pubsub.emit('kill')
+      }
+
       return this
     },
-  }
+  })
 })()
 
 engine.ready(() => {

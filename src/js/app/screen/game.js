@@ -48,13 +48,11 @@ app.screen.game = app.screenManager.invent({
     }
 
     content.movement.update(game)
-    this.toasts.update()
-
-    // Handle monster
     content.monster.update()
-
-    if (content.monster.isKill()) {
-      return app.screenManager.dispatch('kill')
-    }
+    
+    this.toasts.update()
   },
 })
+
+// Handle kill 🤷‍♀️
+content.monster.on('kill', () => app.screenManager.dispatch('kill'))

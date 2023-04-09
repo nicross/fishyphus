@@ -5,6 +5,8 @@ app.storage.game = {
   set: (value) => app.storage.set('game', value),
   // Helpers
   new: function () {
+    this.clear()
+
     engine.state.import({
       bonus: app.storage.highscore.get(),
       seed: engine.fn.randomInt(11111111111, 99999999999),

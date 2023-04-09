@@ -7,7 +7,7 @@ content.audio.minigame.reelingBonus = () => {
 
   const synth = engine.synth.simple({
     detune,
-    gain: engine.fn.fromDb(-9),
+    gain: engine.fn.fromDb(-6),
     frequency: engine.fn.fromMidi(36),
   }).connect(bus)
 

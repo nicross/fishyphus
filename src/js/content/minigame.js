@@ -111,7 +111,7 @@ content.minigame = (() => {
     casting: {
       action: () => {
         // Set up data for next state
-        data.timer = Math.max(1, (data.fish.distance/2 + (data.depth - data.fish.distance)) * waitTimerFactor)
+        data.timer = Math.max(1, (data.fish.distance + Math.abs(data.depth - data.fish.distance)) * waitTimerFactor)
 
         delete data.alert
         delete data.value

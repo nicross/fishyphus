@@ -1,7 +1,7 @@
 content.fish = (() => {
   const distanceMax = 50,
     distanceMin = 5,
-    fishAcceleration = 6 / distanceMax,
+    fishAcceleration = 5 / distanceMax,
     fishes = new Map()
 
   let closest
@@ -20,7 +20,7 @@ content.fish = (() => {
         distanceMin, distanceMax,
         1, 0
       )
-    ) ** 0.5
+    ) ** 0.75
 
     fish.value = engine.fn.accelerateValue(fish.value, targetValue, fishAcceleration)
     fish.distance = engine.fn.lerp(distanceMax, distanceMin, fish.value)

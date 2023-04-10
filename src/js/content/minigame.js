@@ -5,7 +5,7 @@ content.minigame = (() => {
     cooldownTime = 1, // seconds
     maxDepth = 50, // meters
     reelBonusAcceleration = 1, // value per bonus per second
-    reelBonusMultiplier = 0.5, // added speed per reel per count
+    reelBonusMultiplier = 1/4, // added speed per reel per count
     reelSpeed = 5, // meters per second
     waitTimerFactor = 1/5 // seconds per depth
 

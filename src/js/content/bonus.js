@@ -16,8 +16,19 @@ content.bonus = (() => {
 
       return this
     },
-    stunBonus: () => 5 * bonus, // seconds
-    startBonus: () => 5 * bonus * content.monster.normalVelocity(), // meters
+    // Bonuses
+    rushBonus: () => {
+      // Kill player no matter what
+      if (!bonus) {
+        return 0
+      }
+
+      // Otherwise provide a growing buffer zone
+      return (30 + (5 * bonus)) * content.monster.normalVelocity() // meters
+    },
+    spawnBonus: () => 1 + Math.ceil(bonus / 2), // fish
+    stunBonus: () => bonus, // seconds per stun
+    startBonus: () => 5 * bonus * content.monster.normalVelocity(), // meters below danger distance
   }
 })()
 

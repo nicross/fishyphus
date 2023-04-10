@@ -111,11 +111,11 @@ content.audio.spots.sound = engine.sound.extend({
     )
 
     return {
-      amodDepth: engine.fn.lerp(0.5, 0, innerRatio, 2),
-      amodFrequency: engine.fn.lerp(8, 1, innerRatio, 2),
+      amodDepth: engine.fn.lerp(0, 0.5, fishValue, 2),
+      amodFrequency: engine.fn.lerp(1, 8, fishValue, 2),
       filterFrequency: this.spot.rootFrequency * engine.fn.lerpExp(4, 8, engine.fn.lerpExp(1, angleRatio, innerRatio, 4), 4),
-      fmodDepth: this.spot.rootFrequency * engine.fn.lerpExp(0, 1/3, fishValue, 2),
-      fmodFrequency: this.spot.rootFrequency * engine.fn.lerpExp(1, 2/3, fishValue, 2),
+      fmodDepth: this.spot.rootFrequency * engine.fn.lerpExp(1/2, 0, innerRatio, 2),
+      fmodFrequency: this.spot.rootFrequency * engine.fn.lerpExp(1/2, 1, innerRatio, 2),
       gain: engine.fn.fromDb(engine.fn.lerp(-30, -33, innerRatio)) * minigameValue,
       minColor: engine.fn.lerpExp(4, 0.5, innerRatio, 8),
     }

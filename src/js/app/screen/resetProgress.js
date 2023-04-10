@@ -10,7 +10,8 @@ app.screen.resetProgress = app.screenManager.invent({
     confirm: function () {
       app.storage.game.clear()
       app.storage.highscore.clear()
-      this.change('splash')
+
+      this.change('mainMenu')
     },
   },
   // State

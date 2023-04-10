@@ -5,7 +5,7 @@ content.audio.minigame.success = (() => {
     const when = engine.time(delay)
 
     const detune = engine.fn.randomFloat(-10, 10),
-      frequency = engine.fn.fromMidi(72),
+      frequency = engine.fn.fromMidi(67),
       gain = engine.fn.fromDb(-18)
 
     const synth = engine.synth.simple({
@@ -25,7 +25,7 @@ content.audio.minigame.success = (() => {
     synth.param.gain.linearRampToValueAtTime(engine.const.zeroGain, when + duration)
 
     synth.param.detune.setValueAtTime(detune, when + duration/9)
-    synth.param.detune.linearRampToValueAtTime(detune + 1600, when + duration/6)
+    synth.param.detune.linearRampToValueAtTime(detune + 1500, when + duration/6)
 
     synth.filter.frequency.exponentialRampToValueAtTime(frequency * 8, when + duration/2)
 
@@ -35,7 +35,7 @@ content.audio.minigame.success = (() => {
   function drop(delay = 0) {
     const when = engine.time(delay)
 
-    const frequency = engine.fn.fromMidi(64)
+    const frequency = engine.fn.fromMidi(60)
 
     const synth = engine.synth.simple({
       gain: engine.fn.fromDb(-15),

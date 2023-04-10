@@ -19,7 +19,7 @@ content.audio.monster.rumble = (() => {
       amodFrequency: engine.fn.lerpExp(1, 64, strength, 16),
       carrierGain: 1 - amodDepth,
       filterFrequency: frequency * color,
-      gain: engine.fn.fromDb(engine.fn.lerp(engine.const.zeroDb, -3, strength)),
+      gain: engine.fn.fromDb(engine.fn.lerp(engine.const.zeroDb, -6, strength)),
       playbackRate: engine.fn.lerpExp(engine.const.zero, 1, strength, 4),
     }
   }

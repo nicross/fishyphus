@@ -1,9 +1,26 @@
 # TODO
 Items intended to be addressed before the jam ends:
 
-- Fishing minigame
-  - False unsynchronized audio/haptic cues intended to deceive
 - Monster music
   - Evolving pads forming a triad with the bass
-  - Additional layer as death nears
-  - Audio and haptics upon death
+
+## Other interactions
+There's a lot of time left in the jam to add interesting mechanics.
+Some ideas:
+
+### Throwing back fish
+- Score as inventory
+- Attracts the monster temporarily
+- Possibly moving down or away
+- Bonuses
+  - Fish life
+  - Fish speed
+
+### Depth charges
+- Acquired after significant high scores
+- Deals actual damage
+- Monster dies after three hits, with respawn timer
+- Bonuses
+  - Depth charge count
+  - Depth charge damage
+  - Depth charge range

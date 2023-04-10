@@ -29,7 +29,7 @@ content.audio.minigame.waiting = (() => {
       amFrequency: engine.fn.lerp(1, 2, valuePost),
       fmDepth: engine.fn.lerp(0.5, 1, valuePre),
       fmFrequency: engine.fn.lerp(1, 2, valuePost),
-      gain: engine.fn.fromDb(engine.fn.lerp(-9, -6, valuePost)),
+      gain: engine.fn.fromDb(engine.fn.lerp(-12, -6, valuePost)),
     }
   }
 

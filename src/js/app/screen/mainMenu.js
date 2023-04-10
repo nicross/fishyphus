@@ -36,7 +36,7 @@ app.screen.mainMenu = app.screenManager.invent({
       continue: root.querySelector('.a-mainMenu--continue'),
       newGame: root.querySelector('.a-mainMenu--newGame'),
       quit: root.querySelector('.a-mainMenu--quit'),
-        resetProgress: root.querySelector('.a-mainMenu--resetProgress'),
+      resetProgress: root.querySelector('.a-mainMenu--resetProgress'),
     }).forEach(([event, element]) => {
       element.addEventListener('click', () => app.screenManager.dispatch(event))
     })

@@ -35,12 +35,12 @@ gulp electron
 gulp electron-build
 ```
 
-### Start web server
+#### Start web server
 ```sh
 gulp serve
 ```
 
-### Start web server and build continuously
+#### Start web server and build continuously
 ```sh
 gulp dev
 ```

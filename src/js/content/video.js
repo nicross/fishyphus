@@ -31,7 +31,9 @@ engine.loop.on('frame', ({paused}) => {
     return
   }
 
-  content.video.draw()
+  if (content.gl.context()) {
+    content.video.draw()
+  }
 })
 
 engine.state.on('import', () => {

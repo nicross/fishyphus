@@ -10,7 +10,9 @@ content.audio.monster = (() => {
         return this
       }
 
+      this.rumble.create()
       this.sub.create()
+
       isActive = true
 
       return this
@@ -20,7 +22,9 @@ content.audio.monster = (() => {
         return this
       }
 
+      this.rumble.destroy()
       this.sub.destroy()
+
       isActive = false
 
       return this
@@ -30,6 +34,7 @@ content.audio.monster = (() => {
 
       if (value) {
         if (isActive) {
+          this.rumble.update()
           this.sub.update()
         } else {
           this.create()

@@ -131,7 +131,7 @@ content.minigame = (() => {
         if (engine.fn.between(data.depth, distance - castSpeed, distance)) {
           data.value = engine.fn.scale(data.depth, distance - castSpeed, distance, 0, 1)
         } else if (engine.fn.between(data.depth, distance, distance + castSpeed)) {
-          data.value = engine.fn.scale(data.depth, distance - castSpeed, distance, 1, 0)
+          data.value = engine.fn.scale(data.depth, distance, distance + castSpeed, 1, 0)
         } else {
           data.value = 0
         }

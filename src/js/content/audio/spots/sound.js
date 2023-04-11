@@ -89,6 +89,7 @@ content.audio.spots.sound = engine.sound.extend({
   calculateRealtimeParameters: function () {
     const fish = content.fish.get(this.spot.id),
       fishValue = fish?.value || 0,
+      isActive = content.minigame.isFish(this.spot.id),
       maxDistance = 300,
       minigameValue = 1 - content.minigame.isActiveAccelerated(),
       radiusInner = 5,
@@ -110,13 +111,17 @@ content.audio.spots.sound = engine.sound.extend({
       )
     )
 
+    const minigameRatio = isActive
+      ? minigameValue
+      : engine.fn.lerp(1/4, 1, minigameValue)
+
     return {
       amodDepth: engine.fn.lerp(0, 0.5, fishValue, 2),
       amodFrequency: engine.fn.lerp(1, 8, fishValue, 2),
       filterFrequency: this.spot.rootFrequency * engine.fn.lerpExp(4, 8, engine.fn.lerpExp(1, angleRatio, innerRatio, 4), 4),
       fmodDepth: this.spot.rootFrequency * engine.fn.lerpExp(1/2, 0, innerRatio, 2),
       fmodFrequency: this.spot.rootFrequency * engine.fn.lerpExp(1/2, 1, innerRatio, 2),
-      gain: engine.fn.fromDb(engine.fn.lerp(-30, -33, innerRatio)) * minigameValue,
+      gain: engine.fn.fromDb(engine.fn.lerp(-30, -33, innerRatio)) * minigameRatio,
       minColor: engine.fn.lerpExp(4, 0.5, innerRatio, 8),
     }
   },

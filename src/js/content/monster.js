@@ -65,7 +65,10 @@ content.monster = (() => {
       }))
 
       // Prefer imported state, otherwise calculate initial value
-      spawnTimer = Number(data.spawnTimer) || content.bonus.spawnBonus()
+      spawnTimer = 'spawnTimer' in data
+        ? Number(data.spawnTimer) || 0
+        : content.bonus.spawnBonus()
+
       spawnTimer = Math.max(0, spawnTimer)
 
       stun = Number(data.stun) || 0

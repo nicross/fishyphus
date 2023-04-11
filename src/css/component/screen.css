@@ -10,14 +10,25 @@
     outline: 0;
   }
   .c-screen > * + *,
+  .c-screen--actions > * + *,
+  .c-screen--fields > * + *,
   .c-screen--items > * + * {
     margin-top: 1rem;
   }
-  .c-screen--action + .c-screen--action {
-    margin-top: 1em;
+  .c-screen--actions,
+  .c-screen--description,
+  .c-screen--fields {
+    margin-top: 2rem;
   }
   .c-screen--actions {
     list-style-type: none;
+  }
+  .c-screen--field {
+    line-height: 1;
+  }
+  .c-screen--label {
+    display: block;
+    margin-bottom: 0.25em;
   }
   .c-screen--title {
     background: -webkit-linear-gradient(hsl(240, 100%, 66.666%), hsl(360, 100%, 50%));

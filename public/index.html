@@ -60,6 +60,9 @@
                 </span>
               </span>
             </li>
+            <li class="c-screen--action">
+              <button class="c-menuButton a-mainMenu--settings" type="button">Settings</button>
+            </li>
             <li class="c-screen--action a-mainMenu--action-resetProgress">
               <button class="c-menuButton a-mainMenu--resetProgress" type="button">Reset Progress</button>
             </li>
@@ -106,6 +109,46 @@
             </li>
             <li class="c-screen--action">
               <button class="c-menuButton a-resetProgress--confirm" type="button">Reset Progress</button>
+            </li>
+          </ul>
+        </section>
+      </div>
+
+      <div class="a-app--screen a-app--settings">
+        <section class="c-screen a-settings" aria-label="Settings">
+          <h1 class="c-screen--title">Settings</h1>
+          <div class="c-screen--fields">
+            <div class="c-screen--field">
+              <label class="c-screen--label" for="a-settings--mainVolumeInput">Main Volume</label>
+              <div class="c-slider a-settings--mainVolume">
+                <div class="c-slider--input">
+                  <input id="a-settings--mainVolumeInput" max="10" min="0" step="1" type="range" />
+                </div>
+                <div class="c-slider--value"></div>
+              </div>
+            </div>
+            <div class="c-screen--field">
+              <label class="c-screen--label" for="a-settings--gamepadVibrationInput">Gamepad Vibration</label>
+              <div class="c-slider a-settings--gamepadVibration">
+                <div class="c-slider--input">
+                  <input id="a-settings--gamepadVibrationInput" max="10" min="0" step="1" type="range" />
+                </div>
+                <div class="c-slider--value"></div>
+              </div>
+            </div>
+            <div class="c-screen--field">
+              <div class="c-screen--label" id="a-settings--graphicsOnLabel">Enable Graphics</div>
+              <div class="c-toggle a-settings--graphicsOn">
+                <button class="c-toggle--button" role="switch" aria-checked="false" aria-labeledby="a-settings--graphicsOnLabel">
+                  <span class="c-toggle--off">Off</span>
+                  <span class="c-toggle--on">On</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <ul class="c-screen--actions">
+            <li class="c-screen--action">
+              <button class="c-menuButton a-settings--back" type="button">Back</button>
             </li>
           </ul>
         </section>

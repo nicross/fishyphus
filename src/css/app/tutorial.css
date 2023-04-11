@@ -1,7 +1,4 @@
 .a-tutorial {}
-  .a-tutorial--text {
-    padding: 1em 0;
-  }
   .a-tutorial--text kbd {
     animation: a-tutorial--text--kbd 2s linear 0s infinite alternate both;
     border: 2px solid hsl(360, 100%, 50%);

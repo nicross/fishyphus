@@ -31,19 +31,19 @@ engine.loop.on('frame', ({paused}) => {
     return
   }
 
-  if (content.gl.context()) {
+  if (content.gl.isActive()) {
     content.video.draw()
   }
 })
 
 engine.state.on('import', () => {
-  if (content.gl.context()) {
+  if (content.gl.isActive()) {
     content.video.load()
   }
 })
 
 engine.state.on('reset', () => {
-  if (content.gl.context()) {
+  if (content.gl.isActive()) {
     content.video.unload()
   }
 })

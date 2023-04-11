@@ -27,6 +27,9 @@ app.screen.mainMenu = app.screenManager.invent({
     resetProgress: function () {
       this.change('resetProgress')
     },
+    settings: function () {
+      this.change('settings')
+    },
   },
   // State
   state: {},
@@ -39,6 +42,7 @@ app.screen.mainMenu = app.screenManager.invent({
       newGame: root.querySelector('.a-mainMenu--newGame'),
       quit: root.querySelector('.a-mainMenu--quit'),
       resetProgress: root.querySelector('.a-mainMenu--resetProgress'),
+      settings: root.querySelector('.a-mainMenu--settings'),
     }).forEach(([event, element]) => {
       element.addEventListener('click', () => app.screenManager.dispatch(event))
     })
@@ -103,6 +107,7 @@ app.screen.mainMenu = app.screenManager.invent({
       delete this.state.resetTimer
     }
   },
+  // Methods
   updateScores: function () {
     const highscore = app.storage.highscore.get(),
       score = content.score.value() || app.storage.game.get()?.score || 0

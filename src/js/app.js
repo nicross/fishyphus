@@ -20,6 +20,7 @@ const app = (() => {
 
       return this
     },
+    component: {},
     isActive: () => isActive,
     isElectron: () => typeof ElectronApi != 'undefined',
     name: () => 'shiftbacktick_fishyphus',

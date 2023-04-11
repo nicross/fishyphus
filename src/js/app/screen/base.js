@@ -70,11 +70,14 @@ app.screen.base = {
   },
   // Custom methods
   focusWithin: function () {
-    if (this.rootElement.getAttribute('tabindex') == -1) {
-      app.utility.focus.set(this.rootElement)
-    } else {
-      app.utility.focus.setWithin(this.rootElement)
-    }
+    // XXX: Delay to prevent components from announcing aria-live regions
+    window.requestAnimationFrame(() => {
+      if (this.rootElement.getAttribute('tabindex') == -1) {
+        app.utility.focus.set(this.rootElement)
+      } else {
+        app.utility.focus.setWithin(this.rootElement)
+      }
+    })
 
     return this
   },

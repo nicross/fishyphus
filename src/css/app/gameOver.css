@@ -1,19 +1,1 @@
 .a-gameOver {}
-  .a-gameOver--instruction {
-    animation: a-splash--instruction 1s ease-in-out 0s infinite alternate both;
-    bottom: 2rem;
-    line-height: 2;
-    padding: 0.5em 0.75em;
-    position: absolute;
-    right: 2rem;
-    text-transform: uppercase;
-  }
-
-@keyframes a-gameOver--instruction {
-  0% {
-   opacity: 0.5;
-  }
-  100% {
-    opacity: 1.0;
-  }
-}

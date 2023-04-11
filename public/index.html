@@ -18,16 +18,22 @@
       </div>
 
       <div class="a-app--screen a-app--gameOver">
-        <section class="c-screen a-gameOver" tabindex="-1">
-          <h1 class="c-screen--title">Death Arrives</h1>
-          <div class="c-score c-score-wide">
-            <p class="c-score--item">
-              <strong class="c-score--value a-gameOver--scoreValue">0</strong>
-              <span class="c-screen--label">fish caught</span>
-            </p>
-            <p class="c-score--item c-score--item-record a-gameOver--isHighscore">A New Record</p>
+        <section class="c-screen a-gameOver" aria-labelledby="a-gameOver--label" tabindex="-1">
+          <div class="c-screen--items" id="a-gameOver--label">
+            <h1 class="c-screen--title">Death Arrives</h1>
+            <div class="c-score c-score-wide">
+              <p class="c-score--item">
+                <strong class="c-score--value a-gameOver--scoreValue">0</strong>
+                <span class="c-screen--label">fish caught</span>
+              </p>
+              <p class="c-score--item c-score--item-record a-gameOver--isHighscore">A New Record</p>
+            </div>
           </div>
-          <p class="a-gameOver--instruction">Interact to Continue</p>
+          <ul class="c-screen--actions">
+            <li class="c-screen--action">
+              <button class="c-menuButton a-gameOver--mainMenu" type="button">Return to Menu</button>
+            </li>
+          </ul>
         </section>
       </div>
 

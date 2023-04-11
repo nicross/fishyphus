@@ -9,7 +9,8 @@
   .c-screen:focus {
     outline: 0;
   }
-  .c-screen > * + * {
+  .c-screen > * + *,
+  .c-screen--items > * + * {
     margin-top: 1rem;
   }
   .c-screen--action + .c-screen--action {

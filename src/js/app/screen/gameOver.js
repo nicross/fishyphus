@@ -4,7 +4,7 @@ app.screen.gameOver = app.screenManager.invent({
   parentSelector: '.a-app--gameOver',
   rootSelector: '.a-gameOver',
   transitions: {
-    continue: function () {
+    mainMenu: function () {
       engine.state.reset()
       this.change('mainMenu')
     },
@@ -12,6 +12,15 @@ app.screen.gameOver = app.screenManager.invent({
   // State
   state: {},
   // Hooks
+  onReady: function () {
+    const root = this.rootElement
+
+    Object.entries({
+      mainMenu: root.querySelector('.a-gameOver--mainMenu'),
+    }).forEach(([event, element]) => {
+      element.addEventListener('click', () => app.screenManager.dispatch(event))
+    })
+  },
   onEnter: function () {
     const highscore = app.storage.highscore.get(),
       score = content.score.value()
@@ -28,10 +37,35 @@ app.screen.gameOver = app.screenManager.invent({
     this.state.resetTimer = engine.time(1)
   },
   onFrame: function () {
-    const ui = app.controls.ui()
+    const root = this.rootElement,
+      ui = app.controls.ui()
 
-    if (ui.action || ui.tab || ui.focus === 0) {
-      app.screenManager.dispatch('continue')
+    if (ui.confirm) {
+      const focused = app.utility.focus.get(root)
+
+      if (focused) {
+        return focused.click()
+      }
+    }
+
+    if ('focus' in ui) {
+      const toFocus = app.utility.focus.selectFocusable(root)[ui.focus]
+
+      if (toFocus) {
+        if (app.utility.focus.is(toFocus)) {
+          return toFocus.click()
+        }
+
+        return app.utility.focus.set(toFocus)
+      }
+    }
+
+    if (ui.up) {
+      return app.utility.focus.setPreviousFocusable(root)
+    }
+
+    if (ui.down) {
+      return app.utility.focus.setNextFocusable(root)
     }
 
     // Reset state after screen transition 🤷‍♀️

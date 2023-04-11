@@ -118,7 +118,7 @@ content.minigame = (() => {
         data.timer = (data.fish.distance + Math.abs(data.depth - data.fish.distance)) * waitTimerFactor
 
         // Reward good timing after the alert
-        if (data.depth >= data.fish.distance) {
+        if (data.depth >= data.fish.distance && data.depth > maxDepth) {
           data.timer *= engine.fn.lerpExp(1, waitTimerBonusFactor, data.value, waitTimerBonusSlope)
         }
 

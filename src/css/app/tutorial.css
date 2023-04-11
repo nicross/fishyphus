@@ -1,0 +1,30 @@
+.a-tutorial {}
+  .a-tutorial--text {
+    padding: 1em 0;
+  }
+  .a-tutorial--text kbd {
+    animation: a-tutorial--text--kbd 2s linear 0s infinite alternate both;
+    border: 2px solid hsl(360, 100%, 50%);
+    border-radius: 0.25em;
+    display: inline-block;
+    font-family: FiraCodeRegular, monospace;
+    padding: 0 0.5em;
+  }
+  .a-tutorial--text kbd:nth-child(3n+2) {
+    animation-delay: calc(1 * 2s / 3);
+  }
+  .a-tutorial--text kbd:nth-child(3n+3) {
+    animation-delay: calc(2 * 2s / 3);
+  }
+
+@keyframes a-tutorial--text--kbd {
+  0% {
+    border-color: hsl(360, 100%, 50%);
+  }
+  50% {
+    border-color: hsl(240, 100%, 50%);
+  }
+  100% {
+    border-color: hsl(360, 100%, 50%);
+  }
+}

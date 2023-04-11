@@ -14,6 +14,8 @@ app.screen.mainMenu = app.screenManager.invent({
     newGame: function () {
       if (app.storage.game.has()) {
         this.change('newGame')
+      } else if (app.screen.tutorial.hasInfo()) {
+        this.change('tutorial')
       } else {
         app.storage.game.new()
         this.change('game')

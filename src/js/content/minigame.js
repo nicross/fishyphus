@@ -6,8 +6,12 @@ content.minigame = (() => {
     maxDepth = 50, // meters
     reelBonusAcceleration = 1, // value per bonus per second
     reelBonusMultiplier = 1/4, // added speed per reel per count
+    reelInitialBonusFactor = 4, // initial bonus at best timing
+    reelInitialBonusSlope = 1/3, // exponent of bonus around best timing
     reelSpeed = 5, // meters per second
-    waitTimerFactor = 1/5 // seconds per depth
+    waitTimerBonusFactor = 1/4, // scalar at best timing
+    waitTimerBonusSlope = 1/3, // exponent of bonus around best timing
+    waitTimerFactor = 2/5 // seconds per depth
 
   const machine = engine.tool.fsm.create({
     state: isDebug ? 'debug' : 'inactive',
@@ -111,7 +115,14 @@ content.minigame = (() => {
     casting: {
       action: () => {
         // Set up data for next state
-        data.timer = Math.max(1, (data.fish.distance + Math.abs(data.depth - data.fish.distance)) * waitTimerFactor)
+        data.timer = (data.fish.distance + Math.abs(data.depth - data.fish.distance)) * waitTimerFactor
+
+        // Reward good timing after the alert
+        if (data.depth >= data.fish.distance) {
+          data.timer *= engine.fn.lerpExp(1, waitTimerBonusFactor, data.value, waitTimerBonusSlope)
+        }
+
+        data.timer = Math.max(1, data.timer)
 
         delete data.alert
         delete data.value
@@ -172,6 +183,17 @@ content.minigame = (() => {
         // Set up data for next state
         data.bonus = 0
         data.count = 0
+
+        // Reward good timing after the alert
+        const value = engine.fn.clamp(
+          engine.fn.scale(
+            data.timer,
+            0, -1,
+            1, 0
+          )
+        )
+
+        data.bonus += engine.fn.lerpExp(0, reelInitialBonusFactor, value, reelInitialBonusSlope)
 
         delete data.alert
         delete data.timer

@@ -6,10 +6,10 @@ content.minigame = (() => {
     maxDepth = 50, // meters
     reelBonusAcceleration = 1, // value per bonus per second
     reelBonusMultiplier = 1/4, // added speed per reel per count
-    reelInitialBonusFactor = 4, // initial bonus at best timing
+    reelInitialBonusFactor = 2, // initial bonus at best timing
     reelInitialBonusSlope = 1/3, // exponent of bonus around best timing
     reelSpeed = 5, // meters per second
-    waitTimerBonusFactor = 1/4, // scalar at best timing
+    waitTimerBonusFactor = 1/2, // scalar at best timing
     waitTimerBonusSlope = 1/3, // exponent of bonus around best timing
     waitTimerFactor = 2/5 // seconds per depth
 

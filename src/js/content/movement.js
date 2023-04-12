@@ -43,6 +43,9 @@ content.movement = (() => {
         isMinigame = content.minigame.isActive(),
         position = engine.position.getVector()
 
+      const isAccelerate = x > 0 && !isMinigame,
+        isBrake = x < 0 || isMinigame
+
       let {yaw} = engine.position.getEuler()
 
       // Calculate next yaw
@@ -55,7 +58,7 @@ content.movement = (() => {
       })
 
       // Apply acceleration, when pressed and not in minigame
-      if (x > 0 && !isMinigame) {
+      if (isAccelerate) {
         const thrust = engine.tool.vector2d.create({
           x: x * delta * acceleration,
         }).rotate(yaw)
@@ -64,7 +67,7 @@ content.movement = (() => {
       }
 
       // Apply brakes, when pressed or in minigame
-      if (x < 0 || isMinigame) {
+      if (isBrake) {
         velocity = engine.tool.vector2d.create(
           engine.fn.accelerateVector(
             velocity,
@@ -75,11 +78,31 @@ content.movement = (() => {
       }
 
       // Enforce the speed limit
-      const magnitude = velocity.distance(),
-        speedLimit = this.speedLimit()
+      const speedLimit = this.speedLimit()
+      let magnitude = velocity.distance()
 
       if (magnitude > speedLimit) {
         velocity = velocity.scale(speedLimit / magnitude)
+        magnitude = speedLimit
+      }
+
+      // Apply extra turning force (proportional to dot product with target vector)
+      if (isAccelerate) {
+        const target = engine.tool.vector2d.unitX().scale(magnitude).rotate(yaw)
+
+        const dot = engine.fn.scale(
+          target.dotProduct(),
+          -1, 1,
+          0, 1
+        )
+
+        velocity = engine.tool.vector2d.create(
+          engine.fn.accelerateVector(
+            velocity,
+            target,
+            dot * acceleration,
+          )
+        )
       }
 
       // Apply velocity to position

@@ -29,6 +29,7 @@ content.bonus = (() => {
     spawnBonus: () => 1 + Math.ceil(bonus / 2), // fish
     stunBonus: () => bonus, // seconds per stun
     startBonus: () => 5 * bonus * content.monster.normalVelocity(), // meters below danger distance
+    weightBonus: () => 2 + bonus, // fish
   }
 })()
 

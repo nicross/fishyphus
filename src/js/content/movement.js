@@ -3,7 +3,9 @@ content.movement = (() => {
     angularVelocity = engine.const.tau / 4,
     deceleration = 3,
     maxVelocity = 12,
-    minigameDeceleration = 4
+    minigameDeceleration = 4,
+    weightLimitRange = 2, // scale weight from [bonus, bonus * range] to penalty [0, 1]
+    weightLimitReduction = 1/2 // scale penalty from [0, 1] to velocity [maxVelocity, maxVelocity * reduction]
 
   let velocity = engine.tool.vector2d.create()
 
@@ -19,9 +21,20 @@ content.movement = (() => {
 
       return this
     },
-    velocity: () => velocity.clone(),
-    velocityMax: () => maxVelocity,
-    velocityValue: () => engine.fn.clamp(velocity.distance() / maxVelocity),
+    speedLimit: () => {
+      const bonus = content.bonus.weightBonus(),
+        weight = content.score.value()
+
+      const penalty = engine.fn.clamp(
+        engine.fn.scale(
+          weight,
+          bonus, bonus * weightLimitRange,
+          0, 1
+        ),
+      )
+
+      return maxVelocity * engine.fn.lerp(1, weightLimitReduction, penalty)
+    },
     update: function ({
       rotate = 0,
       x = 0,
@@ -62,10 +75,11 @@ content.movement = (() => {
       }
 
       // Enforce the speed limit
-      const magnitude = velocity.distance()
+      const magnitude = velocity.distance(),
+        speedLimit = this.speedLimit()
 
-      if (magnitude > maxVelocity) {
-        velocity = velocity.scale(maxVelocity / magnitude)
+      if (magnitude > speedLimit) {
+        velocity = velocity.scale(speedLimit / magnitude)
       }
 
       // Apply velocity to position
@@ -76,7 +90,10 @@ content.movement = (() => {
       )
 
       return this
-    }
+    },
+    velocity: () => velocity.clone(),
+    velocityMax: () => maxVelocity,
+    velocityValue: () => engine.fn.clamp(velocity.distance() / maxVelocity),
   }
 })()
 

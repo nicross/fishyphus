@@ -5,13 +5,13 @@ app.screen.resetProgress = app.screenManager.invent({
   rootSelector: '.a-resetProgress',
   transitions: {
     back: function () {
-      this.change('mainMenu')
+      this.change('settings')
     },
     confirm: function () {
       app.storage.game.clear()
       app.storage.highscore.clear()
 
-      this.change('mainMenu')
+      this.change('splash')
     },
   },
   // State

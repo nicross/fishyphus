@@ -7,6 +7,9 @@ app.screen.settings = app.screenManager.invent({
     back: function () {
       this.change('mainMenu')
     },
+    resetProgress: function () {
+      this.change('resetProgress')
+    },
   },
   // State
   state: {},
@@ -17,8 +20,13 @@ app.screen.settings = app.screenManager.invent({
     // Buttons
     Object.entries({
       back: root.querySelector('.a-settings--back'),
+      resetProgress: root.querySelector('.a-settings--resetProgress'),
     }).forEach(([event, element]) => {
-      element.addEventListener('click', () => app.screenManager.dispatch(event))
+      element.addEventListener('click', () => {
+        if (element.getAttribute('aria-disabled') != 'true') {
+          app.screenManager.dispatch(event)
+        }
+      })
     })
 
     // Sliders
@@ -39,6 +47,16 @@ app.screen.settings = app.screenManager.invent({
       component.on('change', () => setter(component.getValue()))
       return component
     })
+  },
+  onEnter: function () {
+    const hasHighscore = app.storage.highscore.has(),
+      resetProgress = this.rootElement.querySelector('.a-settings--resetProgress')
+
+    if (hasHighscore) {
+      resetProgress.removeAttribute('aria-disabled')
+    } else {
+      resetProgress.setAttribute('aria-disabled', 'true')
+    }
   },
   onExit: function () {
     app.settings.save()

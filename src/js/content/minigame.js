@@ -7,10 +7,10 @@ content.minigame = (() => {
     reelBonusAcceleration = 1, // value per bonus per second
     reelBonusMultiplier = 1/4, // added speed per reel per count
     reelInitialBonusFactor = 2, // initial bonus at best timing
-    reelInitialBonusSlope = 1/3, // exponent of bonus around best timing
+    reelInitialBonusSlope = 2, // exponent of bonus around best timing
     reelSpeed = 5, // meters per second
     waitTimerBonusFactor = 1/2, // scalar at best timing
-    waitTimerBonusSlope = 1/3, // exponent of bonus around best timing
+    waitTimerBonusSlope = 2, // exponent of bonus around best timing
     waitTimerFactor = 2/5 // seconds per depth
 
   const machine = engine.tool.fsm.create({
@@ -118,8 +118,10 @@ content.minigame = (() => {
         data.timer = (data.fish.distance + Math.abs(data.depth - data.fish.distance)) * waitTimerFactor
 
         // Reward good timing after the alert
-        if (data.depth >= data.fish.distance && data.depth > maxDepth) {
-          data.timer *= engine.fn.lerpExp(1, waitTimerBonusFactor, data.value, waitTimerBonusSlope)
+        if (data.value > 0 && data.depth >= data.fish.distance && data.depth <= maxDepth) {
+          const value = engine.fn.clamp(1 - data.value)
+          // y = a * (1 - ^b)
+          data.timer *= waitTimerBonusFactor * (1 - (value ** waitTimerBonusSlope))
         }
 
         data.timer = Math.max(1, data.timer)
@@ -189,11 +191,12 @@ content.minigame = (() => {
           engine.fn.scale(
             data.timer,
             0, -1,
-            1, 0
+            0, 1
           )
         )
 
-        data.bonus += engine.fn.lerpExp(0, reelInitialBonusFactor, value, reelInitialBonusSlope)
+        // y = a * (1 - x^b)
+        data.bonus = reelInitialBonusFactor * (1 - (value ** reelInitialBonusSlope))
 
         delete data.alert
         delete data.timer
@@ -284,6 +287,10 @@ content.minigame = (() => {
     reset: function () {
       isActiveAccelerated = 0
       machine.state = isDebug ? 'debug' : 'inactive'
+
+      data = {
+        cooldown: cooldownTime,
+      }
 
       return this
     },

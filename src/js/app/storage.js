@@ -34,7 +34,7 @@ app.storage = (() => {
 
       return this
     },
-    get: (key) => get(key) || {},
+    get: (key) => get(key),
     getVersion: function () {
       return version
     },

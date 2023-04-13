@@ -8,7 +8,7 @@ app.screen.newGame = app.screenManager.invent({
       this.change('mainMenu')
     },
     confirm: function () {
-      if (app.screen.tutorial.hasInfo()) {
+      if (app.screen.tutorial.hasTutorial()) {
         this.change('tutorial')
       } else {
         app.storage.game.new()

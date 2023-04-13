@@ -27,7 +27,7 @@ content.surface = (() => {
               x * scale,
               y * scale * 0.5,
               t * scaleT
-            ) * scaleZ
+            ) * engine.fn.lerp(scaleZ, 5 - scaleZ, content.monster.dangerValue())
           },
         })
       }

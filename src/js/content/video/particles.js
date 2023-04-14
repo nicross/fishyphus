@@ -1,5 +1,5 @@
 content.video.particles = (() => {
-  const maxParticles = 7500
+  const maxParticles = 25000
 
   const fragmentShader = `#version 300 es
 
@@ -141,7 +141,7 @@ void main(void) {
       drawDistance = content.gl.drawDistance()
 
     // Surface
-    while (particles.length < maxParticles && Math.random() < 0.75) {
+    while (particles.length < maxParticles && Math.random() < 0.875) {
       const vector = engine.tool.vector2d.unitX()
         .scale(engine.fn.randomFloat(-1, 1) * drawDistance)
         .rotate(engine.fn.randomFloat(-1, 1) * engine.const.tau)
@@ -156,8 +156,8 @@ void main(void) {
     }
 
     // Fish
-    for (const fish of content.fish.all()) {
-      if (content.minigame.isFish(fish.id)) {
+    for (const sound of content.audio.fish.sounds()) {
+      if (content.minigame.isFish(sound.fish.id)) {
         continue
       }
 
@@ -168,8 +168,8 @@ void main(void) {
       particles.push({
         rate: 0.5,
         life: 1,
-        x: fish.vector.x + engine.fn.randomFloat(-1, 1),
-        y: fish.vector.y + engine.fn.randomFloat(-1, 1),
+        x: sound.vector.x + engine.fn.randomFloat(-1, 1),
+        y: sound.vector.y + engine.fn.randomFloat(-1, 1),
       })
     }
   }

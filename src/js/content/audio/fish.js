@@ -43,6 +43,7 @@ content.audio.fish = (() => {
 
       return this
     },
+    sounds: () => [...sounds.values()],
     update: function () {
       const next = new Set(getClosest())
 

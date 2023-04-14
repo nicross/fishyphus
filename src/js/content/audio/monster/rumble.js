@@ -7,20 +7,22 @@ content.audio.monster.rumble = (() => {
   let synth
 
   function calculateParameters() {
-    const strength = content.monster.dangerValue(),
-      stun = content.monster.getStunAcceleratedValue()
+    const {
+      danger,
+      stun,
+    } = content.audio.monster.parameters.all()
 
-    const amodDepth = engine.fn.lerpExp(0, 1/2, strength, 3),
-      color = engine.fn.lerp(1, 6, strength * (1 - stun)),
+    const amodDepth = engine.fn.lerpExp(0, 1/2, danger, 3),
+      color = engine.fn.lerp(1, 6, danger * (1 - stun)),
       frequency = engine.fn.fromMidi(21)
 
     return {
       amodDepth,
-      amodFrequency: engine.fn.lerpExp(1, 64, strength, 16),
+      amodFrequency: engine.fn.lerpExp(1, 64, danger, 16),
       carrierGain: 1 - amodDepth,
       filterFrequency: frequency * color,
-      gain: engine.fn.fromDb(engine.fn.lerp(engine.const.zeroDb, -6, strength)),
-      playbackRate: engine.fn.lerpExp(engine.const.zero, 1, strength, 4),
+      gain: engine.fn.fromDb(engine.fn.lerp(engine.const.zeroDb, -6, danger)),
+      playbackRate: engine.fn.lerpExp(engine.const.zero, 1, danger, 4),
     }
   }
 

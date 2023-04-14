@@ -5,16 +5,19 @@ content.audio.monster.sub = (() => {
     synth
 
   function calculateParameters() {
-    const strength = content.monster.dangerValue(),
-      stun = content.monster.getStunAcceleratedValue()
+    const {
+      danger,
+      stun,
+      vector,
+    } = content.audio.monster.parameters.all()
 
-    const amodDepth = engine.fn.lerpExp(1/12, 1/3, strength, 2),
-      color = engine.fn.lerp(1, 4, strength * (1 - stun)),
+    const amodDepth = engine.fn.lerpExp(1/12, 1/3, danger, 2),
+      color = engine.fn.lerp(1, 4, danger * (1 - stun)),
       frequency = engine.fn.fromMidi(33)
 
     return {
       amodDepth,
-      amodFrequency: engine.fn.lerpExp(1/30, 16, strength, 4),
+      amodFrequency: engine.fn.lerpExp(1/30, 16, danger, 4),
       carrierDetune: engine.fn.lerp(0, -2400, stun),
       carrierFrequency: frequency,
       carrierGain: 1 - amodDepth,
@@ -22,8 +25,8 @@ content.audio.monster.sub = (() => {
       fmodDepth: 0,
       fmodDetune: 0,
       fmodFrequency: 0,
-      gain: engine.fn.fromDb(engine.fn.lerpExp(engine.const.zeroDb, -12, strength, 0.1)),
-      vector: content.monster.normal(),
+      gain: engine.fn.fromDb(engine.fn.lerpExp(engine.const.zeroDb, -12, danger, 0.1)),
+      vector,
     }
   }
 

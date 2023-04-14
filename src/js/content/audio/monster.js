@@ -1,5 +1,6 @@
 content.audio.monster = (() => {
-  const bus = content.audio.createBus()
+  // Bypass the content.audio ducker to be audible on menus
+  const bus = engine.mixer.createBus()
 
   let isActive = false
 
@@ -30,9 +31,9 @@ content.audio.monster = (() => {
       return this
     },
     update: function () {
-      const value = content.monster.dangerValue()
+      this.parameters.update()
 
-      if (value) {
+      if (this.parameters.active()) {
         if (isActive) {
           this.rumble.update()
           this.sub.update()
@@ -43,16 +44,14 @@ content.audio.monster = (() => {
         this.destroy()
       }
 
+      engine.fn.setParam(bus.gain, this.parameters.mainGain())
+
       return this
     },
   }
 })()
 
 engine.loop.on('frame', ({paused}) => {
-  if (paused) {
-    return
-  }
-
   content.audio.monster.update()
 })
 

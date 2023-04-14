@@ -13,12 +13,16 @@ content.monster = (() => {
     position = engine.tool.vector3d.create(),
     spawnTimer = 0,
     stun = 0,
-    stunAccelerated = 0
+    stunAccelerated = 0,
+    stunApplication = 0,
+    stunApplicationAccelerated = 0
 
   return pubsub.decorate({
     applyStun: function () {
       stun += minStun + content.bonus.stunBonus()
       stun = Math.min(stun, maxStun)
+
+      stunApplication = 1
 
       return this
     },
@@ -58,13 +62,14 @@ content.monster = (() => {
     getStun: () => stun,
     getStunAccelerated: () => stunAccelerated,
     getStunAcceleratedValue: () => engine.fn.clamp(stunAccelerated / maxStun),
+    getStunApplicationAccelerated: () => stunApplicationAccelerated,
     getStunValue: () => engine.fn.clamp(stun / maxStun),
     import: function (data = {}) {
       // Prefer imported state when not peaceful mode, otherwise spawn at danger distance
       const defaultPosition = engine.position.getVector().subtract({
         z: this.dangerDistance(),
       })
-      
+
       position = engine.tool.vector3d.create(
         isPeacefulMode ? defaultPosition : (data.position || defaultPosition)
       )
@@ -101,6 +106,7 @@ content.monster = (() => {
       spawnTimer = 0
       stun = 0
       stunAccelerated = 0
+      stunApplicationAccelerated = 0
 
       return this
     },
@@ -125,13 +131,24 @@ content.monster = (() => {
 
       // Handle stun status effect
       if (stun > 0) {
-        stun -= delta
+        stun = Math.max(0, stun - delta)
+      }
+
+      if (stunApplication > 0) {
+        stunApplication = Math.max(0, stunApplication - delta)
       }
 
       stunAccelerated = engine.fn.accelerateValue(
         stunAccelerated,
         stun,
         Math.max(minStun, stunAccelerated)
+      )
+
+      stunApplicationAccelerated = engine.fn.accelerateValue(
+        stunApplicationAccelerated,
+        stunApplication,
+        4,
+        1/4
       )
 
       if (stun > 0) {

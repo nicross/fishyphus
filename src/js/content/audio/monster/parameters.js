@@ -5,6 +5,7 @@ content.audio.monster.parameters = (() => {
     mainGain: 0,
     paused: 0,
     stun: 0,
+    stunApplication: 0,
     vector: engine.tool.vector3d.create(),
     width: 0,
   }
@@ -15,6 +16,7 @@ content.audio.monster.parameters = (() => {
     mainGain: 1,
     paused: 1,
     stun: 0,
+    stunApplication: 0,
     vector: engine.tool.vector3d.create(),
     width: 1,
   }
@@ -25,15 +27,16 @@ content.audio.monster.parameters = (() => {
 
   function calculate() {
     const danger = content.monster.dangerValue(),
-      stun = content.monster.getStunAcceleratedValue()
+      stunApplication = content.monster.getStunApplicationAccelerated()
 
     return {
       ...defaults,
       active: danger > 0,
       danger,
       mainGain: danger ** (1/4),
-      stun,
-      width: engine.fn.lerpExp(0, 0.5, stun, 0.5),
+      stun: content.monster.getStunAcceleratedValue(),
+      stunApplication,
+      width: engine.fn.lerpExp(0, 0.5, stunApplication, 1),
       vector: content.monster.normal(),
     }
   }
@@ -63,6 +66,7 @@ content.audio.monster.parameters = (() => {
       mainGain: engine.fn.lerp(a.mainGain, b.mainGain, value),
       paused: value,
       stun: engine.fn.lerp(a.stun, b.stun, value),
+      stunApplication: engine.fn.lerp(a.stunApplication, b.stunApplication, value),
       vector: engine.tool.vector3d.create({
         x: engine.fn.lerp(a.vector.x, b.vector.x, value),
         y: engine.fn.lerp(a.vector.y, b.vector.y, value),
@@ -82,7 +86,7 @@ content.audio.monster.parameters = (() => {
       isPausedAccelerated = engine.fn.accelerateValue(
         isPausedAccelerated,
         isPaused ? 1 : 0,
-        1
+        2
       )
 
       if (!isPaused) {

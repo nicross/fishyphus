@@ -90,15 +90,18 @@ content.audio.monster.pads.sound = engine.sound.extend({
       danger,
       paused,
       stun,
+      stunApplication,
       vector,
       width,
     } = content.audio.monster.parameters.all()
 
-    const amodDepth = engine.fn.lerp(0.5, 0, danger)
+    const amodDepth = engine.fn.lerp(1/2, 1/4, danger * (1 - stunApplication))
 
-    const amodFrequency = this.isLeft
-      ? engine.fn.lerp(1/29, 1/11, danger)
-      : engine.fn.lerp(1/31, 1/13, danger)
+    const amodFrequency = (
+      this.isLeft
+        ? engine.fn.lerp(1/29, 1/11, danger)
+        : engine.fn.lerp(1/31, 1/13, danger)
+    ) * (stunApplication * 400)
 
     return {
       amodDepth,
@@ -106,7 +109,7 @@ content.audio.monster.pads.sound = engine.sound.extend({
       carrierDetune: engine.fn.lerp(0, this.isLeft ? 2400 : -2400, stun),
       carrierGain: 1 - amodDepth,
       fmodDetune: engine.fn.lerp(0, this.isLeft ? -2400 : 2400, stun),
-      gain: engine.fn.fromDb(engine.fn.lerpExp(engine.const.zeroDb, -24, danger, 0.01)),
+      gain: engine.fn.fromDb(engine.fn.lerpExp(engine.const.zeroDb, -24, danger, 0.05)),
       minColor: engine.fn.lerp(0.5, 0, paused),
       maxColor: engine.fn.lerp(3, 1, paused),
       vector: engine.tool.vector2d.create(vector).rotate(

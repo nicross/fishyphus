@@ -119,6 +119,13 @@ app.screen.tutorial = app.screenManager.invent({
       },
     },
     {
+      id: 'weight',
+      text: 'The reaper moves faster as more fish are caught.',
+      criteria: function () {
+        return app.storage.tutorial.has('basics') && !app.storage.tutorial.has(this.id)
+      },
+    },
+    {
       id: 'stun',
       text: 'The reaper becomes stunned when fish are caught.',
       criteria: function () {
@@ -142,13 +149,6 @@ app.screen.tutorial = app.screenManager.invent({
     {
       id: 'turning',
       text: 'Your ship changes direction faster at slower speeds.',
-      criteria: function () {
-        return app.storage.tutorial.has('basics') && !app.storage.tutorial.has(this.id)
-      },
-    },
-    {
-      id: 'weight',
-      text: 'Your ship moves slower as more fish are caught.',
       criteria: function () {
         return app.storage.tutorial.has('basics') && !app.storage.tutorial.has(this.id)
       },

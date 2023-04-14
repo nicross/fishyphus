@@ -26,6 +26,29 @@ content.monster = (() => {
 
       return this
     },
+    calculateSpeed: function () {
+      const isFishing = content.minigame.isActive(),
+        isRushing = this.isRushing(),
+        maxVelocity = content.movement.velocityMax()
+
+      const weightBonus = content.bonus.weightBonus()
+
+      const weightBoost = engine.fn.scale(
+        content.score.value(),
+        0, weightBonus * 2,
+        1, 2
+      )
+
+      if (isRushing) {
+        return maxVelocity * weightBoost * rushVelocityRate
+      }
+
+      if (isFishing) {
+        return maxVelocity * weightBoost
+      }
+
+      return maxVelocity * weightBoost * normalVelocityRate
+    },
     dangerCountdown: function () {
       return (this.distance() + killDistance) / this.normalVelocity()
     },
@@ -158,15 +181,8 @@ content.monster = (() => {
       }
 
       // Movement
-      // Calculate speed
-      const isFishing = content.minigame.isActive(),
-        isRushing = this.isRushing()
+      const speed = this.calculateSpeed()
 
-      const speed = isFishing
-        ? maxVelocity
-        : maxVelocity * (isRushing ? rushVelocityRate : normalVelocityRate)
-
-      // Apply velocity to position
       const velocity = engine.position.getVector()
         .subtract(position)
         .normalize()

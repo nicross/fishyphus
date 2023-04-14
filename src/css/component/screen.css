@@ -28,7 +28,12 @@
   }
   .c-screen--label {
     display: block;
-    margin-bottom: 0.25em;
+    margin-bottom: 0.5em;
+  }
+  .c-screen--label small {
+    font-family: RobotoLight, sans-serif;
+    font-weight: 300;
+    font-size: 0.75em;
   }
   .c-screen--title {
     background: -webkit-linear-gradient(hsl(240, 100%, 66.666%), hsl(360, 100%, 50%));

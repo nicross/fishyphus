@@ -5,7 +5,7 @@ content.movement = (() => {
     maxVelocity = 12,
     minigameDeceleration = 4,
     weightLimitRange = 2, // scale weight from [bonus, bonus * range] to penalty [0, 1]
-    weightLimitReduction = 1/2 // scale penalty from [0, 1] to velocity [maxVelocity, maxVelocity * reduction]
+    weightLimitReduction = 1/4 // scale penalty from [0, 1] to velocity [maxVelocity, maxVelocity * reduction]
 
   let velocity = engine.tool.vector2d.create()
 
@@ -22,6 +22,13 @@ content.movement = (() => {
       return this
     },
     speedLimit: () => {
+      // When peaceful mode is enabled, there is no monster to force death
+      // Therefore just allow unlimited fish
+      if (content.monster.isPeacefulMode()) {
+        return maxVelocity
+      }
+
+      // Otherwise calculate a speed limit
       const bonus = content.bonus.weightBonus(),
         weight = content.score.value()
 

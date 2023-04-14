@@ -1,5 +1,5 @@
 content.monster = (() => {
-  const pubsub= engine.tool.pubsub.create()
+  const pubsub = engine.tool.pubsub.create()
 
   const dangerTime = 120,
     killDistance = 1,
@@ -9,7 +9,8 @@ content.monster = (() => {
     rushVelocityRate = 2,
     stunFallRate = 0.5
 
-  let position = engine.tool.vector3d.create(),
+  let isPeacefulMode = false,
+    position = engine.tool.vector3d.create(),
     spawnTimer = 0,
     stun = 0,
     stunAccelerated = 0
@@ -50,7 +51,7 @@ content.monster = (() => {
     },
     distance: () => engine.position.getVector().distance(position),
     export: () => ({
-      position: position.clone(),
+      position: isPeacefulMode ? undefined : position.clone(),
       spawnTimer: spawnTimer,
       stun: stun,
     }),
@@ -59,10 +60,14 @@ content.monster = (() => {
     getStunAcceleratedValue: () => engine.fn.clamp(stunAccelerated / maxStun),
     getStunValue: () => engine.fn.clamp(stun / maxStun),
     import: function (data = {}) {
-      // Prefer imported state, otherwise spawn at danger distance
-      position = engine.tool.vector3d.create(data.position || engine.position.getVector().subtract({
+      // Prefer imported state when not peaceful mode, otherwise spawn at danger distance
+      const defaultPosition = engine.position.getVector().subtract({
         z: this.dangerDistance(),
-      }))
+      })
+      
+      position = engine.tool.vector3d.create(
+        isPeacefulMode ? defaultPosition : (data.position || defaultPosition)
+      )
 
       // Prefer imported state, otherwise calculate initial value
       spawnTimer = 'spawnTimer' in data
@@ -77,6 +82,7 @@ content.monster = (() => {
 
       return this
     },
+    isPeacefulMode: () => isPeacefulMode,
     isRushing: function () {
       return this.distance() > content.bonus.rushBonus()
     },
@@ -98,9 +104,19 @@ content.monster = (() => {
 
       return this
     },
+    setPeacefulMode: function (value) {
+      isPeacefulMode = Boolean(value)
+
+      return this
+    },
     update: function () {
       const delta = engine.loop.delta(),
         maxVelocity = content.movement.velocityMax()
+
+      // Handle peaceful mode
+      if (isPeacefulMode) {
+        return
+      }
 
       // Handle spawn timer
       if (spawnTimer > 0) {

@@ -20,3 +20,19 @@ app.settings.register('mainVolume', {
     engine.fn.setParam(engine.mixer.param.gain, computedValue)
   },
 })
+
+app.settings.register('peacefulMode', {
+  compute: (rawValue) => Boolean(rawValue),
+  default: false,
+  update: function (computedValue) {
+    content.monster.setPeacefulMode(computedValue)
+  },
+})
+
+app.settings.register('simpleMode', {
+  compute: (rawValue) => Boolean(rawValue),
+  default: false,
+  update: function (computedValue) {
+    content.minigame.setSimpleMode(computedValue)
+  },
+})

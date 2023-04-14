@@ -21,7 +21,7 @@
         <section class="c-screen a-gameOver" aria-labelledby="a-gameOver--label" tabindex="-1">
           <div class="c-screen--items" id="a-gameOver--label">
             <h1 class="c-screen--title">Death Arrives</h1>
-            <div class="c-score c-score-wide">
+            <div class="c-screen--description c-score c-score-wide">
               <p class="c-score--item">
                 <strong class="c-score--value a-gameOver--scoreValue">0</strong>
                 <span class="c-score--label">fish caught</span>
@@ -137,6 +137,24 @@
               <div class="c-screen--label" id="a-settings--graphicsOnLabel">Enable Graphics</div>
               <div class="c-toggle a-settings--graphicsOn">
                 <button class="c-toggle--button" role="switch" aria-checked="false" aria-labeledby="a-settings--graphicsOnLabel">
+                  <span class="c-toggle--off">Off</span>
+                  <span class="c-toggle--on">On</span>
+                </button>
+              </div>
+            </div>
+            <div class="c-screen--field">
+              <div class="c-screen--label" id="a-settings--simpleModeLabel">Enable Prototype Mode <small>(No Fishing)</small></div>
+              <div class="c-toggle a-settings--simpleMode">
+                <button class="c-toggle--button" role="switch" aria-checked="false" aria-labeledby="a-settings--simpleModeLabel">
+                  <span class="c-toggle--off">Off</span>
+                  <span class="c-toggle--on">On</span>
+                </button>
+              </div>
+            </div>
+            <div class="c-screen--field">
+              <div class="c-screen--label" id="a-settings--peacefulModeLabel">Enable Peaceful Mode <small>(No Reaper)</small></div>
+              <div class="c-toggle a-settings--peacefulMode">
+                <button class="c-toggle--button" role="switch" aria-checked="false" aria-labeledby="a-settings--peacefulModeLabel">
                   <span class="c-toggle--off">Off</span>
                   <span class="c-toggle--on">On</span>
                 </button>

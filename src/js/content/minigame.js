@@ -1,6 +1,4 @@
 content.minigame = (() => {
-  const isDebug = false
-
   const castSpeed = 5, // meters per second
     cooldownTime = 1, // seconds
     maxDepth = 50, // meters
@@ -14,9 +12,9 @@ content.minigame = (() => {
     waitTimerFactor = 2/5 // seconds per depth
 
   const machine = engine.tool.fsm.create({
-    state: isDebug ? 'debug' : 'inactive',
+    state: 'inactive',
     transition: {
-      debug: {},
+      simple: {},
       inactive: {
         cast: function () {
           this.change('casting')
@@ -42,19 +40,19 @@ content.minigame = (() => {
 
   const handlers = {
     /**
-     * Debug state
+     * Simple state
      *
      * Emits:
      * - `inactive-disallowed`: when no fish are nearby
      * - `success`: when fish are caught
      */
-    debug: {
+    simple: {
       action: () => {
         // Catch nearby fish
         const fish = content.fish.closest()
 
         if (fish) {
-          machine.pubsub.emit('success', {fish, isDebug})
+          machine.pubsub.emit('success', {fish})
         } else {
           machine.pubsub.emit('inactive-disallowed')
         }
@@ -271,8 +269,9 @@ content.minigame = (() => {
     },
   }
 
-  let isActiveAccelerated = 0,
-    data = {}
+  let data = {},
+    isActiveAccelerated = 0,
+    isSimpleMode = false
 
   return machine.pubsub.decorate({
     action: function () {
@@ -281,16 +280,22 @@ content.minigame = (() => {
       return this
     },
     data: () => ({...data}),
-    isActive: () => !machine.is('inactive') && !isDebug,
+    isActive: () => !machine.is('inactive') && !isSimpleMode,
     isActiveAccelerated: () => isActiveAccelerated,
     isFish: (id) => data?.fish?.id == id,
+    isSimpleMode: () => isSimpleMode,
     reset: function () {
       isActiveAccelerated = 0
-      machine.state = isDebug ? 'debug' : 'inactive'
+      machine.state = isSimpleMode ? 'simple' : 'inactive'
 
       data = {
         cooldown: cooldownTime,
       }
+
+      return this
+    },
+    setSimpleMode: function (value) {
+      isSimpleMode = Boolean(value)
 
       return this
     },

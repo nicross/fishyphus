@@ -42,6 +42,8 @@ app.screen.settings = app.screenManager.invent({
     // Toggles
     this.toggles = [
       ['.a-settings--graphicsOn', app.settings.raw.graphicsOn, app.settings.setGraphicsOn],
+      ['.a-settings--peacefulMode', app.settings.raw.peacefulMode, app.settings.setPeacefulMode],
+      ['.a-settings--simpleMode', app.settings.raw.simpleMode, app.settings.setSimpleMode],
     ].map(([selector, initialValue, setter]) => {
       const component = app.component.toggle.hydrate(root.querySelector(selector), initialValue)
       component.on('change', () => setter(component.getValue()))

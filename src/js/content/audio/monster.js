@@ -2,6 +2,8 @@ content.audio.monster = (() => {
   // Bypass the content.audio ducker to be audible on menus
   const bus = engine.mixer.createBus()
 
+  bus.id = 'test'
+
   let isActive = false
 
   return {
@@ -11,6 +13,7 @@ content.audio.monster = (() => {
         return this
       }
 
+      this.pads.create()
       this.rumble.create()
       this.sub.create()
 
@@ -23,6 +26,7 @@ content.audio.monster = (() => {
         return this
       }
 
+      this.pads.destroy()
       this.rumble.destroy()
       this.sub.destroy()
 
@@ -35,6 +39,7 @@ content.audio.monster = (() => {
 
       if (this.parameters.active()) {
         if (isActive) {
+          this.pads.update()
           this.rumble.update()
           this.sub.update()
         } else {
@@ -54,5 +59,3 @@ content.audio.monster = (() => {
 engine.loop.on('frame', ({paused}) => {
   content.audio.monster.update()
 })
-
-engine.state.on('reset', () => content.audio.monster.destroy())

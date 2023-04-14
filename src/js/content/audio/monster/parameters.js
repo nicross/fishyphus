@@ -2,7 +2,8 @@ content.audio.monster.parameters = (() => {
   const defaults = {
     active: false,
     danger: 0,
-    mainGain: 1,
+    mainGain: 0,
+    paused: 0,
     stun: 0,
     vector: engine.tool.vector3d.create(),
     width: 0,
@@ -10,8 +11,9 @@ content.audio.monster.parameters = (() => {
 
   const pausedValues = {
     active: true,
-    danger: 0.5,
-    mainGain: 0.25,
+    danger: 1/3,
+    mainGain: 1,
+    paused: 1,
     stun: 0,
     vector: engine.tool.vector3d.create(),
     width: 1,
@@ -22,15 +24,16 @@ content.audio.monster.parameters = (() => {
     values = {...defaults}
 
   function calculate() {
-    const danger = content.monster.dangerValue()
+    const danger = content.monster.dangerValue(),
+      stun = content.monster.getStunAcceleratedValue()
 
     return {
       ...defaults,
       active: danger > 0,
       danger,
       mainGain: danger ** (1/4),
-      stun: content.monster.getStunAcceleratedValue(),
-      width: 1 - (danger ** 2),
+      stun,
+      width: engine.fn.lerpExp(0, 0.5, stun, 0.5),
       vector: content.monster.normal(),
     }
   }
@@ -58,6 +61,7 @@ content.audio.monster.parameters = (() => {
       active: value == 0 ? a.active : b.active,
       danger: engine.fn.lerp(a.danger, b.danger, value),
       mainGain: engine.fn.lerp(a.mainGain, b.mainGain, value),
+      paused: value,
       stun: engine.fn.lerp(a.stun, b.stun, value),
       vector: engine.tool.vector3d.create({
         x: engine.fn.lerp(a.vector.x, b.vector.x, value),

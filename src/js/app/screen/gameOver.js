@@ -54,6 +54,15 @@ app.screen.gameOver = app.screenManager.invent({
       }
     }
 
+    // Handle role=button on the description
+    if (ui.enter || ui.space) {
+      const focused = app.utility.focus.get(root)
+
+      if (focused && focused.tagName != 'button' && focused.role == 'button') {
+        return app.screenManager.dispatch('mainMenu')
+      }
+    }
+
     if ('focus' in ui) {
       const toFocus = app.utility.focus.selectFocusable(root)[ui.focus]
 

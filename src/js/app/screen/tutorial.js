@@ -35,6 +35,15 @@ app.screen.tutorial = app.screenManager.invent({
       return app.screenManager.dispatch('newGame')
     }
 
+    // Handle role=button on the description
+    if (ui.enter || ui.space) {
+      const focused = app.utility.focus.get(root)
+
+      if (focused && focused.tagName != 'button' && focused.role == 'button') {
+        return app.screenManager.dispatch('newGame')
+      }
+    }
+
     if ('focus' in ui) {
       const toFocus = app.utility.focus.selectFocusable(root)[ui.focus]
 
@@ -53,12 +62,6 @@ app.screen.tutorial = app.screenManager.invent({
 
     if (ui.down) {
       return app.utility.focus.setNextFocusable(root)
-    }
-
-    // Reset state after screen transition 🤷‍♀️
-    if (this.state.resetTimer && this.state.resetTimer < engine.time()) {
-      engine.state.reset()
-      delete this.state.resetTimer
     }
   },
   // Tutorials

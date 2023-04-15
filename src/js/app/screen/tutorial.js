@@ -4,6 +4,9 @@ app.screen.tutorial = app.screenManager.invent({
   parentSelector: '.a-app--tutorial',
   rootSelector: '.a-tutorial',
   transitions: {
+    back: function () {
+      this.change('mainMenu')
+    },
     newGame: function () {
       app.storage.tutorial.add(app.screen.tutorial.state.activeTutorial.id)
       app.storage.game.new()
@@ -17,6 +20,7 @@ app.screen.tutorial = app.screenManager.invent({
     const root = this.rootElement
 
     Object.entries({
+      back: root.querySelector('.a-tutorial--back'),
       newGame: root.querySelector('.a-tutorial--newGame'),
     }).forEach(([event, element]) => {
       element.addEventListener('click', () => app.screenManager.dispatch(event))
@@ -42,6 +46,10 @@ app.screen.tutorial = app.screenManager.invent({
       if (focused && focused.tagName != 'button' && focused.role == 'button') {
         return app.screenManager.dispatch('newGame')
       }
+    }
+
+    if (ui.back) {
+      return app.screenManager.dispatch('back')
     }
 
     if ('focus' in ui) {

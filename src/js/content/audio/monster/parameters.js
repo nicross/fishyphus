@@ -2,7 +2,7 @@ content.audio.monster.parameters = (() => {
   const pausedValues = {
     active: true,
     danger: 1/3,
-    mainGain: 1,
+    mainGain: 2,
     paused: 1,
     speed: 0,
     stun: 0,

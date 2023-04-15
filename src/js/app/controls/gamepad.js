@@ -30,22 +30,12 @@ app.controls.gamepad = {
       moveAxis: 'x',
       turnAxis: 'rotate',
     })) {
-      const axisValue = mappings[mapping].reduce(getAxis, 0)
-
-      if (axisValue) {
-        state[name] = axisValue
-      }
+      // XXX: Invert some axes to align with keyboard controls
+      state[name] = -mappings[mapping].reduce(getAxis, 0)
     }
 
-    // XXX: Invert some axes to align with keyboard controls
-    for (const key of [
-      'rotate',
-      'x',
-    ]) {
-      if (state[key]) {
-        state[key] = -state[key]
-      }
-    }
+    // Bias to prevent deceleration while turning
+    state.x *= 1 - Math.abs(state.rotate)
 
     // Forward/backward analog
     const moveBackward = mappings.moveBackward.reduce(getAnalog, 0),

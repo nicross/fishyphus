@@ -37,13 +37,14 @@ app.screen.gameOver = app.screenManager.invent({
     this.state.confirmTimer = engine.time(1)
   },
   onFrame: function () {
-    const root = this.rootElement,
+    const isAfterConfirmTimer = engine.time() > this.state.confirmTimer,
+      root = this.rootElement,
       ui = app.controls.ui()
 
     if (ui.confirm) {
       // Allow confirm on any element to advance to next screen
       // Use a timer to prevent flashes if death occurs during button mashing
-      if (engine.time() > this.state.confirmTimer) {
+      if (isAfterConfirmTimer) {
         return app.screenManager.dispatch('mainMenu')
       }
 
@@ -54,11 +55,11 @@ app.screen.gameOver = app.screenManager.invent({
       }
     }
 
-    // Handle role=button on the description
-    if (ui.enter || ui.space) {
+    // Handle role=button on the description 🤷‍♀️
+    if (ui.confirm || ui.enter || ui.space) {
       const focused = app.utility.focus.get(root)
 
-      if (focused && focused.tagName != 'button' && focused.role == 'button') {
+      if (focused && focused.tagName != 'button' && focused.role == 'button' && isAfterConfirmTimer) {
         return app.screenManager.dispatch('mainMenu')
       }
     }

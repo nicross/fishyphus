@@ -23,13 +23,33 @@
     text-transform: uppercase;
   }
   .a-splash--logo {
-    background: -webkit-linear-gradient(hsl(240, 100%, 66.666%), hsl(360, 100%, 50%));
+    animation: a-splash--logo 8s linear 0s infinite;
+    background: -webkit-linear-gradient(hsl(240, 100%, 66.666%), hsl(360, 100%, 50%), hsl(240, 100%, 66.666%));
+    background-size: 100% 200%;
     -webkit-background-clip: text;
     font-family: Chomsky, serif;
     font-size: 12em;
     line-height: 1;
+    max-width: 100%;
+    opacity: 0.75;
+    overflow: hidden;
     -webkit-text-fill-color: transparent;
+    transform: scale(75%);
+    transition: all 8s ease-out;
+    transition-property: opacity, transform;
   }
+    .a-app--screen-active .a-splash--logo,
+    .a-app--screen-inactive .a-splash--logo {
+      opacity: 1;
+      transform: scale(100%);
+    }
+  .a-splash--logoInner {
+    letter-spacing: 0;
+    transition: letter-spacing 0.5s ease-out;
+  }
+    .a-app--screen-inactive .a-splash--logoInner {
+      letter-spacing: 1rem;
+    }
 
 @keyframes a-splash--instruction {
   0% {
@@ -37,5 +57,14 @@
   }
   100% {
     opacity: 1.0;
+  }
+}
+
+@keyframes a-splash--logo {
+  0% {
+   background-position-y: 0%;
+  }
+  100% {
+    background-position-y: 200%;
   }
 }

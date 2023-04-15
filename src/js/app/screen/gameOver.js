@@ -35,7 +35,6 @@ app.screen.gameOver = app.screenManager.invent({
     }
 
     this.state.confirmTimer = engine.time(1)
-    this.state.resetTimer = engine.time(1)
   },
   onFrame: function () {
     const root = this.rootElement,
@@ -73,12 +72,6 @@ app.screen.gameOver = app.screenManager.invent({
 
     if (ui.down) {
       return app.utility.focus.setNextFocusable(root)
-    }
-
-    // Reset state after screen transition 🤷‍♀️
-    if (this.state.resetTimer && this.state.resetTimer < engine.time()) {
-      engine.state.reset()
-      delete this.state.resetTimer
     }
   },
 })

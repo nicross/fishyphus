@@ -49,8 +49,6 @@ app.screen.mainMenu = app.screenManager.invent({
     this.rootElement.querySelector('.a-mainMenu--action-continue').hidden = !app.storage.game.has()
     this.updateScores()
 
-    this.state.resetTimer = engine.time(1)
-
     // Read scores to screen readers on button focus
     this.rootElement.querySelector('.a-mainMenu--continue').setAttribute('aria-describedby', 'a-mainMenu--continueDescription')
     this.rootElement.querySelector('.a-mainMenu--newGame').setAttribute('aria-describedby', 'a-mainMenu--newGameDescription')
@@ -94,12 +92,6 @@ app.screen.mainMenu = app.screenManager.invent({
 
     if (ui.down) {
       return app.utility.focus.setNextFocusable(root)
-    }
-
-    // Reset state after screen transition 🤷‍♀️
-    if (this.state.resetTimer && this.state.resetTimer < engine.time()) {
-      engine.state.reset()
-      delete this.state.resetTimer
     }
   },
   // Methods

@@ -26,11 +26,14 @@ app.screen.game = app.screenManager.invent({
 
     this.toasts.enter()
   },
-  onExit: function () {
+  onExit: async function () {
     content.audio.duck()
     engine.loop.pause()
 
     this.toasts.exit()
+
+    await engine.fn.promise(500)
+    content.gl.clear()
   },
   onReset: function () {
     this.toasts.reset()
@@ -49,7 +52,7 @@ app.screen.game = app.screenManager.invent({
 
     content.movement.update(game)
     content.monster.update()
-    
+
     this.toasts.update()
   },
 })

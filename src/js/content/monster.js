@@ -31,13 +31,7 @@ content.monster = (() => {
         isRushing = this.isRushing(),
         maxVelocity = content.movement.velocityMax()
 
-      const weightBonus = content.bonus.weightBonus()
-
-      const weightBoost = engine.fn.scale(
-        content.score.value(),
-        0, weightBonus * 2,
-        1, 2
-      )
+      const weightBoost = 1 + this.calculateWeightBoost()
 
       if (isRushing) {
         return maxVelocity * weightBoost * rushVelocityRate
@@ -48,6 +42,15 @@ content.monster = (() => {
       }
 
       return maxVelocity * weightBoost * normalVelocityRate
+    },
+    calculateWeightBoost: function () {
+      const weightBonus = content.bonus.weightBonus()
+
+      return engine.fn.scale(
+        content.score.value(),
+        0, weightBonus,
+        0, 1
+      )
     },
     dangerCountdown: function () {
       return (this.distance() + killDistance) / this.normalVelocity()

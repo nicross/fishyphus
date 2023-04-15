@@ -23,8 +23,12 @@ app.screen.splash = app.screenManager.invent({
   onFrame: function () {
     const ui = app.controls.ui()
 
-    if (ui.action || ui.tab || ui.focus === 0) {
+    if ((ui.action && !ui.back) || ui.tab || ui.focus === 0) {
       app.screenManager.dispatch('continue')
+    }
+
+    if (ui.back || ui.down || ui.left || ui.right || ui.up) {
+      app.audio.stab()
     }
   },
 })

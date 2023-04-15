@@ -113,7 +113,7 @@ content.audio.spots.sound = engine.sound.extend({
 
     const minigameRatio = isActive
       ? minigameValue
-      : engine.fn.lerp(1/2, 1, minigameValue)
+      : 1
 
     return {
       amodDepth: engine.fn.lerp(engine.fn.lerpExp(0, 1/4, angleRatio * innerRatio, 8), 1/2, fishValue, 2),

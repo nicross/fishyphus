@@ -8,14 +8,23 @@ app.audio.stab = (() => {
     wet: 1,
   })
 
+  const frequencies = [
+    0,2,3,7,8,12
+  ].map(
+    (note) => engine.fn.fromMidi(note + 69)
+  )
+
+  let previousFrequency
+
   delay.output.connect(bus)
 
   return () => {
-    const frequency = engine.fn.fromMidi(
-      engine.fn.choose([
-        0,2,3,7,8,12
-      ], Math.random()) + 69
+    const frequency = engine.fn.choose(
+      frequencies.filter((f) => f != previousFrequency),
+      Math.random()
     )
+
+    previousFrequency = frequency
 
     const synth = engine.synth.pwm({
       frequency,
@@ -36,7 +45,7 @@ app.audio.stab = (() => {
     // Automation
     const duration = engine.fn.randomFloat(1.75, 2.25),
       color = engine.fn.randomFloat(1.5, 2.5),
-      gain = engine.fn.fromDb(engine.fn.randomFloat(-31, -29)),
+      gain = engine.fn.fromDb(engine.fn.randomFloat(-28, -26)),
       now = engine.time()
 
     const attack = duration / engine.fn.randomFloat(8, 16)

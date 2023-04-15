@@ -95,7 +95,23 @@ content.audio.monster.pads.sound = engine.sound.extend({
       width,
     } = content.audio.monster.parameters.all()
 
-    const amodDepth = engine.fn.lerp(1/2, 1/4, danger * (1 - stunApplication))
+    const amodDepth = engine.fn.lerp(
+      engine.fn.lerpExp(1/8, 1/2, danger, 12),
+      1/2,
+      stunApplication,
+    )
+
+    const amodFrequency = this.isLeft
+      ? engine.fn.lerp(
+          engine.fn.lerpExp(1/29, 19, danger, 4),
+          engine.fn.lerp(5, 31, stunApplication),
+          stunApplication,
+        )
+      : engine.fn.lerp(
+          engine.fn.lerpExp(1/31, 17, danger, 4),
+          engine.fn.lerp(7, 29, stunApplication),
+          stunApplication,
+        )
 
     const amodFrequency = (
       this.isLeft

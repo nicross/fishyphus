@@ -1,6 +1,6 @@
 {
   "name": "fishyphus",
-  "version": "0.11.1",
+  "version": "0.12.0",
   "description": "",
   "license": "Unlicense",
   "main": "electron/main.js",

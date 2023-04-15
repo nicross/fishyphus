@@ -15,6 +15,9 @@ html, body {
 :focus {
   outline: 2px solid #FFFFFF;
 }
+:focus[tabindex="0"] {
+  outline: none;
+}
 
 [hidden] {
   display: none !important;

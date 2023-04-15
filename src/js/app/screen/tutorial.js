@@ -30,12 +30,9 @@ app.screen.tutorial = app.screenManager.invent({
     const root = this.rootElement,
       ui = app.controls.ui()
 
+    // Allow confirm on any element to advance to next screen
     if (ui.confirm) {
-      const focused = app.utility.focus.get(root)
-
-      if (focused) {
-        return focused.click()
-      }
+      return app.screenManager.dispatch('newGame')
     }
 
     if ('focus' in ui) {

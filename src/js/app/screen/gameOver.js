@@ -34,6 +34,7 @@ app.screen.gameOver = app.screenManager.invent({
       app.storage.highscore.set(score)
     }
 
+    this.state.confirmTimer = engine.time(1)
     this.state.resetTimer = engine.time(1)
   },
   onFrame: function () {
@@ -41,6 +42,12 @@ app.screen.gameOver = app.screenManager.invent({
       ui = app.controls.ui()
 
     if (ui.confirm) {
+      // Allow confirm on any element to advance to next screen
+      // Use a timer to prevent flashes if death occurs during button mashing
+      if (engine.time() > this.state.confirmTimer) {
+        return app.screenManager.dispatch('mainMenu')
+      }
+
       const focused = app.utility.focus.get(root)
 
       if (focused) {

@@ -15,7 +15,7 @@ app.screen.splash = app.screenManager.invent({
     const root = this.rootElement
 
     root.addEventListener('click', () => {
-      app.screenManager.dispatch('interact')
+      app.screenManager.dispatch('continue')
     })
 
     root.querySelector('.a-splash--version').innerHTML = `v${app.version()}`

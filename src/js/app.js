@@ -20,6 +20,7 @@ const app = (() => {
 
       return this
     },
+    audio: {},
     component: {},
     isActive: () => isActive,
     isElectron: () => typeof ElectronApi != 'undefined',

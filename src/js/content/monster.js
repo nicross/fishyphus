@@ -3,7 +3,6 @@ content.monster = (() => {
 
   const dangerTime = 120,
     killDistance = 1,
-    minStun = 15,
     maxStun = 120,
     normalVelocityRate = 0.5,
     rushVelocityRate = 2,
@@ -19,7 +18,11 @@ content.monster = (() => {
 
   return pubsub.decorate({
     applyStun: function () {
-      stun += minStun + content.bonus.stunBonus()
+      if (!this.isDanger()) {
+        return this
+      }
+
+      stun += content.bonus.stunBonus()
       stun = Math.min(stun, maxStun)
 
       stunApplication = 1
@@ -44,11 +47,12 @@ content.monster = (() => {
       return maxVelocity * weightBoost * normalVelocityRate
     },
     calculateWeightBoost: function () {
-      const weightBonus = content.bonus.weightBonus()
+      const spawnBonus = content.bonus.spawnBonus(),
+        weightBonus = content.bonus.weightBonus()
 
       return engine.fn.scale(
         content.score.value(),
-        0, weightBonus,
+        spawnBonus, weightBonus,
         0, 1
       )
     },
@@ -113,6 +117,9 @@ content.monster = (() => {
 
       return this
     },
+    isDanger: function () {
+      return this.dangerValue() > 0
+    },
     isPeacefulMode: () => isPeacefulMode,
     isRushing: function () {
       return this.distance() > content.bonus.rushBonus()
@@ -126,6 +133,7 @@ content.monster = (() => {
         .normalize()
     },
     normalVelocity: () => content.movement.velocityMax() * normalVelocityRate,
+    rushVelocity: () => content.movement.velocityMax() * rushVelocityRate,
     position: () => position.clone(),
     reset: function () {
       position = engine.tool.vector3d.create()
@@ -167,7 +175,7 @@ content.monster = (() => {
       stunAccelerated = engine.fn.accelerateValue(
         stunAccelerated,
         stun,
-        Math.max(minStun, stunAccelerated)
+        Math.max(1, stunAccelerated)
       )
 
       stunApplicationAccelerated = engine.fn.accelerateValue(

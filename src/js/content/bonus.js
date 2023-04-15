@@ -24,11 +24,11 @@ content.bonus = (() => {
       }
 
       // Otherwise provide a growing buffer zone
-      return (30 + (5 * bonus)) * content.monster.normalVelocity() // meters
+      return (30 + bonus) * content.monster.normalVelocity() // meters
     },
-    spawnBonus: () => 1 + Math.ceil(bonus / 2), // fish
-    stunBonus: () => bonus, // seconds per stun
-    startBonus: () => 5 * bonus * content.monster.normalVelocity(), // meters below danger distance
+    spawnBonus: () => 1 + Math.floor(Math.log2(1 + bonus)), // fish
+    stunBonus: () => 15 + bonus, // seconds per stun
+    startBonus: () => bonus * content.monster.rushVelocity(), // meters below danger distance
     weightBonus: () => 3 + bonus, // fish
   }
 })()

@@ -20,7 +20,17 @@ content.audio.minigame.castingAlert = (() => {
     synth.param.gain.exponentialRampToValueAtTime(engine.fn.fromDb(-48), now + decay)
   }
 
-  function destroySynth() {
+  function destroySynthBad() {
+    const decay = 1/16,
+      now = engine.time()
+
+    engine.fn.rampExp(synth.param.gain, engine.const.zeroGain, decay)
+
+    synth.stop(now + decay)
+    synth = undefined
+  }
+
+  function destroySynthGood() {
     const attack = 1/32,
       decay = 1/2,
       now = engine.time()
@@ -43,9 +53,16 @@ content.audio.minigame.castingAlert = (() => {
 
       return this
     },
-    response: function () {
+    responseBad: function () {
       if (synth) {
-        destroySynth()
+        destroySynthBad()
+      }
+
+      return this
+    },
+    responseGood: function () {
+      if (synth) {
+        destroySynthGood()
       }
 
       return this
@@ -61,4 +78,5 @@ content.audio.minigame.castingAlert = (() => {
 })()
 
 content.minigame.on('casting-alert', () => content.audio.minigame.castingAlert.call())
-content.minigame.on('before-casting-wait', () => content.audio.minigame.castingAlert.response())
+content.minigame.on('casting-bad', () => content.audio.minigame.castingAlert.responseBad())
+content.minigame.on('casting-good', () => content.audio.minigame.castingAlert.responseGood())

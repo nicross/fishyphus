@@ -109,6 +109,8 @@ content.minigame = (() => {
      *
      * Emits:
      * - `casting-alert`: when the ideal depth has been reached
+     * - `casting-bad`: when casting misses the optimal window
+     * - `casting-good`: when casting hits the optimal window
      */
     casting: {
       action: () => {
@@ -120,6 +122,9 @@ content.minigame = (() => {
           const value = engine.fn.clamp(1 - data.value)
           // y = a * (1 - ^b)
           data.timer *= waitTimerBonusFactor * (1 - (value ** waitTimerBonusSlope))
+          machine.pubsub.emit('casting-good')
+        } else {
+          machine.pubsub.emit('casting-bad')
         }
 
         data.timer = Math.max(1, data.timer)
@@ -189,15 +194,17 @@ content.minigame = (() => {
           engine.fn.scale(
             data.timer,
             0, -1,
-            0, 1
+            1, 0
           )
         )
 
-        // y = a * (1 - x^b)
-        data.bonus = reelInitialBonusFactor * (1 - (value ** reelInitialBonusSlope))
+        // y = a * (1 - (1 - x)^b)
+        data.bonus = reelInitialBonusFactor * (1 - ((1 - value) ** reelInitialBonusSlope))
 
         delete data.alert
         delete data.timer
+
+        machine.pubsub.emit(value > 0 ? 'waiting-good' : 'waiting-bad')
 
         machine.dispatch('reel')
       },

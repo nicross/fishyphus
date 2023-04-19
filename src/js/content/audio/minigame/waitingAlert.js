@@ -27,7 +27,17 @@ content.audio.minigame.waitingAlert = (() => {
     synth.param.gain.exponentialRampToValueAtTime(engine.fn.fromDb(-15), now + decay)
   }
 
-  function destroySynth() {
+  function destroySynthBad() {
+    const decay = 1/16,
+      now = engine.time()
+
+    engine.fn.rampExp(synth.param.gain, engine.const.zeroGain, decay)
+
+    synth.stop(now + decay)
+    synth = undefined
+  }
+
+  function destroySynthGood() {
     const attack = 1/32,
       decay = 1/2,
       now = engine.time()
@@ -53,9 +63,16 @@ content.audio.minigame.waitingAlert = (() => {
 
       return this
     },
-    response: function () {
+    responseBad: function () {
       if (synth) {
-        destroySynth()
+        destroySynthBad()
+      }
+
+      return this
+    },
+    responseGood: function () {
+      if (synth) {
+        destroySynthGood()
       }
 
       return this
@@ -71,4 +88,5 @@ content.audio.minigame.waitingAlert = (() => {
 })()
 
 content.minigame.on('waiting-alert', () => content.audio.minigame.waitingAlert.call())
-content.minigame.on('before-waiting-reel', () => content.audio.minigame.waitingAlert.response())
+content.minigame.on('waiting-bad', () => content.audio.minigame.waitingAlert.responseBad())
+content.minigame.on('waiting-good', () => content.audio.minigame.waitingAlert.responseGood())

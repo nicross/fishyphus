@@ -24,7 +24,7 @@ app.screen.splash = app.screenManager.invent({
     const ui = app.controls.ui()
 
     if ((ui.action && !ui.back) || ui.tab || ui.focus === 0) {
-      app.screenManager.dispatch('continue')
+      return app.screenManager.dispatch('continue')
     }
 
     if (ui.back || ui.down || ui.left || ui.right || ui.up) {

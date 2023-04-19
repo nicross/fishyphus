@@ -50,4 +50,23 @@
       }
     })
   }
+
+  // Resume audio context on first gesture
+  const gestures = [
+    'click',
+    'keyup',
+    'touchend',
+  ]
+
+  for (const gesture of gestures) {
+    window.addEventListener(gesture, onGesture)
+  }
+
+  function onGesture() {
+    engine.context().resume()
+
+    for (const gesture of gestures) {
+      window.removeEventListener(gesture, onGesture)
+    }
+  }
 })()

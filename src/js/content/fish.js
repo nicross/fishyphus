@@ -1,7 +1,6 @@
 content.fish = (() => {
   const distanceMax = 50,
     distanceMin = 5,
-    fishAcceleration = 1,
     fishAccelerationOrigin = 1/4,
     fishes = new Map()
 
@@ -18,12 +17,15 @@ content.fish = (() => {
     const targetValue = engine.fn.clamp(
       engine.fn.scale(
         position.distance(fish.spot),
-        distanceMin, distanceMax,
+        distanceMin * 2, distanceMax,
         1, 0
       )
-    ) ** 0.75
+    )
 
-    fish.value = engine.fn.accelerateValue(fish.value, targetValue, fish.isOrigin ? fishAccelerationOrigin : fishAcceleration)
+    fish.value = fish.isOrigin
+      ? engine.fn.accelerateValue(fish.value, targetValue, fishAccelerationOrigin)
+      : targetValue
+
     fish.distance = engine.fn.lerp(distanceMax, distanceMin, fish.value)
 
     fish.angle += delta * engine.const.tau / fish.distance * fish.spot.sign

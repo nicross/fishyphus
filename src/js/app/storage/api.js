@@ -2,11 +2,11 @@ app.storage.api = (() => {
   const dbStoreName = 'data',
     dbVersion = 1,
     debounceHandlers = {},
-    isSupported = 'indexedDB' in window,
     proxy = {},
     ready = open()
 
-  let db
+  let db,
+    isSupported = false
 
   function deleteDb(version, key) {
     db.transaction([dbStoreName], 'readwrite').objectStore(dbStoreName).delete([version, key])
@@ -40,34 +40,35 @@ app.storage.api = (() => {
 
   function open() {
     return new Promise((resolve, reject) => {
-      if (!isSupported) {
-        return resolve()
+      if (!('indexedDB' in window)) {
+        return reject()
       }
 
-      const dbName = app.name(),
-        request = indexedDB.open(dbName, dbVersion)
+      try {
+        const dbName = app.name(),
+          request = indexedDB.open(dbName, dbVersion)
 
-      request.onerror = reject
+        request.onerror = reject
 
-      request.onsuccess = async () => {
-        db = request.result
-        await populate()
-        resolve()
-      }
+        request.onsuccess = async () => {
+          db = request.result
+          await populate()
+          isSupported = true
+          resolve()
+        }
 
-      request.onupgradeneeded = () => {
-        request.result.createObjectStore(dbStoreName, {
-          keyPath: ['version', 'key'],
-        })
+        request.onupgradeneeded = () => {
+          request.result.createObjectStore(dbStoreName, {
+            keyPath: ['version', 'key'],
+          })
+        }
+      } catch (e) {
+        reject()
       }
     })
   }
 
   function populate() {
-    if (!isSupported) {
-      return
-    }
-
     return new Promise((resolve, reject) => {
       const request = db.transaction([dbStoreName]).objectStore(dbStoreName).getAll()
 

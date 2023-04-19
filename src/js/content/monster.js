@@ -62,6 +62,7 @@ content.monster = (() => {
     dangerDistance: function () {
       return this.normalVelocity() * dangerTime
     },
+    dangerTime: () => dangerTime,
     dangerValue: function () {
       return 1 - engine.fn.clamp(
         (this.distance() + killDistance) / (this.dangerDistance() + killDistance)

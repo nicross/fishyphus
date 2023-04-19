@@ -23,6 +23,9 @@
   .c-screen--actions {
     list-style-type: none;
   }
+  .c-screen--description {
+    max-width: 75ch;
+  }
   .c-screen--field {
     line-height: 1;
   }

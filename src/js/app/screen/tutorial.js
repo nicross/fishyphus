@@ -76,89 +76,30 @@ app.screen.tutorial = app.screenManager.invent({
   tutorials: [
     {
       id: 'welcome',
-      text: 'Press <kbd>Action</kbd> to cast, wait, reel, and catch your first fish.',
-      criteria: () => app.storage.highscore.get() == 0,
+      text: 'Press <kbd>Action</kbd> to cast, wait, reel, and catch your first fish. Receive bonuses to waiting time and reeling speed with good reaction times. Mash it repeatedly while reeling to increase its speed.',
+      criteria: function () {
+        return content.score.value() == 0
+      },
     },
     {
       id: 'basics',
-      text: 'Press <kbd>Accelerate</kbd>, <kbd>Brake</kbd>, and <kbd>Turn</kbd> to locate more fish.',
-      criteria: () => app.storage.highscore.get() == 1,
+      text: 'Press <kbd>Turn</kbd> to scan the area for more fish, <kbd>Accelerate</kbd> to apply thrust in the direction faced, and <kbd>Brake</kbd> to slow down. Your ship moves in the same direction until force is applied.',
+      criteria: function () {
+        return app.storage.tutorial.has('welcome') && !app.storage.tutorial.has(this.id)
+      },
     },
     {
-      id: 'fish',
-      text: 'Fish swim closer to the surface as your ship nears.',
+      id: 'reaper',
+      text: 'Death is inevitable. Although the reaper is always near, it can be outmaneuvered at short distances. While fishing, it\'s attracted to your lure and hastens its chase. However, it becomes stunned for a short time whenever fish are caught.',
       criteria: function () {
         return app.storage.tutorial.has('basics') && !app.storage.tutorial.has(this.id)
       },
     },
     {
-      id: 'timing',
-      text: 'Fishing rewards quick reactions to its timely cues.',
+      id: 'goodbye',
+      text: 'You have learned everything to be successful. Catch fish expertly with precision to grow stronger against the reaper. Or reset your progress to be onboarded again. Good luck!',
       criteria: function () {
-        return app.storage.tutorial.has('basics') && !app.storage.tutorial.has(this.id)
-      },
-    },
-    {
-      id: 'reeling',
-      text: 'Press <kbd>Action</kbd> repeatedly while reeling to increase its speed.',
-      criteria: function () {
-        return app.storage.tutorial.has('basics') && !app.storage.tutorial.has(this.id)
-      },
-    },
-    {
-      id: 'canceling',
-      text: 'Press <kbd>Action</kbd> while waiting to cancel a fishing attempt.',
-      criteria: function () {
-        return app.storage.tutorial.has('basics') && !app.storage.tutorial.has(this.id)
-      },
-    },
-    {
-      id: 'death',
-      text: 'Death is a trivial recurrence from which you grow stronger.',
-      criteria: function () {
-        return app.storage.tutorial.has('basics') && !app.storage.tutorial.has(this.id)
-      },
-    },
-    {
-      id: 'rush',
-      text: 'The reaper moves faster while actively fishing.',
-      criteria: function () {
-        return app.storage.tutorial.has('basics') && !app.storage.tutorial.has(this.id)
-      },
-    },
-    {
-      id: 'weight',
-      text: 'The reaper moves faster as more fish are caught.',
-      criteria: function () {
-        return app.storage.tutorial.has('basics') && !app.storage.tutorial.has(this.id)
-      },
-    },
-    {
-      id: 'stun',
-      text: 'The reaper becomes stunned when fish are caught.',
-      criteria: function () {
-        return app.storage.tutorial.has('basics') && !app.storage.tutorial.has(this.id)
-      },
-    },
-    {
-      id: 'looking',
-      text: 'You may look freely in any direction while moving.',
-      criteria: function () {
-        return app.storage.tutorial.has('basics') && !app.storage.tutorial.has(this.id)
-      },
-    },
-    {
-      id: 'moving',
-      text: 'Your ship moves at a constant velocity once accelerated.',
-      criteria: function () {
-        return app.storage.tutorial.has('basics') && !app.storage.tutorial.has(this.id)
-      },
-    },
-    {
-      id: 'turning',
-      text: 'Your ship changes direction faster at slower speeds.',
-      criteria: function () {
-        return app.storage.tutorial.has('basics') && !app.storage.tutorial.has(this.id)
+        return app.storage.tutorial.has('reaper') && !app.storage.tutorial.has(this.id)
       },
     },
   ],

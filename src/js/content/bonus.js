@@ -1,4 +1,6 @@
 content.bonus = (() => {
+  const tutorials = 4 // 1-indexed
+
   let bonus = 0
 
   return {
@@ -19,17 +21,17 @@ content.bonus = (() => {
     // Bonuses
     rushBonus: () => {
       // Kill player no matter what
-      if (!bonus) {
+      if (bonus < tutorials) {
         return 0
       }
 
       // Otherwise provide a growing buffer zone
-      return (30 + bonus) * content.monster.normalVelocity() // meters
+      return Math.min(30 + ((bonus - (tutorials - 1)) * 5), content.monster.dangerTime()) * content.monster.normalVelocity() // meters
     },
-    spawnBonus: () => 1 + Math.floor(Math.log2(1 + bonus)), // fish
-    stunBonus: () => 15 + bonus, // seconds per stun
-    startBonus: () => bonus * content.monster.rushVelocity(), // meters below danger distance
-    weightBonus: () => 3 + bonus, // fish
+    spawnBonus: () => 1 + Math.min(bonus, tutorials - 1) + Math.floor(Math.log2(1 + Math.max(0, bonus - tutorials))), // fish
+    stunBonus: () => 15 + (bonus - (tutorials - 1)), // seconds per stun
+    startBonus: () => (bonus - (tutorials - 1)) * content.monster.rushVelocity(), // meters below danger distance
+    weightBonus: () => 3 + (bonus - (tutorials - 1)), // fish
   }
 })()
 

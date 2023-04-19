@@ -70,6 +70,7 @@ content.audio.minigame.castingAlert = (() => {
     reset: function () {
       if (synth) {
         synth.stop()
+        synth = undefined
       }
 
       return this

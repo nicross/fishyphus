@@ -1,4 +1,4 @@
-content.audio.minigame.waitingAlert = (() => {
+content.audio.minigame.inactiveAlert = (() => {
   const bus = content.audio.minigame.bus()
 
   let detune,
@@ -88,6 +88,6 @@ content.audio.minigame.waitingAlert = (() => {
   }
 })()
 
-content.minigame.on('waiting-alert', () => content.audio.minigame.waitingAlert.call())
-content.minigame.on('waiting-bad', () => content.audio.minigame.waitingAlert.responseBad())
-content.minigame.on('waiting-good', () => content.audio.minigame.waitingAlert.responseGood())
+content.minigame.on('inactive-alert', () => content.audio.minigame.inactiveAlert.call())
+content.minigame.on('inactive-bad', () => content.audio.minigame.inactiveAlert.responseBad())
+content.minigame.on('inactive-good', () => content.audio.minigame.inactiveAlert.responseGood())

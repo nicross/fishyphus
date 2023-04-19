@@ -63,10 +63,14 @@ content.minigame = (() => {
     },
     /**
      * Inactive state data:
+     * - `alert` - whether inside a sweet spot
      * - `cooldown` - time remaining between casts
      *
      * Emits:
+     * - `inactive-alert`: when the sweet spot has been entered
+     * - `inactive-bad`: when the sweet spot has been exited
      * - `inactive-disallowed`: when no fish are nearby
+     * - `inactive-good`: when casting inside the sweet spot
      */
     inactive: {
       action: () => {
@@ -82,6 +86,9 @@ content.minigame = (() => {
           return machine.pubsub.emit('inactive-disallowed')
         }
 
+        // Notify of good cast location
+        machine.pubsub.emit(data.alert ? 'inactive-good' : 'inactive-bad')
+
         // Set up data for next state
         data = {
           depth: 0,
@@ -96,6 +103,23 @@ content.minigame = (() => {
         // Decrement cooldown timer
         if (data.cooldown > 0) {
           data.cooldown -= engine.loop.delta()
+        }
+
+        if (data.cooldown > 0) {
+          return
+        }
+
+        // Check sweet spots
+        const fish = content.fish.closest()
+
+        if (fish && fish.value == 1) {
+          if (!data.alert) {
+            data.alert = true
+            machine.pubsub.emit('inactive-alert')
+          }
+        } else if (data.alert) {
+          data.alert = false
+          machine.pubsub.emit('inactive-bad')
         }
       },
     },

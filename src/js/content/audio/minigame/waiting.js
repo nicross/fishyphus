@@ -100,6 +100,13 @@ content.audio.minigame.waiting = (() => {
   }
 
   return {
+    reset: function () {
+      if (synth) {
+        destroySynth()
+      }
+
+      return this
+    },
     update: function () {
       if (content.minigame.state() == 'waiting') {
         if (synth) {

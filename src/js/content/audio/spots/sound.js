@@ -84,6 +84,16 @@ content.audio.spots.sound = engine.sound.extend({
     engine.fn.setParam(this.synth.param.gain, gain)
 
     this.filterModel.options.minColor = minColor
+
+    if (this.isLooking()) {
+      if (!this.isActivelyLooking) {
+        this.isActivelyLooking = true
+        this.lookOn()
+      }
+    } else if (this.isActivelyLooking) {
+      this.isActivelyLooking = false
+      this.lookOff()
+    }
   },
   // Methods
   calculateRealtimeParameters: function () {
@@ -92,7 +102,7 @@ content.audio.spots.sound = engine.sound.extend({
       isActive = content.minigame.isFish(this.spot.id),
       maxDistance = 300,
       minigameValue = 1 - content.minigame.isActiveAccelerated(),
-      radiusInner = 5,
+      radiusInner = 5 * 2,
       radiusOuter = 50
 
     const relative = this.getRelativeVector()
@@ -124,5 +134,59 @@ content.audio.spots.sound = engine.sound.extend({
       gain: engine.fn.fromDb(engine.fn.lerp(-30, -33, innerRatio)) * minigameRatio,
       minColor: engine.fn.lerpExp(4, 0.5, innerRatio, 8),
     }
+  },
+  isLooking: function () {
+    const effectiveRadius = 5 * 2,
+      relative = this.getRelativeVector()
+
+    const distance = relative.distance()
+
+    // Fail silently when content.audio.minigame.inactiveAlert is more effective
+    if (distance <= effectiveRadius) {
+      this.isActivelyLooking = false
+      return false
+    }
+
+    // Otherwise calculate the optimal look angle
+    // Player is at A, fish is at B
+    const B = engine.const.tau / 4,
+      a = effectiveRadius,
+      c = distance
+
+    const b = Math.sqrt((a * a) + (c * c) - (2 * a * c * Math.cos(B)))
+    const A = Math.asin(
+      Math.sin(B) * a / b
+    )
+
+    const lookAngle = A
+    const angle = Math.atan2(relative.y, relative.x)
+
+    return Math.abs(angle) <= lookAngle
+  },
+  lookOff: function () {
+    const synth = engine.synth.simple({
+      frequency: this.spot.rootFrequency,
+      gain: engine.fn.fromDb(-15),
+      type: 'triangle',
+    }).connect(this.output)
+
+    const duration = 1/4,
+      now = engine.time()
+
+    engine.fn.rampExp(synth.param.gain, engine.const.zeroGain, duration)
+    synth.stop(now + duration)
+  },
+  lookOn: function () {
+    const synth = engine.synth.simple({
+      frequency: this.spot.rootFrequency * 2,
+      gain: engine.fn.fromDb(-15),
+      type: 'triangle',
+    }).connect(this.output)
+
+    const duration = 1/4,
+      now = engine.time()
+
+    engine.fn.rampExp(synth.param.gain, engine.const.zeroGain, duration)
+    synth.stop(now + duration)
   },
 })

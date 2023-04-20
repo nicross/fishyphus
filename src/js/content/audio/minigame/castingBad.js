@@ -5,12 +5,13 @@ content.audio.minigame.castingBad = function () {
     gain = engine.fn.fromDb(-15)
 
   const synth = engine.synth.am({
-    carrierDetune: detune,
+    carrierDetune: 1200 + detune,
     carrierFrequency: frequency,
+    carrierGain: 3/4,
     carrierType: 'square',
     gain,
-    modDepth: 1/2,
-    modDetune: 600 + detune,
+    modDepth: 1/4,
+    modDetune: 1200 + 600 + detune,
     modFrequency: frequency,
     modType: 'square',
   }).filtered({

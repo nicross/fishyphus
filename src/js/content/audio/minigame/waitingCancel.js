@@ -10,6 +10,7 @@ content.audio.minigame.waitingCancel = (() => {
     const synth = engine.synth.am({
       carrierDetune: detune,
       carrierFrequency: frequency,
+      carrierGain: 1/2,
       carrierType: 'square',
       gain,
       modDepth: 1/2,

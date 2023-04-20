@@ -24,6 +24,8 @@
     list-style-type: none;
   }
   .c-screen--description {
+    font-family: RobotoLight, sans-serif;
+    font-weight: 300;
     max-width: 75ch;
   }
   .c-screen--field {

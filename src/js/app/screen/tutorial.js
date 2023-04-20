@@ -78,28 +78,28 @@ app.screen.tutorial = app.screenManager.invent({
       id: 'welcome',
       text: 'Press <kbd>Action</kbd> to cast, wait, reel, and catch your first fish. Receive bonuses to waiting time and reeling speed with good reaction times. Mash it repeatedly while reeling to increase its speed.',
       criteria: function () {
-        return content.score.value() == 0
+        return app.storage.highscore.get() == 0
       },
     },
     {
       id: 'basics',
       text: 'Press <kbd>Turn</kbd> to scan the area for more fish, <kbd>Accelerate</kbd> to apply thrust in the direction faced, and <kbd>Brake</kbd> to slow down. Your ship moves in the same direction until force is applied.',
       criteria: function () {
-        return app.storage.tutorial.has('welcome') && !app.storage.tutorial.has(this.id)
+        return app.storage.highscore.get() >= 1 && app.storage.tutorial.has('welcome') && !app.storage.tutorial.has('reaper')
       },
     },
     {
       id: 'reaper',
       text: 'Death is inevitable. Although the reaper is always near, it can be outmaneuvered at short distances. While fishing, it\'s attracted to your lure and hastens its chase. However, it becomes stunned for a short time whenever fish are caught.',
       criteria: function () {
-        return app.storage.tutorial.has('basics') && !app.storage.tutorial.has(this.id)
+        return app.storage.highscore.get() >= 2 && app.storage.tutorial.has('basics') && !app.storage.tutorial.has('goodbye')
       },
     },
     {
       id: 'goodbye',
       text: 'You have learned everything to be successful. Catch fish expertly with precision to grow stronger against the reaper. Or reset your progress to be onboarded again. Good luck!',
       criteria: function () {
-        return app.storage.tutorial.has('reaper') && !app.storage.tutorial.has(this.id)
+        return app.storage.highscore.get() >= 3 && app.storage.tutorial.has('reaper') && !app.storage.tutorial.has('goodbye')
       },
     },
   ],
@@ -109,7 +109,7 @@ app.screen.tutorial = app.screenManager.invent({
       (tutorial) => tutorial.criteria()
     )
 
-    return engine.fn.choose(available, Math.random())
+    return available.pop()
   },
   hasTutorial: function () {
     return this.tutorials.some(

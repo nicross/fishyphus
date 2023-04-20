@@ -1,10 +1,14 @@
 .a-tutorial {}
+  .a-tutorial--text {
+    line-height: 2;
+  }
   .a-tutorial--text kbd {
     animation: a-tutorial--text--kbd 2s linear 0s infinite alternate both;
     border: 2px solid hsl(360, 100%, 50%);
     border-radius: 0.25em;
     display: inline-block;
     font-family: FiraCodeRegular, monospace;
+    line-height: 1.5;
     padding: 0 0.5em;
   }
   .a-tutorial--text kbd:nth-child(3n+2) {

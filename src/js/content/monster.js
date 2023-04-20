@@ -5,7 +5,7 @@ content.monster = (() => {
     killDistance = 1,
     maxStun = 120,
     normalVelocityRate = 0.5,
-    rushVelocityRate = 2,
+    rushVelocityRate = 4,
     stunFallRate = 0.5
 
   let isPeacefulMode = false,

@@ -166,27 +166,31 @@ content.audio.spots.sound = engine.sound.extend({
   lookOff: function () {
     const synth = engine.synth.simple({
       frequency: this.spot.rootFrequency,
-      gain: engine.fn.fromDb(-15),
-      type: 'triangle',
+      gain: engine.fn.fromDb(-18),
+      type: 'sine',
     }).connect(this.output)
 
     const duration = 1/4,
       now = engine.time()
 
     engine.fn.rampExp(synth.param.gain, engine.const.zeroGain, duration)
+    engine.fn.rampLinear(synth.param.detune, -1200, duration)
+
     synth.stop(now + duration)
   },
   lookOn: function () {
     const synth = engine.synth.simple({
       frequency: this.spot.rootFrequency * 2,
-      gain: engine.fn.fromDb(-15),
-      type: 'triangle',
+      gain: engine.fn.fromDb(-18),
+      type: 'sine',
     }).connect(this.output)
 
     const duration = 1/4,
       now = engine.time()
 
     engine.fn.rampExp(synth.param.gain, engine.const.zeroGain, duration)
+    engine.fn.rampLinear(synth.param.detune, 1200, duration)
+
     synth.stop(now + duration)
   },
 })

@@ -10,7 +10,7 @@ content.spawner = (() => {
   })
 
   const streamer = engine.tool.streamer2d.create({
-    radius: chunkSize * 2,
+    radius: 500,
   }).on('load', onLoad).on('unload', onUnload)
 
   let activeSpots = new Set(),

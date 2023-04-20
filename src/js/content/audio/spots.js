@@ -1,7 +1,7 @@
 content.audio.spots = (() => {
   const bus = content.audio.createBus(),
     spotDepth = -1,
-    soundLimit = 3
+    soundLimit = 4
 
   const sounds = new Map()
 

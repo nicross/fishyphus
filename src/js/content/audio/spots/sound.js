@@ -11,7 +11,7 @@ content.audio.spots.sound = engine.sound.extend({
   }),
   gainModel: engine.ear.gainModel.base.extend({
     calculate: function (distance) {
-      const maxDistance = 300,
+      const maxDistance = 500,
         radiusInner = 5,
         radiusOuter = 50
 
@@ -100,7 +100,7 @@ content.audio.spots.sound = engine.sound.extend({
     const fish = content.fish.get(this.spot.id),
       fishValue = fish?.value || 0,
       isActive = content.minigame.isFish(this.spot.id),
-      maxDistance = 300,
+      maxDistance = 500,
       minigameValue = 1 - content.minigame.isActiveAccelerated(),
       radiusInner = 5,
       radiusOuter = 50

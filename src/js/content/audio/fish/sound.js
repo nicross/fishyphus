@@ -11,7 +11,7 @@ content.audio.fish.sound = engine.sound.extend({
   gainModel: engine.ear.gainModel.realisticHorizon.extend({
     defaults: {
       horizonPower: 1,
-      maxDistance: 400,
+      maxDistance: 500,
       minDistance: 1,
       power: 0.5,
     },

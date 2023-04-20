@@ -166,7 +166,7 @@ content.audio.spots.sound = engine.sound.extend({
   lookOff: function () {
     const synth = engine.synth.simple({
       frequency: this.spot.rootFrequency,
-      gain: engine.fn.fromDb(-18),
+      gain: engine.fn.fromDb(-21),
       type: 'sine',
     }).connect(this.output)
 
@@ -181,7 +181,7 @@ content.audio.spots.sound = engine.sound.extend({
   lookOn: function () {
     const synth = engine.synth.simple({
       frequency: this.spot.rootFrequency * 2,
-      gain: engine.fn.fromDb(-18),
+      gain: engine.fn.fromDb(-21),
       type: 'sine',
     }).connect(this.output)
 

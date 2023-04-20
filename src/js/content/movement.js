@@ -5,7 +5,8 @@ content.movement = (() => {
     maxVelocity = 12,
     minigameDeceleration = 6
 
-  let velocity = engine.tool.vector2d.create()
+  let turningSpeed = 1,
+    velocity = engine.tool.vector2d.create()
 
   return {
     export: () => velocity.clone(),
@@ -16,6 +17,11 @@ content.movement = (() => {
     },
     reset: function () {
       velocity = engine.tool.vector2d.create()
+
+      return this
+    },
+    setTurningSpeed: function (value) {
+      turningSpeed = value
 
       return this
     },
@@ -33,7 +39,7 @@ content.movement = (() => {
       let {yaw} = engine.position.getEuler()
 
       // Calculate next yaw
-      yaw += (rotate * angularVelocity * delta)
+      yaw += (rotate * turningSpeed * angularVelocity * delta)
       yaw %= engine.const.tau
 
       // Apply next yaw

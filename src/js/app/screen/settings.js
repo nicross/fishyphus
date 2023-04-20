@@ -33,6 +33,7 @@ app.screen.settings = app.screenManager.invent({
     this.sliders = [
       ['.a-settings--gamepadVibration', app.settings.raw.gamepadVibration, app.settings.setGamepadVibration],
       ['.a-settings--mainVolume', app.settings.raw.mainVolume, app.settings.setMainVolume],
+      ['.a-settings--turningSpeed', app.settings.raw.turningSpeed, app.settings.setTurningSpeed],
     ].map(([selector, initialValue, setter]) => {
       const component = app.component.slider.hydrate(root.querySelector(selector), initialValue)
       component.on('change', () => setter(component.getValueAsFloat()))

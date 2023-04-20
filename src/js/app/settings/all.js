@@ -36,3 +36,11 @@ app.settings.register('simpleMode', {
     content.minigame.setSimpleMode(computedValue)
   },
 })
+
+app.settings.register('turningSpeed', {
+  compute: (rawValue) => engine.fn.lerp(0.25, 1, rawValue),
+  default: 1,
+  update: function (computedValue) {
+    content.movement.setTurningSpeed(computedValue)
+  },
+})

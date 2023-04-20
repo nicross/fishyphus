@@ -102,7 +102,7 @@ content.audio.spots.sound = engine.sound.extend({
       isActive = content.minigame.isFish(this.spot.id),
       maxDistance = 300,
       minigameValue = 1 - content.minigame.isActiveAccelerated(),
-      radiusInner = 5 * 2,
+      radiusInner = 5,
       radiusOuter = 50
 
     const relative = this.getRelativeVector()
@@ -136,7 +136,7 @@ content.audio.spots.sound = engine.sound.extend({
     }
   },
   isLooking: function () {
-    const effectiveRadius = 5 * 2,
+    const effectiveRadius = 5,
       relative = this.getRelativeVector()
 
     const distance = relative.distance()

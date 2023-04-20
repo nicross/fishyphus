@@ -1,31 +1,24 @@
 content.fish = (() => {
   const distanceMax = 50,
     distanceMin = 5,
-    fishAccelerationOrigin = 1/4,
+    fishAcceleration = 12/50,
     fishes = new Map()
 
   let closest
 
   function updateOne(fish) {
-    if (content.minigame.isFish(fish.id)) {
-      return
-    }
-
     const delta = engine.loop.delta(),
       position = engine.position.getVector()
 
     const targetValue = engine.fn.clamp(
       engine.fn.scale(
         position.distance(fish.spot),
-        distanceMin * 2, distanceMax,
+        distanceMin, distanceMax,
         1, 0
       )
     )
 
-    fish.value = fish.isOrigin
-      ? engine.fn.accelerateValue(fish.value, targetValue, fishAccelerationOrigin)
-      : targetValue
-
+    fish.value = engine.fn.accelerateValue(fish.value, targetValue, fishAcceleration)
     fish.distance = engine.fn.lerp(distanceMax, distanceMin, fish.value)
 
     fish.angle += delta * engine.const.tau / fish.distance * fish.spot.sign

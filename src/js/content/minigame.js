@@ -214,13 +214,15 @@ content.minigame = (() => {
         data.count = 0
 
         // Reward good timing after the alert
-        const value = engine.fn.clamp(
-          engine.fn.scale(
-            data.timer,
-            0, -1,
-            1, 0
-          )
-        )
+        const value = data.timer <= 0
+          ? engine.fn.clamp(
+              engine.fn.scale(
+                data.timer,
+                0, -1,
+                1, 0
+              )
+            )
+          : 0
 
         // y = a * (1 - (1 - x)^b)
         data.bonus = reelInitialBonusFactor * (1 - ((1 - value) ** reelInitialBonusSlope))

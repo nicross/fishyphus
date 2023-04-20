@@ -3,7 +3,7 @@ content.movement = (() => {
     angularVelocity = engine.const.tau / 4,
     deceleration = 3,
     maxVelocity = 12,
-    minigameDeceleration = 4
+    minigameDeceleration = 6
 
   let velocity = engine.tool.vector2d.create()
 

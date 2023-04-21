@@ -76,23 +76,23 @@ app.screen.tutorial = app.screenManager.invent({
   tutorials: [
     {
       id: 'welcome',
-      text: 'Press <kbd>Action</kbd> to cast, wait, reel, and catch your first fish. Receive bonuses to waiting time and reeling speed with good reaction times. Mash it repeatedly while reeling to increase its speed. Good luck!',
+      text: 'Press <kbd>Action</kbd> to cast, wait, reel, and catch your first fish. Receive bonuses to waiting time and reeling speed with good reaction times. Mash repeatedly while reeling to increase its speed. The reaper awaits!',
       criteria: function () {
         return app.storage.highscore.get() == 0
       },
     },
     {
-      id: 'basics',
-      text: 'Press <kbd>Turn</kbd> to scan the area for more fish, <kbd>Accelerate</kbd> to apply thrust in the direction faced, and <kbd>Brake</kbd> to slow down. Your ship moves in the same direction until force is applied. Fish love it too!',
+      id: 'movement',
+      text: 'Press <kbd>Turn</kbd> to scan the area for fish, <kbd>Accelerate</kbd> to apply forward thrust, and <kbd>Brake</kbd> to slow down. Your ship moves constantly unless acted upon. Drop anchor at the center of fishing spots for best results.',
       criteria: function () {
         return app.storage.highscore.get() >= 1 && app.storage.tutorial.has('welcome') && !app.storage.tutorial.has('reaper')
       },
     },
     {
       id: 'reaper',
-      text: 'Death is inevitable. Although the reaper is always near, it can be outmaneuvered at short distances, and becomes stunned whenever fish are caught. However, its pace quickens while fishing and carrying larger quantities of fish. Beware!',
+      text: 'Although the reaper is inevitable, it can be outmaneuvered at short distances, and becomes stunned whenever fish are caught. However, its pace quickens while fishing and carrying larger quantities of fish.',
       criteria: function () {
-        return app.storage.highscore.get() >= 2 && app.storage.tutorial.has('basics') && !app.storage.tutorial.has('goodbye')
+        return app.storage.highscore.get() >= 2 && app.storage.tutorial.has('movement') && !app.storage.tutorial.has('goodbye')
       },
     },
     {

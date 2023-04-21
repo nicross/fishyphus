@@ -2,9 +2,10 @@ content.audio.surface = (() => {
   const bus = content.audio.createBus()
 
   const filterModel = engine.ear.filterModel.musical.extend({
+    coneRadius: 0.25 * engine.const.tau,
     frequency: 100,
     maxColor: 10,
-    minColor: 1,
+    minColor: 0.5,
     power: 1,
   })
 

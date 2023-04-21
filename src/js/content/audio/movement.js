@@ -13,7 +13,11 @@ content.audio.movement = (() => {
     type: '1d',
   })
 
-  const filterModel = engine.ear.filterModel.musical.instantiate()
+  const filterModel = engine.ear.filterModel.musical.instantiate({
+    coneRadius: 0.25 * engine.const.tau,
+    minColor: 0.5,
+    power: 1,
+  })
 
   let binaural,
     synth

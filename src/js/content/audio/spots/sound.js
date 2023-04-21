@@ -21,7 +21,7 @@ content.audio.spots.sound = engine.sound.extend({
           radiusOuter, maxDistance,
           1, 0,
         )
-      )
+      ) ** 1.5
 
       return outerRatio
     }
@@ -92,7 +92,6 @@ content.audio.spots.sound = engine.sound.extend({
       }
     } else if (this.isActivelyLooking) {
       this.isActivelyLooking = false
-      this.lookOff()
     }
   },
   // Methods
@@ -141,46 +140,30 @@ content.audio.spots.sound = engine.sound.extend({
 
     const distance = relative.distance()
 
-    // Fail silently when content.audio.minigame.inactiveAlert is more effective
-    if (distance <= effectiveRadius) {
-      this.isActivelyLooking = false
-      return false
-    }
-
-    // Otherwise calculate the optimal look angle
+    // Calculate the maximum look angle by solving an SAS triangle
     // Player is at A, fish is at B
     const B = engine.const.tau / 4,
       a = effectiveRadius,
       c = distance
 
-    const b = Math.sqrt((a * a) + (c * c) - (2 * a * c * Math.cos(B)))
+    // Calculate side b via pythagorean theorem
+    // Law of cosines could also be used, but right triangles are simpler cases
+    const b = Math.sqrt((a * a) + (c * c))
+
+    // Calculate angle A via law of sines
     const A = Math.asin(
       Math.sin(B) * a / b
     )
 
-    const lookAngle = A
-    const angle = Math.atan2(relative.y, relative.x)
+    // Compare the angles
+    const lookAngle = A,
+      relativeAngle = Math.atan2(relative.y, relative.x)
 
-    return Math.abs(angle) <= lookAngle
-  },
-  lookOff: function () {
-    const synth = engine.synth.simple({
-      frequency: this.spot.rootFrequency,
-      gain: engine.fn.fromDb(-21),
-      type: 'sine',
-    }).connect(this.output)
-
-    const duration = 1/4,
-      now = engine.time()
-
-    engine.fn.rampExp(synth.param.gain, engine.const.zeroGain, duration)
-    engine.fn.rampLinear(synth.param.detune, -1200, duration)
-
-    synth.stop(now + duration)
+    return Math.abs(relativeAngle) <= lookAngle
   },
   lookOn: function () {
     const synth = engine.synth.simple({
-      frequency: this.spot.rootFrequency * 2,
+      frequency: this.spot.rootFrequency * 4,
       gain: engine.fn.fromDb(-21),
       type: 'sine',
     }).connect(this.output)
@@ -189,7 +172,7 @@ content.audio.spots.sound = engine.sound.extend({
       now = engine.time()
 
     engine.fn.rampExp(synth.param.gain, engine.const.zeroGain, duration)
-    engine.fn.rampLinear(synth.param.detune, 1200, duration)
+    engine.fn.rampLinear(synth.param.detune, 2400, duration)
 
     synth.stop(now + duration)
   },

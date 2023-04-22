@@ -1,6 +1,10 @@
 # WISHLIST
 Items that _could be_ cool, but greatly expand the scope:
 
+## Sea gulls
+Occasionally the sailor will be joined by a sea gull.
+Perhaps they may encounter dolphins too?
+
 ## Other interactions
 The only interaction is fishing.
 Could players get more choice with these additional interactions?

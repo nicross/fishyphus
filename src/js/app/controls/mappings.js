@@ -85,6 +85,8 @@ app.controls.mappings = {
     {type: 'gamepad', key: 1},
     {type: 'gamepad', key: 2},
     {type: 'gamepad', key: 3},
+    {type: 'gamepad', key: 10},
+    {type: 'gamepad', key: 11},
   ],
   back: [
     {type: 'keyboard', key: 'Escape'},

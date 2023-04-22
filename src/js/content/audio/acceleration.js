@@ -14,7 +14,7 @@ content.audio.acceleration = (() => {
       amodDepth,
       amodFrequency: engine.fn.lerp(8, 16, value),
       color: engine.fn.lerp(12, 6, value),
-      detune: engine.fn.lerp(0, 600, value),
+      detune: engine.fn.lerp(0, 1200, value),
       carrierGain: 1 - amodDepth,
       gain: engine.fn.fromDb(engine.fn.lerp(-18, -18, value)),
     }

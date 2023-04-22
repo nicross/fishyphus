@@ -126,7 +126,7 @@ content.audio.spots.sound = engine.sound.extend({
 
     return {
       amodDepth: engine.fn.lerp(engine.fn.lerpExp(0, 1/4, angleRatio * innerRatio, 8), 1/2, fishValue, 2),
-      amodFrequency: engine.fn.lerp(engine.fn.lerpExp(1, 8, angleRatio * innerRatio, 8), 8, fishValue, 2),
+      amodFrequency: engine.fn.lerp(engine.fn.lerpExp(1, 8, angleRatio * innerRatio, 8), 8, fishValue, 4),
       filterFrequency: this.spot.rootFrequency * engine.fn.lerpExp(4, 16, engine.fn.lerpExp(1, angleRatio, innerRatio, 4), 4),
       fmodDepth: this.spot.rootFrequency * engine.fn.lerpExp(1/2, 0, innerRatio, 2),
       fmodFrequency: this.spot.rootFrequency * engine.fn.lerpExp(1/2, 1, innerRatio, 2),

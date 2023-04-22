@@ -91,7 +91,7 @@ content.video.color = (() => {
       const hueOffset1 = -1 / engine.fn.scale(
         Math.sin(engine.const.tau * (parameters.hueOffset1 + (time / 60))),
         -1, 1,
-        2, 3
+        2.5, 3.5
       )
 
       const backgroundLightness = engine.fn.lerp(7/8, 1/2, danger)

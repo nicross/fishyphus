@@ -1,5 +1,5 @@
 content.video.particles = (() => {
-  const maxParticles = 25000
+  const maxParticles = 7500
 
   const fragmentShader = `#version 300 es
 
@@ -141,17 +141,12 @@ void main(void) {
       drawDistance = content.gl.drawDistance()
 
     // Surface
-    while (particles.length < maxParticles && Math.random() < 0.875) {
-      const vector = engine.tool.vector2d.unitX()
-        .scale(engine.fn.randomFloat(-1, 1) * drawDistance)
-        .rotate(engine.fn.randomFloat(-1, 1) * engine.const.tau)
-        .add(camera)
-
+    while (particles.length < maxParticles && Math.random() < 0.95) {
       particles.push({
-        rate: 1 / engine.fn.randomFloat(2, 4),
+        rate: 1 / engine.fn.randomFloat(4, 6),
         life: 1,
-        x: vector.x,
-        y: vector.y,
+        x: camera.x + ((Math.random() > 0.5 ? 1 : -1) * (Math.random() ** 1.5) * drawDistance),
+        y: camera.y + ((Math.random() > 0.5 ? 1 : -1) * (Math.random() ** 1.5) * drawDistance),
       })
     }
 
@@ -190,6 +185,8 @@ void main(void) {
         return particles
       }
 
+      particle.x = engine.fn.wrap(particle.x, camera.x - drawDistance, camera.x + drawDistance)
+      particle.y = engine.fn.wrap(particle.y, camera.y - drawDistance, camera.y + drawDistance)
       particle.z = content.surface.value(particle)
 
       lifes.push(particle.life)

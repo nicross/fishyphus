@@ -11,7 +11,7 @@ content.surface = (() => {
       ]) {
         const field = engine.fn.createNoise({
           seed,
-          octaves: 2,
+          octaves: 1,
           type: 'simplex3d',
         })
 

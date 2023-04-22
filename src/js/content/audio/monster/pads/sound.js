@@ -122,7 +122,7 @@ content.audio.monster.pads.sound = engine.sound.extend({
       carrierDetune: engine.fn.lerp(0, this.isLeft ? 2400 : -2400, stun) + detune,
       carrierGain: 1 - amodDepth,
       fmodDetune: engine.fn.lerp(0, this.isLeft ? -2400 : 2400, stun) + detune,
-      gain: engine.fn.fromDb(engine.fn.lerpExp(engine.const.zeroDb, -24, danger, 0.05)),
+      gain: engine.fn.fromDb(engine.fn.lerpExp(engine.const.zeroDb, -24, danger, 0.05)) * engine.fn.fromDb(engine.fn.lerp(0, 6, stunApplication)),
       minColor: engine.fn.lerp(0.5, 0, paused),
       maxColor: engine.fn.lerp(3, 1, paused),
       vector: engine.tool.vector2d.create(vector).rotate(

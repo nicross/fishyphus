@@ -3,7 +3,8 @@ app.audio.stab = (() => {
 
   const delay = engine.effect.dubDelay({
     dry: 1,
-    filterFrequency: engine.fn.fromMidi(60),
+    feedback: 0.5,
+    filterFrequency: engine.fn.fromMidi(69 + 12),
     gain: 1,
     wet: 1,
   })
@@ -45,7 +46,7 @@ app.audio.stab = (() => {
     // Automation
     const duration = engine.fn.randomFloat(1.75, 2.25),
       color = engine.fn.randomFloat(1.5, 2.5),
-      gain = engine.fn.fromDb(engine.fn.randomFloat(-28, -26)),
+      gain = engine.fn.fromDb(engine.fn.randomFloat(-25, -23)),
       now = engine.time()
 
     const attack = duration / engine.fn.randomFloat(8, 16)

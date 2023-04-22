@@ -14,6 +14,24 @@ content.minigame.on('inactive-disallowed', () => {
   })
 })
 
+content.minigame.on('inactive-alert', () => {
+  app.haptics.enqueue({
+    duration: 250,
+    startDelay: 0,
+    strongMagnitude: 1,
+    weakMagnitude: 1,
+  })
+})
+
+content.minigame.on('enter-casting', () => {
+  app.haptics.enqueue({
+    duration: 250,
+    startDelay: 0,
+    strongMagnitude: 1,
+    weakMagnitude: 1,
+  })
+})
+
 content.minigame.on('casting-alert', () => {
   app.haptics.enqueue({
     duration: 250,

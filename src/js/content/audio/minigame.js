@@ -6,6 +6,7 @@ content.audio.minigame = (() => {
     reset: function () {
       this.casting.reset()
       this.castingAlert.reset()
+      this.inactiveAlert.reset()
       this.reeling.reset()
       this.waiting.reset()
       this.waitingAlert.reset()

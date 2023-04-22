@@ -112,7 +112,7 @@ content.minigame = (() => {
         // Check sweet spots
         const fish = content.fish.closest()
 
-        if (fish && fish.value == 1) {
+        if (fish && content.movement.minigameStoppingPoint().distance(fish.spot) < 5) {
           if (!data.alert) {
             data.alert = true
             machine.pubsub.emit('inactive-alert')

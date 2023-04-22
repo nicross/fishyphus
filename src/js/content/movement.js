@@ -3,7 +3,7 @@ content.movement = (() => {
     angularVelocity = engine.const.tau / 4,
     deceleration = 3,
     maxVelocity = 12,
-    minigameDeceleration = 6
+    minigameDeceleration = 12
 
   let turningSpeed = 1,
     velocity = engine.tool.vector2d.create()
@@ -14,6 +14,21 @@ content.movement = (() => {
       velocity = engine.tool.vector2d.create(value)
 
       return this
+    },
+    minigameStoppingPoint: function () {
+      const magnitude = velocity.distance(),
+        position = engine.position.getVector()
+
+      if (magnitude == 0) {
+        return position
+      }
+
+      return position.add(
+        velocity.scale(1/magnitude).scale(
+          // d = vt/2
+          0.5 * magnitude * (magnitude / minigameDeceleration)
+        )
+      )
     },
     reset: function () {
       velocity = engine.tool.vector2d.create()

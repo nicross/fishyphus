@@ -76,14 +76,14 @@ app.screen.tutorial = app.screenManager.invent({
   tutorials: [
     {
       id: 'welcome',
-      text: 'Press <kbd>Action</kbd> to cast, wait, reel, and catch your first fish. Receive bonuses to waiting time and reeling speed with good reaction times. Mash repeatedly while reeling to increase its speed. The reaper awaits!',
+      text: 'Press <kbd>Action</kbd> to cast, wait, reel, and catch your first fish. Receive bonuses to waiting time and reeling speed with good reaction times. Mash it repeatedly while reeling to increase its speed. Here\'s one now!',
       criteria: function () {
         return app.storage.highscore.get() == 0
       },
     },
     {
       id: 'movement',
-      text: 'Press <kbd>Turn</kbd> to scan the area for fish, <kbd>Accelerate</kbd> to apply forward thrust, and <kbd>Brake</kbd> to slow down. Your ship moves constantly unless acted upon. Drop anchor at the center of fishing spots for best results.',
+      text: 'Hold <kbd>Turn</kbd> to scan the area for fish, <kbd>Accelerate</kbd> to apply forward thrust, and <kbd>Brake</kbd> to slow down. Your ship moves constantly unless acted upon. Press <kbd>Action</kbd> to emergency stop at ideal fishing spots.',
       criteria: function () {
         return app.storage.highscore.get() >= 1 && app.storage.tutorial.has('welcome') && !app.storage.tutorial.has('reaper')
       },

@@ -72,15 +72,8 @@ content.bonus = (() => {
       )
     },
     startBonus: (value = bonus) => {
-      // No bonuses until after tutorial
-      const tutorials = 2
-
-      if (value < tutorials) {
-        return 0
-      }
-
       // Calculate linear bonus, in meters
-      return (value - tutorials) * content.monster.rushVelocity()
+      return value * content.monster.rushVelocity()
     },
     weightBonus: (value = bonus) => {
       // Avoid division by zero during tutorial

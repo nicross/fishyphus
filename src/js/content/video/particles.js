@@ -156,7 +156,7 @@ void main(void) {
         continue
       }
 
-      if (Math.random() > 0.25) {
+      if (Math.random() > 0.5) {
         continue
       }
 

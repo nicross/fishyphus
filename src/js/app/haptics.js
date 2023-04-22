@@ -98,6 +98,7 @@ engine.loop.on('frame', ({delta, paused}) => {
   delta *= 1000
 
   if (!paused) {
+    app.haptics.acceleration.update(delta)
     app.haptics.danger.update(delta)
     app.haptics.fish.update()
   }

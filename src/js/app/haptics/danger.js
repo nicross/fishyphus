@@ -10,7 +10,7 @@ app.haptics.danger = {
       0, 1
     )
 
-    if (value < 0) {
+    if (value <= 0) {
       return
     }
 

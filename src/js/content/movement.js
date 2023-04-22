@@ -5,7 +5,8 @@ content.movement = (() => {
     maxVelocity = 12,
     minigameDeceleration = 12
 
-  let turningSpeed = 1,
+  let rawInput = {},
+    turningSpeed = 1,
     velocity = engine.tool.vector2d.create()
 
   return {
@@ -30,6 +31,7 @@ content.movement = (() => {
         )
       )
     },
+    rawInput: () => ({...rawInput}),
     reset: function () {
       velocity = engine.tool.vector2d.create()
 
@@ -40,10 +42,14 @@ content.movement = (() => {
 
       return this
     },
-    update: function ({
-      rotate = 0,
-      x = 0,
-    }) {
+    update: function (input = {}) {
+      const {
+        rotate = 0,
+        x = 0,
+      } = input
+
+      rawInput = {...input}
+
       const delta = engine.loop.delta(),
         isMinigame = content.minigame.isActive(),
         position = engine.position.getVector()

@@ -59,7 +59,7 @@ gulp.task('dist-electron', async () => {
     arch: 'x64',
     asar: true,
     dir: '.',
-    icon: '../assets/icon/icon',
+    icon: '../assets/icon/favicon',
     ignore: [
       '.gitignore',
       'dist',
@@ -80,6 +80,7 @@ gulp.task('dist-electron', async () => {
     const build = gulp.src(path + '/**/*')
 
     const manual = gulp.src([
+      'public/favicon.png',
       'public/font/*',
       'public/manual.html'
     ], {base: 'public'}).pipe(

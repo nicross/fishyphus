@@ -1,17 +1,17 @@
 content.audio.minigame.castingBad = function () {
   const bus = content.audio.minigame.bus(),
     detune = engine.fn.randomFloat(-10, 10),
-    frequency = engine.fn.fromMidi(36),
+    frequency = engine.fn.fromMidi(48),
     gain = engine.fn.fromDb(-15)
 
   const synth = engine.synth.am({
-    carrierDetune: 1200 + detune,
+    carrierDetune: detune,
     carrierFrequency: frequency,
     carrierGain: 3/4,
     carrierType: 'square',
     gain,
     modDepth: 1/4,
-    modDetune: 1200 + 600 + detune,
+    modDetune: 600 + detune,
     modFrequency: frequency,
     modType: 'square',
   }).filtered({
@@ -21,7 +21,10 @@ content.audio.minigame.castingBad = function () {
   const duration = 1/8,
     now = engine.time()
 
+  synth.param.carrierGain.linearRampToValueAtTime(3/4, now + duration)
+  synth.param.detune.linearRampToValueAtTime(detune + 1200, now + duration)
   synth.param.gain.linearRampToValueAtTime(engine.const.zeroGain, now + duration)
+  synth.param.mod.depth.linearRampToValueAtTime(1/4, now + duration)
 
   synth.stop(now + duration)
 }

@@ -5,7 +5,7 @@ content.audio.minigame.inactiveDisallowed = (() => {
     const bus = content.audio.minigame.bus(),
       detune = engine.fn.randomFloat(-10, 10),
       frequency = engine.fn.fromMidi(36),
-      gain = engine.fn.fromDb(-15)
+      gain = engine.fn.fromDb(-12)
 
     const synth = engine.synth.am({
       carrierDetune: detune,
@@ -24,7 +24,10 @@ content.audio.minigame.inactiveDisallowed = (() => {
 
     const duration = 1/8
 
+    synth.param.carrierGain.linearRampToValueAtTime(3/4, when + duration)
+    synth.param.detune.linearRampToValueAtTime(detune - 1200, when + duration)
     synth.param.gain.linearRampToValueAtTime(engine.const.zeroGain, when + duration)
+    synth.param.mod.depth.linearRampToValueAtTime(1/4, when + duration)
 
     synth.stop(when + duration)
   }

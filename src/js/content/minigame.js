@@ -230,7 +230,9 @@ content.minigame = (() => {
         delete data.alert
         delete data.timer
 
-        machine.pubsub.emit(value > 0 ? 'waiting-good' : 'waiting-bad')
+        if (!data.canceled) {
+          machine.pubsub.emit(value > 0 ? 'waiting-good' : 'waiting-bad')
+        }
 
         machine.dispatch('reel')
       },

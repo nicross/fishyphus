@@ -174,7 +174,7 @@ void main(void) {
 
     const camera = content.camera.computedVector(),
       delta = engine.loop.delta() / 2,
-      drawDistance = content.gl.drawDistance(),
+      drawDistance2 = content.gl.drawDistance() * 2,
       lifes = [],
       offsets = []
 
@@ -185,8 +185,8 @@ void main(void) {
         return particles
       }
 
-      particle.x = engine.fn.wrap(particle.x, camera.x - drawDistance, camera.x + drawDistance)
-      particle.y = engine.fn.wrap(particle.y, camera.y - drawDistance, camera.y + drawDistance)
+      particle.x = camera.x + ((particle.x - camera.x) % drawDistance2)
+      particle.y = camera.y + ((particle.y - camera.y) % drawDistance2)
       particle.z = content.surface.value(particle)
 
       lifes.push(particle.life)

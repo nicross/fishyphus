@@ -59,7 +59,7 @@ gulp.task('dist-electron', async () => {
     arch: 'x64',
     asar: true,
     dir: '.',
-    icon: '../assets/icon/favicon',
+    icon: 'assets/icon/favicon',
     ignore: [
       '.gitignore',
       'dist',

@@ -25,14 +25,6 @@ app.screen.game.toasts = (() => {
 
       return this
     },
-    next: function () {
-      cursor = Math.min(cursor + 1, history.length)
-      return history[cursor] || ''
-    },
-    previous: function () {
-      cursor = Math.max(cursor - 1, -1)
-      return history[cursor] || ''
-    },
     ready: function () {
       root = document.querySelector('.a-game--toasts')
 

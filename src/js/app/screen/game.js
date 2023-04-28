@@ -17,6 +17,7 @@ app.screen.game = app.screenManager.invent({
   state: {},
   // Hooks
   onReady: function () {
+    this.status.ready()
     this.toasts.ready()
   },
   onEnter: function () {
@@ -36,6 +37,7 @@ app.screen.game = app.screenManager.invent({
     content.gl.clear()
   },
   onReset: function () {
+    this.status.reset()
     this.toasts.reset()
   },
   onFrame: function () {
@@ -53,6 +55,7 @@ app.screen.game = app.screenManager.invent({
     content.movement.update(game)
     content.monster.update()
 
+    this.status.update()
     this.toasts.update()
   },
 })

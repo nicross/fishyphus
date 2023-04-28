@@ -1,6 +1,43 @@
 .a-game {
+  max-width: none;
+  overflow: hidden;
   position: relative;
 }
+  .a-game--status {
+    bottom: 0;
+    display: flex;
+    left: 0;
+    opacity: 0;
+    padding: 1em;
+    position: absolute;
+    width: 100%;
+  }
+    .a-game--status-active {
+      opacity: 1;
+    }
+  .a-game--status > * {
+    background-color: #000000;
+    color: #FFFFFF;
+    flex: 0 1 auto;
+    font-family: RobotoLight;
+    font-size: 0.75em;
+    font-weight: 300;
+    padding: 1em;
+  }
+  .a-game--status > * + * {
+    margin-left: 0.5em;
+  }
+  .a-game--statusReact {
+    font-family: RobotoBold;
+    font-weight: 700;
+    opacity: 0;
+    text-transform: uppercase;
+    transition: opacity 1s linear;
+  }
+    .a-game--status-react .a-game--statusReact {
+      opacity: 1;
+      transition: opacity 0s linear;
+    }
   .a-game--toast {
     animation: a-game--toast--in 0.5s ease 0s 1 normal both;
     background-color: #000000;
@@ -23,7 +60,7 @@
     vertical-align: middle;
   }
   .a-game--toasts {
-    bottom: 2em;
+    bottom: 1em;
     left: 0;
     position: absolute;
     width: 100%;

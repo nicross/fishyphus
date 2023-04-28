@@ -112,7 +112,13 @@ content.minigame = (() => {
         // Check sweet spots
         const fish = content.fish.closest()
 
-        if (fish && content.movement.minigameStoppingPoint().distance(fish.spot) < 5) {
+        if (
+             fish
+          // Extra checks for the first fish
+          && (!fish.isOrigin || fish.value == 1 || content.time.value() > 5)
+          // Otherwise alert if within stopping distance
+          && content.movement.minigameStoppingPoint().distance(fish.spot) < 5
+        ) {
           if (!data.alert) {
             data.alert = true
             machine.pubsub.emit('inactive-alert')
@@ -317,6 +323,9 @@ content.minigame = (() => {
     data: () => ({...data}),
     isActive: () => !machine.is('inactive') && !isSimpleMode,
     isActiveAccelerated: () => isActiveAccelerated,
+    isAllowed: function () {
+      return !this.isActive() && Boolean(content.fish.closest())
+    },
     isFish: (id) => data?.fish?.id == id,
     isSimpleMode: () => isSimpleMode,
     reset: function () {

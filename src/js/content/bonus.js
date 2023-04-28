@@ -31,6 +31,7 @@ content.bonus = (() => {
 
       return rows
     },
+    value: () => bonus,
     // Bonuses
     rushBonus: (value = bonus) => {
       // Unlimited rush until player learns about it

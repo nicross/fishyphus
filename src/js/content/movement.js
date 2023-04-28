@@ -43,6 +43,17 @@ content.movement = (() => {
       return this
     },
     update: function (input = {}) {
+      // Prevent acceleration before first successful catch, preventing soft-locks
+      const isActive = content.score.value() > 0
+        || content.bonus.value() > 0
+        || content.monster.isPeacefulMode()
+        || !engine.position.getVector().isZero()
+
+      if (!isActive) {
+        delete input.x
+      }
+
+      // Process input
       const {
         rotate = 0,
         x = 0,

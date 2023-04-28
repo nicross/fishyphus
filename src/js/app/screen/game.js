@@ -21,6 +21,8 @@ app.screen.game = app.screenManager.invent({
     this.toasts.ready()
   },
   onEnter: function () {
+    this.setBlanked(!app.settings.computed.graphicsOn)
+
     // Resume
     content.audio.unduck()
     engine.loop.resume()
@@ -57,6 +59,16 @@ app.screen.game = app.screenManager.invent({
 
     this.status.update()
     this.toasts.update()
+  },
+  // Methods
+  setBlanked: function (value) {
+    if (value) {
+      this.rootElement.classList.add('a-game-blanked')
+    } else {
+      this.rootElement.classList.remove('a-game-blanked')
+    }
+
+    return this
   },
 })
 

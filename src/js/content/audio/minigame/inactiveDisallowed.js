@@ -10,10 +10,10 @@ content.audio.minigame.inactiveDisallowed = (() => {
     const synth = engine.synth.am({
       carrierDetune: detune,
       carrierFrequency: frequency,
-      carrierGain: 1/2,
+      carrierGain: 3/4,
       carrierType: 'square',
       gain,
-      modDepth: 1/2,
+      modDepth: 1/4,
       modDetune: 600 + detune,
       modFrequency: frequency,
       modType: 'square',
@@ -24,10 +24,10 @@ content.audio.minigame.inactiveDisallowed = (() => {
 
     const duration = 1/8
 
-    synth.param.carrierGain.linearRampToValueAtTime(3/4, when + duration)
+    synth.param.carrierGain.linearRampToValueAtTime(1/2, when + duration)
     synth.param.detune.linearRampToValueAtTime(detune - 1200, when + duration)
     synth.param.gain.linearRampToValueAtTime(engine.const.zeroGain, when + duration)
-    synth.param.mod.depth.linearRampToValueAtTime(1/4, when + duration)
+    synth.param.mod.depth.linearRampToValueAtTime(1/2, when + duration)
 
     synth.stop(when + duration)
   }

@@ -21,10 +21,10 @@ content.audio.minigame.waitingBad = function () {
   const duration = 1/8,
     now = engine.time()
 
-  synth.param.carrierGain.linearRampToValueAtTime(3/4, now + duration)
+  synth.param.carrierGain.linearRampToValueAtTime(1/2, now + duration)
   synth.param.detune.linearRampToValueAtTime(detune + 1200, now + duration)
   synth.param.gain.linearRampToValueAtTime(engine.const.zeroGain, now + duration)
-  synth.param.mod.depth.linearRampToValueAtTime(1/4, now + duration)
+  synth.param.mod.depth.linearRampToValueAtTime(1/2, now + duration)
 
   synth.stop(now + duration)
 }

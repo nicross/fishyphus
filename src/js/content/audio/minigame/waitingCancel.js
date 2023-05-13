@@ -1,32 +1,41 @@
-content.audio.minigame.waitingCancel = function () {
-  const bus = content.audio.minigame.bus(),
-    detune = engine.fn.randomFloat(-10, 10),
-    frequency = engine.fn.fromMidi(48),
-    gain = engine.fn.fromDb(-15)
+content.audio.minigame.waitingCancel = (() => {
+  function sound(delay = 0) {
+    const when = engine.time() + delay
 
-  const synth = engine.synth.am({
-    carrierDetune: detune,
-    carrierFrequency: frequency,
-    carrierGain: 3/4,
-    carrierType: 'square',
-    gain,
-    modDepth: 1/4,
-    modDetune: 600 + detune,
-    modFrequency: frequency,
-    modType: 'square',
-  }).filtered({
-    frequency: frequency * 8,
-  }).connect(bus)
+    const bus = content.audio.minigame.bus(),
+      detune = engine.fn.randomFloat(-10, 10),
+      frequency = engine.fn.fromMidi(48),
+      gain = engine.fn.fromDb(-15)
 
-  const duration = 1/8,
-    now = engine.time()
+    const synth = engine.synth.am({
+      carrierDetune: detune,
+      carrierFrequency: frequency,
+      carrierGain: 3/4,
+      carrierType: 'square',
+      gain,
+      modDepth: 1/4,
+      modDetune: 600 + detune,
+      modFrequency: frequency,
+      modType: 'square',
+      when,
+    }).filtered({
+      frequency: frequency * 8,
+    }).connect(bus)
 
-  synth.param.carrierGain.linearRampToValueAtTime(3/4, now + duration)
-  synth.param.detune.linearRampToValueAtTime(detune - 1200, now + duration)
-  synth.param.gain.linearRampToValueAtTime(engine.const.zeroGain, now + duration)
-  synth.param.mod.depth.linearRampToValueAtTime(1/4, now + duration)
+    const duration = 1/8
 
-  synth.stop(now + duration)
-}
+    synth.param.carrierGain.linearRampToValueAtTime(1/2, when + duration)
+    synth.param.detune.linearRampToValueAtTime(detune - 1200, when + duration)
+    synth.param.gain.linearRampToValueAtTime(engine.const.zeroGain, when + duration)
+    synth.param.mod.depth.linearRampToValueAtTime(1/2, when + duration)
+
+    synth.stop(when + duration)
+  }
+
+  return () => {
+    sound(0)
+    sound(1/8)
+  }
+})()
 
 content.minigame.on('waiting-cancel', () => content.audio.minigame.waitingCancel())

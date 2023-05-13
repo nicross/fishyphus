@@ -100,7 +100,9 @@ content.audio.acceleration = (() => {
 
     let targetValue = 0
 
-    if (x > 0) {
+    if (content.minigame.isActive()) {
+      targetValue = 0
+    } else if (x > 0) {
       let stress = velocity.normalize().dotProduct(targetVelocity.normalize())
       stress = engine.fn.scale(stress, -1, 1, 1, 0)
 

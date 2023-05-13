@@ -13,7 +13,7 @@ content.audio.minigame.waitingAlert = (() => {
       carrierFrequency: engine.fn.fromMidi(48),
       carrierType: 'triangle',
       gain: engine.fn.fromDb(-3),
-      modDepth: 0,
+      modDepth: engine.const.zero,
       modFrequency: 8,
       modType: 'sine',
     }).connect(bus)

@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## v1.0.3
+- Prevented accidental double input during the minigame.
+- Prevented engine sounds during the minigame.
+- Made the minigame cancel cue more obvious.
+- Improved _experimental and unsupported_ Firefox support.
+
 ## v1.0.2
 - Added visual status indicators for fishing minigame.
 - Blanked all game screen text when graphics are off.

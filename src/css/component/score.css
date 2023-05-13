@@ -12,7 +12,7 @@
     .c-score--item-record {
       animation: c-score-animation 2s ease-in-out 0s infinite alternate both;
       font-family: RobotoBold, sans-serif;
-      foint-weight: 700;
+      font-weight: 700;
       font-size: 0.75em;
       text-transform: uppercase;
     }

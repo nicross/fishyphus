@@ -1,6 +1,7 @@
 content.minigame = (() => {
   const castSpeed = 5, // meters per second
     cooldownTime = 1, // seconds
+    doubleTapPreventionTime = 0.25, // seconds
     maxDepth = 50, // meters
     reelBonusAcceleration = 1, // value per bonus per second
     reelBonusMultiplier = 1/4, // added speed per reel per count
@@ -91,6 +92,7 @@ content.minigame = (() => {
 
         // Set up data for next state
         data = {
+          cooldown: doubleTapPreventionTime,
           depth: 0,
           depthValue: 0,
           fish,
@@ -132,6 +134,7 @@ content.minigame = (() => {
     /**
      * Casting state data:
      * - `alert`: whether the ideal depth has been surpassed
+     * - `cooldown` - time remaining to prevent accidental input
      * - `depth`: the current depth
      * - `depthValue`: the current depth ratio
      * - `fish`: the target fish
@@ -144,7 +147,13 @@ content.minigame = (() => {
      */
     casting: {
       action: () => {
+        // Ignore cooldown timer
+        if (data.cooldown > 0) {
+          return
+        }
+
         // Set up data for next state
+        data.cooldown = doubleTapPreventionTime
         data.timer = (data.fish.distance + Math.abs(data.depth - data.fish.distance)) * waitTimerFactor
 
         // Reward good timing after the alert
@@ -166,6 +175,11 @@ content.minigame = (() => {
       },
       update: function () {
         const delta = engine.loop.delta()
+
+        // Decrement cooldown timer
+        if (data.cooldown > 0) {
+          data.cooldown -= engine.loop.delta()
+        }
 
         // Increment depth at casting speed
         data.depth += castSpeed * delta
@@ -197,6 +211,7 @@ content.minigame = (() => {
     /**
      * Waiting state data:
      * - `alert`: whether the timer has reached zero
+     * - `cooldown` - time remaining to prevent accidental input
      * - `depth`: the current depth
      * - `depthValue`: the current depth ratio
      * - `fish`: the target fish, deleted if canceled
@@ -208,6 +223,11 @@ content.minigame = (() => {
      */
     waiting: {
       action: () => {
+        // Ignore cooldown timer
+        if (data.cooldown > 0) {
+          return
+        }
+
         // Cancel if timer has not run out
         if (data.timer > 0) {
           data.canceled = true
@@ -234,6 +254,7 @@ content.minigame = (() => {
         data.bonus = reelInitialBonusFactor * (1 - ((1 - value) ** reelInitialBonusSlope))
 
         delete data.alert
+        delete data.cooldown
         delete data.timer
 
         if (!data.canceled) {
@@ -243,6 +264,11 @@ content.minigame = (() => {
         machine.dispatch('reel')
       },
       update: () => {
+        // Decrement cooldown timer
+        if (data.cooldown > 0) {
+          data.cooldown -= engine.loop.delta()
+        }
+
         // Decrease timer
         data.timer -= engine.loop.delta()
 

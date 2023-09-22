@@ -2,6 +2,7 @@
 
 ## v1.0.4
 - Improved visual dithering.
+- Increased overall volume slightly.
 - Upgraded desktop builds to the latest Electron.
 
 ## v1.0.3

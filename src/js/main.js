@@ -28,8 +28,8 @@
   engine.mixer.param.limiter.knee.value = 15
   engine.mixer.param.limiter.ratio.value = 15
   engine.mixer.param.limiter.release.value = 0.125
-  engine.mixer.param.limiter.threshold.value = -24
-  engine.mixer.param.preGain.value = 1.5
+  engine.mixer.param.limiter.threshold.value = -30
+  engine.mixer.param.preGain.value = 1.75
 
   // Add gamepad deadzone
   engine.input.gamepad.setDeadzone(0.125)

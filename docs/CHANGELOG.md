@@ -1,6 +1,7 @@
 # CHANGELOG
 
 ## v1.0.4
+- Improved visual dithering.
 - Upgraded desktop builds to the latest Electron.
 
 ## v1.0.3

@@ -16,7 +16,7 @@ void main() {
   float gradient = gl_FragCoord.y / resolution.y;
 
   // Dithering
-  gradient += (1.0 / 24.0) * (rand(vec2(resolution.x + time, resolution.y + time)) - 0.5);
+  gradient += (1.0 / 12.0) * (rand(vec2(gl_FragCoord.x + time, gl_FragCoord.y - time)) - 0.5);
   gradient = clamp(gradient, 0.0, 1.0);
 
   color = mix(colorB, colorC, gradient);

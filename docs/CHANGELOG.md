@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v1.0.4
+- Upgraded desktop builds to the latest Electron.
+
 ## v1.0.3
 - Prevented accidental double input during the minigame.
 - Prevented engine sounds during the minigame.
